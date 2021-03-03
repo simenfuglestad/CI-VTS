@@ -59,20 +59,20 @@ def load_form():
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ui_file = QFile("test2.ui")
+    ui_file = QFile("old_design.ui.ui")
     loader = QUiLoader()
     window = loader.load(ui_file)
-    boxes = window.findChildren(QPushButton)
-
-    for b in boxes:
-        if "First" in b.text():
-            b.clicked.connect(name)
-        if "Second" in b.text():
-            b.clicked.connect(lambda: test_btn_second_click("vjjyjygy"))
-    first_label = window.findChild(QLabel, "label")
-    second_label = window.findChild(QLabel, "label_2")
-    text_field = window.findChild(QPlainTextEdit)
-    first_label.setText("Ya found me!")
+    # boxes = window.findChildren(QPushButton)
+    #
+    # for b in boxes:
+    #     if "First" in b.text():
+    #         b.clicked.connect(name)
+    #     if "Second" in b.text():
+    #         b.clicked.connect(lambda: test_btn_second_click("vjjyjygy"))
+    # first_label = window.findChild(QLabel, "label")
+    # second_label = window.findChild(QLabel, "label_2")
+    # text_field = window.findChild(QPlainTextEdit)
+    # first_label.setText("Ya found me!")
     ui_file.close()
     window.setWindowTitle("CI-VTS")
     window.show()
