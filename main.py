@@ -21,6 +21,8 @@ def test_btn_click():
     print("First button got clicked!")
 
 
+def t():
+    return
 # def test_btn_second_click(label):
 #     val = "Some val"
 #     print(label)
