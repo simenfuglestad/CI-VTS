@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'new_design.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.0.1
+## Created by: Qt User UI Compiler version 6.0.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -635,7 +635,7 @@ class Ui_MainWindow(object):
         self.actionExperiment_2.setText(QCoreApplication.translate("MainWindow", u"Experiment", None))
         self.actionStimulus_Profile_2.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profile", None))
         self.actionCamera.setText(QCoreApplication.translate("MainWindow", u"Camera", None))
-        self.actionSerial_Interface.setText(QCoreApplication.translate("MainWindow", u"Serial Interface", None))
+        self.actionSerial_Interface.setText(QCoreApplication.translate("MainWindow", u"Serial UI", None))
         self.actionCurrent_Run_Profile.setText(QCoreApplication.translate("MainWindow", u"Current Run Profile", None))
         self.actionSelected_Experiment.setText(QCoreApplication.translate("MainWindow", u"Selected Experiment", None))
         self.actionAll_Experiments.setText(QCoreApplication.translate("MainWindow", u"All Experiments", None))

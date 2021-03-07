@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'settings_dialog.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.0.1
+## Created by: Qt User UI Compiler version 6.0.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -11,6 +11,8 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+
+from pyqtgraph import PlotWidget
 
 
 class Ui_Dialog(object):
@@ -72,7 +74,7 @@ class Ui_Dialog(object):
 
         self.verticalLayout_5.addLayout(self.gridLayout_4)
 
-        self.graphicsView = QGraphicsView(self.groupBox_2)
+        self.graphicsView = PlotWidget(self.groupBox_2)
         self.graphicsView.setObjectName(u"graphicsView")
 
         self.verticalLayout_5.addWidget(self.graphicsView)
@@ -368,7 +370,7 @@ class Ui_Dialog(object):
         self.label_4.setText(QCoreApplication.translate("Dialog", u"Brightness", None))
         self.label_6.setText(QCoreApplication.translate("Dialog", u"Framerate", None))
         self.label_3.setText(QCoreApplication.translate("Dialog", u"Gamma", None))
-        self.label_9.setText(QCoreApplication.translate("Dialog", u"Serial Interface", None))
+        self.label_9.setText(QCoreApplication.translate("Dialog", u"Serial UI", None))
         self.label_8.setText(QCoreApplication.translate("Dialog", u"CONNECTED_STATUS", None))
         self.comboBox_3.setItemText(0, QCoreApplication.translate("Dialog", u"(no serial device selected)", None))
 
