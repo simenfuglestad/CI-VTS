@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'settings_dialog.ui'
 ##
-## Created by: Qt User UI Compiler version 6.0.1
+## Created by: Qt User Interface Compiler version 6.0.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -111,7 +111,7 @@ class Ui_Dialog(object):
         sizePolicy3.setHeightForWidth(self.label_11.sizePolicy().hasHeightForWidth())
         self.label_11.setSizePolicy(sizePolicy3)
         font = QFont()
-        font.setPointSize(20)
+        font.setPointSize(18)
         self.label_11.setFont(font)
         self.label_11.setAlignment(Qt.AlignCenter)
 
@@ -370,7 +370,7 @@ class Ui_Dialog(object):
         self.label_4.setText(QCoreApplication.translate("Dialog", u"Brightness", None))
         self.label_6.setText(QCoreApplication.translate("Dialog", u"Framerate", None))
         self.label_3.setText(QCoreApplication.translate("Dialog", u"Gamma", None))
-        self.label_9.setText(QCoreApplication.translate("Dialog", u"Serial UI", None))
+        self.label_9.setText(QCoreApplication.translate("Dialog", u"Serial Interface", None))
         self.label_8.setText(QCoreApplication.translate("Dialog", u"CONNECTED_STATUS", None))
         self.comboBox_3.setItemText(0, QCoreApplication.translate("Dialog", u"(no serial device selected)", None))
 

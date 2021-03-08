@@ -15,6 +15,5 @@ class MainWindow(QMainWindow, ui.Ui_MainWindow):
         self.settings_dialog = settings_dialog.Ui_Dialog().setupUi(self.dialog)
         self.dialog.resize(size.width() / 2, size.height() / 2)
 
-        QObject.connect(self.actionCamera, SIGNAL("triggered()"), self.dialog.show)
-
+        QObject.connect(self.actionSetup, SIGNAL("triggered()"), self.dialog.show)
         self.resize(size.width(), size.height())
