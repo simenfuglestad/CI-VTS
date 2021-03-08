@@ -12,7 +12,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
-from pyqtgraph import PlotWidget
+from pyqtgraph import ImageView
 
 
 class Ui_Dialog(object):
@@ -74,7 +74,7 @@ class Ui_Dialog(object):
 
         self.verticalLayout_5.addLayout(self.gridLayout_4)
 
-        self.graphicsView = PlotWidget(self.groupBox_2)
+        self.graphicsView = ImageView(self.groupBox_2)
         self.graphicsView.setObjectName(u"graphicsView")
 
         self.verticalLayout_5.addWidget(self.graphicsView)
@@ -355,7 +355,7 @@ class Ui_Dialog(object):
         self.label_15.setText(QCoreApplication.translate("Dialog", u"Infrared", None))
         self.checkBox.setText(QCoreApplication.translate("Dialog", u"Disabled", None))
         self.label_16.setText("")
-        self.label_2.setText(QCoreApplication.translate("Dialog", u"NOTE: Any adjustmens made in this window will not be carried over in an experiment  ", None))
+        self.label_2.setText(QCoreApplication.translate("Dialog", u"NOTE: Any adjustmens made in this window will not be carried over in an experiment   ", None))
         self.label_11.setText(QCoreApplication.translate("Dialog", u"Adjust Setup", None))
         self.label_13.setText(QCoreApplication.translate("Dialog", u"Live Camera View", None))
         self.groupBox.setTitle("")

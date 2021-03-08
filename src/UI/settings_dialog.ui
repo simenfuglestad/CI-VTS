@@ -78,7 +78,7 @@
          </layout>
         </item>
         <item>
-         <widget class="PlotWidget" name="graphicsView"/>
+         <widget class="ImageView" name="graphicsView"/>
         </item>
         <item>
          <widget class="QLabel" name="label_2">
@@ -89,7 +89,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>NOTE: Any adjustmens made in this window will not be carried over in an experiment  </string>
+           <string>NOTE: Any adjustmens made in this window will not be carried over in an experiment   </string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -456,9 +456,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PlotWidget</class>
+   <class>ImageView</class>
    <extends>QGraphicsView</extends>
-   <header location="global">pyqtgraph</header>
+   <header>pyqtgraph</header>
   </customwidget>
  </customwidgets>
  <resources/>
