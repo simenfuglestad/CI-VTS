@@ -29,27 +29,27 @@ class Ui_Dialog(object):
 
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.listWidget_2 = QListWidget(Dialog)
-        self.listWidget_2.setObjectName(u"listWidget_2")
+        self.list_completed_experiments = QListWidget(Dialog)
+        self.list_completed_experiments.setObjectName(u"list_completed_experiments")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.listWidget_2.sizePolicy().hasHeightForWidth())
-        self.listWidget_2.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(self.list_completed_experiments.sizePolicy().hasHeightForWidth())
+        self.list_completed_experiments.setSizePolicy(sizePolicy)
 
-        self.verticalLayout.addWidget(self.listWidget_2)
+        self.verticalLayout.addWidget(self.list_completed_experiments)
 
         self.label_3 = QLabel(Dialog)
         self.label_3.setObjectName(u"label_3")
 
         self.verticalLayout.addWidget(self.label_3)
 
-        self.listWidget = QListWidget(Dialog)
-        self.listWidget.setObjectName(u"listWidget")
-        sizePolicy.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
-        self.listWidget.setSizePolicy(sizePolicy)
+        self.list_selected_experiments = QListWidget(Dialog)
+        self.list_selected_experiments.setObjectName(u"list_selected_experiments")
+        sizePolicy.setHeightForWidth(self.list_selected_experiments.sizePolicy().hasHeightForWidth())
+        self.list_selected_experiments.setSizePolicy(sizePolicy)
 
-        self.verticalLayout.addWidget(self.listWidget)
+        self.verticalLayout.addWidget(self.list_selected_experiments)
 
 
         self.gridLayout.addLayout(self.verticalLayout, 1, 0, 1, 1)
@@ -81,29 +81,29 @@ class Ui_Dialog(object):
 
         self.horizontalLayout_3.addWidget(self.label_4)
 
-        self.comboBox = QComboBox(Dialog)
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.setObjectName(u"comboBox")
-        sizePolicy1.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
-        self.comboBox.setSizePolicy(sizePolicy1)
+        self.combo_playback_speed = QComboBox(Dialog)
+        self.combo_playback_speed.addItem("")
+        self.combo_playback_speed.addItem("")
+        self.combo_playback_speed.addItem("")
+        self.combo_playback_speed.addItem("")
+        self.combo_playback_speed.addItem("")
+        self.combo_playback_speed.addItem("")
+        self.combo_playback_speed.addItem("")
+        self.combo_playback_speed.setObjectName(u"combo_playback_speed")
+        sizePolicy1.setHeightForWidth(self.combo_playback_speed.sizePolicy().hasHeightForWidth())
+        self.combo_playback_speed.setSizePolicy(sizePolicy1)
 
-        self.horizontalLayout_3.addWidget(self.comboBox)
+        self.horizontalLayout_3.addWidget(self.combo_playback_speed)
 
         self.label_6 = QLabel(Dialog)
         self.label_6.setObjectName(u"label_6")
 
         self.horizontalLayout_3.addWidget(self.label_6)
 
-        self.doubleSpinBox = QDoubleSpinBox(Dialog)
-        self.doubleSpinBox.setObjectName(u"doubleSpinBox")
+        self.dspinbox_playback_speed = QDoubleSpinBox(Dialog)
+        self.dspinbox_playback_speed.setObjectName(u"dspinbox_playback_speed")
 
-        self.horizontalLayout_3.addWidget(self.doubleSpinBox)
+        self.horizontalLayout_3.addWidget(self.dspinbox_playback_speed)
 
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -114,32 +114,32 @@ class Ui_Dialog(object):
 
         self.horizontalLayout_3.addWidget(self.label_7)
 
-        self.spinBox = QSpinBox(Dialog)
-        self.spinBox.setObjectName(u"spinBox")
+        self.spinbox_frame_skip = QSpinBox(Dialog)
+        self.spinbox_frame_skip.setObjectName(u"spinbox_frame_skip")
 
-        self.horizontalLayout_3.addWidget(self.spinBox)
+        self.horizontalLayout_3.addWidget(self.spinbox_frame_skip)
 
 
         self.gridLayout.addLayout(self.horizontalLayout_3, 3, 1, 1, 1)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.pushButton_3 = QPushButton(Dialog)
-        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.btn_play_vid = QPushButton(Dialog)
+        self.btn_play_vid.setObjectName(u"btn_play_vid")
         sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
-        self.pushButton_3.setSizePolicy(sizePolicy2)
+        sizePolicy2.setHeightForWidth(self.btn_play_vid.sizePolicy().hasHeightForWidth())
+        self.btn_play_vid.setSizePolicy(sizePolicy2)
 
-        self.horizontalLayout_2.addWidget(self.pushButton_3)
+        self.horizontalLayout_2.addWidget(self.btn_play_vid)
 
-        self.pushButton_4 = QPushButton(Dialog)
-        self.pushButton_4.setObjectName(u"pushButton_4")
-        sizePolicy2.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
-        self.pushButton_4.setSizePolicy(sizePolicy2)
+        self.btn_pause_vid = QPushButton(Dialog)
+        self.btn_pause_vid.setObjectName(u"btn_pause_vid")
+        sizePolicy2.setHeightForWidth(self.btn_pause_vid.sizePolicy().hasHeightForWidth())
+        self.btn_pause_vid.setSizePolicy(sizePolicy2)
 
-        self.horizontalLayout_2.addWidget(self.pushButton_4)
+        self.horizontalLayout_2.addWidget(self.btn_pause_vid)
 
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -155,10 +155,10 @@ class Ui_Dialog(object):
 
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.label_5 = QLabel(Dialog)
-        self.label_5.setObjectName(u"label_5")
+        self.label_vid_time = QLabel(Dialog)
+        self.label_vid_time.setObjectName(u"label_vid_time")
 
-        self.horizontalLayout_4.addWidget(self.label_5)
+        self.horizontalLayout_4.addWidget(self.label_vid_time)
 
         self.horizontalSlider = QSlider(Dialog)
         self.horizontalSlider.setObjectName(u"horizontalSlider")
@@ -166,30 +166,30 @@ class Ui_Dialog(object):
 
         self.horizontalLayout_4.addWidget(self.horizontalSlider)
 
-        self.pushButton_5 = QPushButton(Dialog)
-        self.pushButton_5.setObjectName(u"pushButton_5")
+        self.btn_dec_frame_skip = QPushButton(Dialog)
+        self.btn_dec_frame_skip.setObjectName(u"btn_dec_frame_skip")
 
-        self.horizontalLayout_4.addWidget(self.pushButton_5)
+        self.horizontalLayout_4.addWidget(self.btn_dec_frame_skip)
 
-        self.pushButton_7 = QPushButton(Dialog)
-        self.pushButton_7.setObjectName(u"pushButton_7")
+        self.btn_inc_frame_skip = QPushButton(Dialog)
+        self.btn_inc_frame_skip.setObjectName(u"btn_inc_frame_skip")
 
-        self.horizontalLayout_4.addWidget(self.pushButton_7)
+        self.horizontalLayout_4.addWidget(self.btn_inc_frame_skip)
 
-        self.pushButton_6 = QPushButton(Dialog)
-        self.pushButton_6.setObjectName(u"pushButton_6")
-        sizePolicy2.setHeightForWidth(self.pushButton_6.sizePolicy().hasHeightForWidth())
-        self.pushButton_6.setSizePolicy(sizePolicy2)
+        self.btn_save_frame = QPushButton(Dialog)
+        self.btn_save_frame.setObjectName(u"btn_save_frame")
+        sizePolicy2.setHeightForWidth(self.btn_save_frame.sizePolicy().hasHeightForWidth())
+        self.btn_save_frame.setSizePolicy(sizePolicy2)
 
-        self.horizontalLayout_4.addWidget(self.pushButton_6)
+        self.horizontalLayout_4.addWidget(self.btn_save_frame)
 
 
         self.gridLayout.addLayout(self.horizontalLayout_4, 2, 1, 1, 1)
 
-        self.graphicsView = ImageView(Dialog)
-        self.graphicsView.setObjectName(u"graphicsView")
+        self.imgview_video = ImageView(Dialog)
+        self.imgview_video.setObjectName(u"imgview_video")
 
-        self.gridLayout.addWidget(self.graphicsView, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.imgview_video, 1, 1, 1, 1)
 
         self.buttonBox = QDialogButtonBox(Dialog)
         self.buttonBox.setObjectName(u"buttonBox")
@@ -203,7 +203,7 @@ class Ui_Dialog(object):
         self.buttonBox.accepted.connect(Dialog.accept)
         self.buttonBox.rejected.connect(Dialog.reject)
 
-        self.comboBox.setCurrentIndex(3)
+        self.combo_playback_speed.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(Dialog)
@@ -216,22 +216,22 @@ class Ui_Dialog(object):
         self.pushButton.setText(QCoreApplication.translate("Dialog", u"ShowVideo", None))
         self.pushButton_2.setText(QCoreApplication.translate("Dialog", u"Refresh", None))
         self.label_4.setText(QCoreApplication.translate("Dialog", u"Playback Speed", None))
-        self.comboBox.setItemText(0, QCoreApplication.translate("Dialog", u"0.10x", None))
-        self.comboBox.setItemText(1, QCoreApplication.translate("Dialog", u"0.25x", None))
-        self.comboBox.setItemText(2, QCoreApplication.translate("Dialog", u"0.5x", None))
-        self.comboBox.setItemText(3, QCoreApplication.translate("Dialog", u"1x", None))
-        self.comboBox.setItemText(4, QCoreApplication.translate("Dialog", u"1.5x", None))
-        self.comboBox.setItemText(5, QCoreApplication.translate("Dialog", u"2x", None))
-        self.comboBox.setItemText(6, QCoreApplication.translate("Dialog", u"5x", None))
+        self.combo_playback_speed.setItemText(0, QCoreApplication.translate("Dialog", u"0.10x", None))
+        self.combo_playback_speed.setItemText(1, QCoreApplication.translate("Dialog", u"0.25x", None))
+        self.combo_playback_speed.setItemText(2, QCoreApplication.translate("Dialog", u"0.5x", None))
+        self.combo_playback_speed.setItemText(3, QCoreApplication.translate("Dialog", u"1x", None))
+        self.combo_playback_speed.setItemText(4, QCoreApplication.translate("Dialog", u"1.5x", None))
+        self.combo_playback_speed.setItemText(5, QCoreApplication.translate("Dialog", u"2x", None))
+        self.combo_playback_speed.setItemText(6, QCoreApplication.translate("Dialog", u"5x", None))
 
         self.label_6.setText("")
         self.label_7.setText(QCoreApplication.translate("Dialog", u"Frames to Skip", None))
-        self.pushButton_3.setText(QCoreApplication.translate("Dialog", u"Play", None))
-        self.pushButton_4.setText(QCoreApplication.translate("Dialog", u"Pause", None))
+        self.btn_play_vid.setText(QCoreApplication.translate("Dialog", u"Play", None))
+        self.btn_pause_vid.setText(QCoreApplication.translate("Dialog", u"Pause", None))
         self.label_2.setText(QCoreApplication.translate("Dialog", u"Video", None))
-        self.label_5.setText(QCoreApplication.translate("Dialog", u"00:00:00", None))
-        self.pushButton_5.setText(QCoreApplication.translate("Dialog", u"<", None))
-        self.pushButton_7.setText(QCoreApplication.translate("Dialog", u">", None))
-        self.pushButton_6.setText(QCoreApplication.translate("Dialog", u"Save Frame", None))
+        self.label_vid_time.setText(QCoreApplication.translate("Dialog", u"00:00:00", None))
+        self.btn_dec_frame_skip.setText(QCoreApplication.translate("Dialog", u"<", None))
+        self.btn_inc_frame_skip.setText(QCoreApplication.translate("Dialog", u">", None))
+        self.btn_save_frame.setText(QCoreApplication.translate("Dialog", u"Save Frame", None))
     # retranslateUi
 
