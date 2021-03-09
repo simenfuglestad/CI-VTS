@@ -1,5 +1,5 @@
 import sys
-
+import cv2
 from PySide6.QtWidgets import *
 
 from UI.MainWindow import MainWindow
