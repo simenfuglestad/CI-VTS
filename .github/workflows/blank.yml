@@ -35,23 +35,5 @@ jobs:
           repository: # optional, default is ${{ github.repository }}
 
           issue-number:
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    # The issue or pull request number to associate with the card.
+
     issue-number: # optional, default is ${{ github.event.issue.number }}
