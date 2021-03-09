@@ -21,7 +21,24 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Create or Update Project Card
+          # You may pin to the exact commit or the version.
+          # uses: peter-evans/create-or-update-project-card@c75ba6ac3c7c432dedd22a553951c216a4664b5f
           uses: peter-evans/create-or-update-project-card@v1.1.4
           with:
-            project-name: CI-VTS Project
-            column-name: To do
+            # GitHub auth token
+            token: # optional, default is ${{ github.token }}
+            # The location of the project. Either a repository, organization, or user.
+
+            project-location: # optional, default is ${{ github.repository }}
+            # The number of the project. Semi-required. Either `project-number` OR `project-name` must be supplied.
+
+            project-number: # optional
+            # The name of the project. Semi-required. Either `project-number` OR `project-name` must be supplied. Note that a project's name is not unique. The action will use the first matching project found.
+
+            project-name: # optional
+            # The name of the column to add a card to, or move an existing card to.
+            column-name: 
+            # The GitHub repository containing the issue or pull request.
+            repository: # optional, default is ${{ github.repository }}
+    # The issue or pull request number to associate with the card.
+    issue-number: # optional, default is ${{ github.event.issue.number }}
