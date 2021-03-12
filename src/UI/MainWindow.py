@@ -6,15 +6,18 @@ from UI.SettingsDialog import SettingsDialog
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self, size, parent=None):
+    def __init__(self, settings_dialog, analysis_dialog, size, parent=None):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.settings_dialog = SettingsDialog()
-        QObject.connect(self.actionSetup, SIGNAL("triggered()"), self.settings_dialog.show)
+        QObject.connect(self.actionSetup, SIGNAL("triggered()"), settings_dialog.show)
 
-        self.analysis_dialog = AnalysisDialog()
-        QObject.connect(self.actionView, SIGNAL("triggered()"), self.analysis_dialog.show)
+        QObject.connect(self.actionView, SIGNAL("triggered()"), analysis_dialog.show)
+
+        #use this when available!
+        # self.btn_run.clicked.connect(self.test)
 
         self.resize(size.width(), size.height())
 
+    def test(self):
+        print("ifhsg")
