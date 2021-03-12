@@ -36,4 +36,4 @@ class Main(QApplication):
 if __name__ == '__main__':
     # app = QApplication(sys.argv)
     app = Main()
-    sys.exit(app.exec_())
+    # sys.exit(app.exec_())

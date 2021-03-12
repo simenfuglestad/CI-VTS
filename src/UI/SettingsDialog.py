@@ -32,12 +32,12 @@ class SettingsDialog(QDialog, Ui_Dialog):
     def slide_adjust_led_live(self):
         slide_val = self.hslider_LED_live.value()
         self.spin_LED_live.setValue(slide_val)
-        self.serial_interface.send_data(slide_val, "st")
+        self.serial_interface.send_data(slide_val, "sl")
 
     def spin_adjust_led_live(self):
         spin_val = self.spin_LED_live.value()
         self.hslider_LED_live.setValue(spin_val)
-        self.serial_interface.send_data(spin_val, "st")
+        self.serial_interface.send_data(spin_val, "sl")
 
     def scan_serial(self):
         ports = self.serial_interface.scan_serial()
