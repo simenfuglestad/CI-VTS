@@ -144,7 +144,7 @@ class Ui_Dialog(object):
 
         self.spin_IR_LED = QSpinBox(self.groupBox)
         self.spin_IR_LED.setObjectName(u"spin_IR_LED")
-        self.spin_IR_LED.setMaximum(255)
+        self.spin_IR_LED.setMaximum(100)
 
         self.gridLayout_2.addWidget(self.spin_IR_LED, 2, 1, 1, 1)
 
@@ -184,8 +184,8 @@ class Ui_Dialog(object):
 
         self.hslider_IR_LED = QSlider(self.groupBox)
         self.hslider_IR_LED.setObjectName(u"hslider_IR_LED")
-        self.hslider_IR_LED.setMaximum(255)
-        self.hslider_IR_LED.setTracking(False)
+        self.hslider_IR_LED.setMaximum(100)
+        self.hslider_IR_LED.setTracking(True)
         self.hslider_IR_LED.setOrientation(Qt.Horizontal)
 
         self.gridLayout_2.addWidget(self.hslider_IR_LED, 2, 2, 1, 1)
@@ -232,25 +232,25 @@ class Ui_Dialog(object):
 
         self.horizontalLayout_5.addWidget(self.combo_serial)
 
-        self.btn_verify_serial = QPushButton(self.groupBox)
-        self.btn_verify_serial.setObjectName(u"btn_verify_serial")
+        self.btn_scan_serial = QPushButton(self.groupBox)
+        self.btn_scan_serial.setObjectName(u"btn_scan_serial")
         sizePolicy4 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.btn_verify_serial.sizePolicy().hasHeightForWidth())
-        self.btn_verify_serial.setSizePolicy(sizePolicy4)
+        sizePolicy4.setHeightForWidth(self.btn_scan_serial.sizePolicy().hasHeightForWidth())
+        self.btn_scan_serial.setSizePolicy(sizePolicy4)
 
-        self.horizontalLayout_5.addWidget(self.btn_verify_serial)
+        self.horizontalLayout_5.addWidget(self.btn_scan_serial)
 
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_5)
 
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.btn_scan_serial = QPushButton(self.groupBox)
-        self.btn_scan_serial.setObjectName(u"btn_scan_serial")
+        self.btn_connect_serial = QPushButton(self.groupBox)
+        self.btn_connect_serial.setObjectName(u"btn_connect_serial")
 
-        self.horizontalLayout_4.addWidget(self.btn_scan_serial)
+        self.horizontalLayout_4.addWidget(self.btn_connect_serial)
 
         self.btn_disc_serial = QPushButton(self.groupBox)
         self.btn_disc_serial.setObjectName(u"btn_disc_serial")
@@ -305,6 +305,7 @@ class Ui_Dialog(object):
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.hslider_LED_live = QSlider(self.groupBox_2)
         self.hslider_LED_live.setObjectName(u"hslider_LED_live")
+        self.hslider_LED_live.setMaximum(100)
         self.hslider_LED_live.setOrientation(Qt.Horizontal)
 
         self.gridLayout_4.addWidget(self.hslider_LED_live, 0, 2, 1, 1)
@@ -395,8 +396,8 @@ class Ui_Dialog(object):
         self.label_serial_status.setText(QCoreApplication.translate("Dialog", u"CONNECTED_STATUS", None))
         self.combo_serial.setItemText(0, QCoreApplication.translate("Dialog", u"(no serial device selected)", None))
 
-        self.btn_verify_serial.setText(QCoreApplication.translate("Dialog", u"Verify Connection", None))
         self.btn_scan_serial.setText(QCoreApplication.translate("Dialog", u"Scan", None))
+        self.btn_connect_serial.setText(QCoreApplication.translate("Dialog", u"Connect", None))
         self.btn_disc_serial.setText(QCoreApplication.translate("Dialog", u"Disconnect", None))
         self.label_8.setText(QCoreApplication.translate("Dialog", u"Serial Info:", None))
         self.label_serial_info.setText(QCoreApplication.translate("Dialog", u"DEVICE_NAME_AND_TYPE", None))

@@ -205,7 +205,7 @@
           <item row="2" column="1">
            <widget class="QSpinBox" name="spin_IR_LED">
             <property name="maximum">
-             <number>255</number>
+             <number>100</number>
             </property>
            </widget>
           </item>
@@ -265,10 +265,10 @@
           <item row="2" column="2">
            <widget class="QSlider" name="hslider_IR_LED">
             <property name="maximum">
-             <number>255</number>
+             <number>100</number>
             </property>
             <property name="tracking">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -336,7 +336,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btn_verify_serial">
+           <widget class="QPushButton" name="btn_scan_serial">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -344,7 +344,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Verify Connection</string>
+             <string>Scan</string>
             </property>
            </widget>
           </item>
@@ -353,9 +353,9 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QPushButton" name="btn_scan_serial">
+           <widget class="QPushButton" name="btn_connect_serial">
             <property name="text">
-             <string>Scan</string>
+             <string>Connect</string>
             </property>
            </widget>
           </item>
@@ -425,6 +425,9 @@
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="2">
            <widget class="QSlider" name="hslider_LED_live">
+            <property name="maximum">
+             <number>100</number>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>

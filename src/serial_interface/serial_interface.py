@@ -1,42 +1,41 @@
-import sys
-import time
 import serial
 import serial.tools.list_ports
-from PySide6 import QtCore
-from PySide6.QtCore import *
+
+baudrate = 115200
+
 
 class SerialInterface(object):
     def __init__(self):
+        self.current_port = None
         self.connected = False
         self.serial_connection = None
         self.connected_device = None
-        self.baudrate = 2000000
+        self.baudrate = baudrate
         self.timeout = 0
-
-        self.serial_devices = self.scan_serial()
 
     def scan_serial(self):
         devices = []
         try:
             for p in list(serial.tools.list_ports.comports()):
-                if "ARDUINO" in p.description.upper():
+                if "USB2.0" in p.description.upper():
                     devices.append(p.device)
 
-            # print(p.device)
-            # print(p.name)
-            # print(p.hwid)
-            # print(p.description)
-            # print(p.manufacturer)
-            # print(p.product)
+
+                # print(p.device)
+                # print(p.name)
+                # print(p.hwid)
+                # print(p.description)
+                # print(p.manufacturer)
+                # print(p.product)
             #
             # print("------------------------------")
             return devices
 
         except Exception as e:
             print(e)
-            raise Exception("An error occurred when getting device list, aborting setup...")
+            raise Exception("An error occurred when getting device list.")
 
-    def connect_serial(self, device, baudrate=2000000, timeout=0):
+    def connect_serial(self, device, baudrate=baudrate, timeout=0):
         if self.serial_connection is not None:
             self.serial_connection.close()
         try:
@@ -45,14 +44,16 @@ class SerialInterface(object):
             self.baudrate = baudrate
             self.timeout = timeout
 
+            return 0
+
         except Exception as e:
             print("Could not connect to " + device)
             print(e)
+            return -1
 
-    def send_data(self, data):
+    def send_data(self, data, destination):
         try:
-            data = (str(data) + "\n").encode()
-            self.serial_connection.write
+            data = (destination + str(data) + "\n").encode()
             self.serial_connection.write(data)
             # self.serial_connection.flush()
         except Exception as e:
@@ -94,10 +95,4 @@ class SerialInterface(object):
     def read_from_serial(self, data=None):
         s = self.serial_connection.read(10)
         print(s)
-
-# class SendDataWorker(QRunnable):
-#     def __init__(self, serial_connection):
-#         self.serial_connection = serial_connection
-#
-#     def run(self):
 
