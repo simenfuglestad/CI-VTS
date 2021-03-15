@@ -118,6 +118,7 @@ class Ui_Dialog(object):
 
         self.spin_gamma = QSpinBox(self.groupBox)
         self.spin_gamma.setObjectName(u"spin_gamma")
+        self.spin_gamma.setMaximum(100)
 
         self.gridLayout_2.addWidget(self.spin_gamma, 3, 1, 1, 1)
 
@@ -137,22 +138,26 @@ class Ui_Dialog(object):
 
         self.spin_framerate = QSpinBox(self.groupBox)
         self.spin_framerate.setObjectName(u"spin_framerate")
+        self.spin_framerate.setMaximum(100)
 
         self.gridLayout_2.addWidget(self.spin_framerate, 0, 1, 1, 1)
 
         self.spin_IR_LED = QSpinBox(self.groupBox)
         self.spin_IR_LED.setObjectName(u"spin_IR_LED")
+        self.spin_IR_LED.setMaximum(100)
 
         self.gridLayout_2.addWidget(self.spin_IR_LED, 2, 1, 1, 1)
 
         self.hslider_brightness = QSlider(self.groupBox)
         self.hslider_brightness.setObjectName(u"hslider_brightness")
+        self.hslider_brightness.setMaximum(100)
         self.hslider_brightness.setOrientation(Qt.Horizontal)
 
         self.gridLayout_2.addWidget(self.hslider_brightness, 1, 2, 1, 1)
 
         self.hslider_gamma = QSlider(self.groupBox)
         self.hslider_gamma.setObjectName(u"hslider_gamma")
+        self.hslider_gamma.setMaximum(100)
         self.hslider_gamma.setOrientation(Qt.Horizontal)
 
         self.gridLayout_2.addWidget(self.hslider_gamma, 3, 2, 1, 1)
@@ -179,6 +184,8 @@ class Ui_Dialog(object):
 
         self.hslider_IR_LED = QSlider(self.groupBox)
         self.hslider_IR_LED.setObjectName(u"hslider_IR_LED")
+        self.hslider_IR_LED.setMaximum(100)
+        self.hslider_IR_LED.setTracking(True)
         self.hslider_IR_LED.setOrientation(Qt.Horizontal)
 
         self.gridLayout_2.addWidget(self.hslider_IR_LED, 2, 2, 1, 1)
@@ -215,18 +222,35 @@ class Ui_Dialog(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_3)
 
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.combo_serial = QComboBox(self.groupBox)
         self.combo_serial.addItem("")
         self.combo_serial.setObjectName(u"combo_serial")
+        sizePolicy.setHeightForWidth(self.combo_serial.sizePolicy().hasHeightForWidth())
+        self.combo_serial.setSizePolicy(sizePolicy)
 
-        self.verticalLayout_4.addWidget(self.combo_serial)
+        self.horizontalLayout_5.addWidget(self.combo_serial)
+
+        self.btn_scan_serial = QPushButton(self.groupBox)
+        self.btn_scan_serial.setObjectName(u"btn_scan_serial")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.btn_scan_serial.sizePolicy().hasHeightForWidth())
+        self.btn_scan_serial.setSizePolicy(sizePolicy4)
+
+        self.horizontalLayout_5.addWidget(self.btn_scan_serial)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_5)
 
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.btn_scan_serial = QPushButton(self.groupBox)
-        self.btn_scan_serial.setObjectName(u"btn_scan_serial")
+        self.btn_connect_serial = QPushButton(self.groupBox)
+        self.btn_connect_serial.setObjectName(u"btn_connect_serial")
 
-        self.horizontalLayout_4.addWidget(self.btn_scan_serial)
+        self.horizontalLayout_4.addWidget(self.btn_connect_serial)
 
         self.btn_disc_serial = QPushButton(self.groupBox)
         self.btn_disc_serial.setObjectName(u"btn_disc_serial")
@@ -245,11 +269,11 @@ class Ui_Dialog(object):
 
         self.label_serial_info = QLabel(self.groupBox)
         self.label_serial_info.setObjectName(u"label_serial_info")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.label_serial_info.sizePolicy().hasHeightForWidth())
-        self.label_serial_info.setSizePolicy(sizePolicy4)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.label_serial_info.sizePolicy().hasHeightForWidth())
+        self.label_serial_info.setSizePolicy(sizePolicy5)
 
         self.horizontalLayout.addWidget(self.label_serial_info)
 
@@ -281,6 +305,7 @@ class Ui_Dialog(object):
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.hslider_LED_live = QSlider(self.groupBox_2)
         self.hslider_LED_live.setObjectName(u"hslider_LED_live")
+        self.hslider_LED_live.setMaximum(100)
         self.hslider_LED_live.setOrientation(Qt.Horizontal)
 
         self.gridLayout_4.addWidget(self.hslider_LED_live, 0, 2, 1, 1)
@@ -302,11 +327,8 @@ class Ui_Dialog(object):
 
         self.checkbox_infrared_live = QCheckBox(self.groupBox_2)
         self.checkbox_infrared_live.setObjectName(u"checkbox_infrared_live")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.checkbox_infrared_live.sizePolicy().hasHeightForWidth())
-        self.checkbox_infrared_live.setSizePolicy(sizePolicy5)
+        sizePolicy4.setHeightForWidth(self.checkbox_infrared_live.sizePolicy().hasHeightForWidth())
+        self.checkbox_infrared_live.setSizePolicy(sizePolicy4)
 
         self.gridLayout_4.addWidget(self.checkbox_infrared_live, 1, 1, 1, 1)
 
@@ -350,8 +372,6 @@ class Ui_Dialog(object):
 
 
         self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept)
-        self.buttonBox.rejected.connect(Dialog.reject)
 
         QMetaObject.connectSlotsByName(Dialog)
     # setupUi
@@ -377,6 +397,7 @@ class Ui_Dialog(object):
         self.combo_serial.setItemText(0, QCoreApplication.translate("Dialog", u"(no serial device selected)", None))
 
         self.btn_scan_serial.setText(QCoreApplication.translate("Dialog", u"Scan", None))
+        self.btn_connect_serial.setText(QCoreApplication.translate("Dialog", u"Connect", None))
         self.btn_disc_serial.setText(QCoreApplication.translate("Dialog", u"Disconnect", None))
         self.label_8.setText(QCoreApplication.translate("Dialog", u"Serial Info:", None))
         self.label_serial_info.setText(QCoreApplication.translate("Dialog", u"DEVICE_NAME_AND_TYPE", None))

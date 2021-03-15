@@ -19,7 +19,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1219, 760)
+        MainWindow.resize(1219, 759)
         self.actionExperiment = QAction(MainWindow)
         self.actionExperiment.setObjectName(u"actionExperiment")
         self.actionStimulus_Profile = QAction(MainWindow)
@@ -44,6 +44,10 @@ class Ui_MainWindow(object):
         self.actionAll_Experiments_2.setObjectName(u"actionAll_Experiments_2")
         self.actionView = QAction(MainWindow)
         self.actionView.setObjectName(u"actionView")
+        self.actionUndo = QAction(MainWindow)
+        self.actionUndo.setObjectName(u"actionUndo")
+        self.actionRedo = QAction(MainWindow)
+        self.actionRedo.setObjectName(u"actionRedo")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
@@ -56,6 +60,11 @@ class Ui_MainWindow(object):
         self.groupBox_3.setObjectName(u"groupBox_3")
         self.gridLayout_8 = QGridLayout(self.groupBox_3)
         self.gridLayout_8.setObjectName(u"gridLayout_8")
+        self.label_10 = QLabel(self.groupBox_3)
+        self.label_10.setObjectName(u"label_10")
+
+        self.gridLayout_8.addWidget(self.label_10, 0, 0, 1, 1)
+
         self.list_stim_profiles = QListWidget(self.groupBox_3)
         self.list_stim_profiles.setObjectName(u"list_stim_profiles")
         sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
@@ -65,21 +74,6 @@ class Ui_MainWindow(object):
         self.list_stim_profiles.setSizePolicy(sizePolicy)
 
         self.gridLayout_8.addWidget(self.list_stim_profiles, 1, 0, 1, 2)
-
-        self.pushButton_4 = QPushButton(self.groupBox_3)
-        self.pushButton_4.setObjectName(u"pushButton_4")
-
-        self.gridLayout_8.addWidget(self.pushButton_4, 3, 0, 1, 1)
-
-        self.pushButton_3 = QPushButton(self.groupBox_3)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-
-        self.gridLayout_8.addWidget(self.pushButton_3, 3, 1, 1, 1)
-
-        self.label_10 = QLabel(self.groupBox_3)
-        self.label_10.setObjectName(u"label_10")
-
-        self.gridLayout_8.addWidget(self.label_10, 0, 0, 1, 1)
 
 
         self.gridLayout_3.addWidget(self.groupBox_3, 4, 0, 1, 1)
@@ -287,16 +281,6 @@ class Ui_MainWindow(object):
         self.groupBox_2.setObjectName(u"groupBox_2")
         self.gridLayout_2 = QGridLayout(self.groupBox_2)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.pushButton = QPushButton(self.groupBox_2)
-        self.pushButton.setObjectName(u"pushButton")
-
-        self.gridLayout_2.addWidget(self.pushButton, 3, 1, 1, 1)
-
-        self.label_9 = QLabel(self.groupBox_2)
-        self.label_9.setObjectName(u"label_9")
-
-        self.gridLayout_2.addWidget(self.label_9, 1, 0, 1, 1)
-
         self.list_exp_profiles = QListWidget(self.groupBox_2)
         self.list_exp_profiles.setObjectName(u"list_exp_profiles")
         sizePolicy.setHeightForWidth(self.list_exp_profiles.sizePolicy().hasHeightForWidth())
@@ -304,10 +288,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.list_exp_profiles, 2, 0, 1, 2)
 
-        self.pushButton_2 = QPushButton(self.groupBox_2)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.label_9 = QLabel(self.groupBox_2)
+        self.label_9.setObjectName(u"label_9")
 
-        self.gridLayout_2.addWidget(self.pushButton_2, 3, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_9, 1, 0, 1, 1)
 
 
         self.gridLayout_3.addWidget(self.groupBox_2, 2, 0, 1, 1)
@@ -318,11 +302,6 @@ class Ui_MainWindow(object):
         self.groupBox_4.setSizePolicy(sizePolicy2)
         self.gridLayout_9 = QGridLayout(self.groupBox_4)
         self.gridLayout_9.setObjectName(u"gridLayout_9")
-        self.pushButton_5 = QPushButton(self.groupBox_4)
-        self.pushButton_5.setObjectName(u"pushButton_5")
-
-        self.gridLayout_9.addWidget(self.pushButton_5, 3, 0, 1, 1)
-
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.label_7 = QLabel(self.groupBox_4)
@@ -333,11 +312,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_9.addLayout(self.horizontalLayout, 0, 0, 1, 1)
 
-        self.pushButton_6 = QPushButton(self.groupBox_4)
-        self.pushButton_6.setObjectName(u"pushButton_6")
-
-        self.gridLayout_9.addWidget(self.pushButton_6, 3, 1, 1, 1)
-
         self.list_experiments_to_run = QListWidget(self.groupBox_4)
         self.list_experiments_to_run.setObjectName(u"list_experiments_to_run")
         sizePolicy4 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -347,6 +321,16 @@ class Ui_MainWindow(object):
         self.list_experiments_to_run.setSizePolicy(sizePolicy4)
 
         self.gridLayout_9.addWidget(self.list_experiments_to_run, 1, 0, 1, 2)
+
+        self.pushButton_5 = QPushButton(self.groupBox_4)
+        self.pushButton_5.setObjectName(u"pushButton_5")
+
+        self.gridLayout_9.addWidget(self.pushButton_5, 3, 0, 1, 1)
+
+        self.pushButton_6 = QPushButton(self.groupBox_4)
+        self.pushButton_6.setObjectName(u"pushButton_6")
+
+        self.gridLayout_9.addWidget(self.pushButton_6, 3, 1, 1, 1)
 
 
         self.gridLayout_3.addWidget(self.groupBox_4, 2, 1, 3, 1)
@@ -368,6 +352,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.gridLayout_5 = QGridLayout()
         self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.label_13 = QLabel(self.groupBox_5)
+        self.label_13.setObjectName(u"label_13")
+
+        self.gridLayout_5.addWidget(self.label_13, 0, 0, 1, 1)
+
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.line_edit_duration = QLineEdit(self.groupBox_5)
@@ -379,23 +368,42 @@ class Ui_MainWindow(object):
 
         self.spin_duration_hour = QSpinBox(self.groupBox_5)
         self.spin_duration_hour.setObjectName(u"spin_duration_hour")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.spin_duration_hour.sizePolicy().hasHeightForWidth())
+        self.spin_duration_hour.setSizePolicy(sizePolicy6)
 
         self.horizontalLayout_4.addWidget(self.spin_duration_hour)
 
         self.spin_duration_min = QSpinBox(self.groupBox_5)
         self.spin_duration_min.setObjectName(u"spin_duration_min")
+        sizePolicy6.setHeightForWidth(self.spin_duration_min.sizePolicy().hasHeightForWidth())
+        self.spin_duration_min.setSizePolicy(sizePolicy6)
         self.spin_duration_min.setMaximum(59)
 
         self.horizontalLayout_4.addWidget(self.spin_duration_min)
 
         self.spin_duration_sec = QSpinBox(self.groupBox_5)
         self.spin_duration_sec.setObjectName(u"spin_duration_sec")
+        sizePolicy6.setHeightForWidth(self.spin_duration_sec.sizePolicy().hasHeightForWidth())
+        self.spin_duration_sec.setSizePolicy(sizePolicy6)
         self.spin_duration_sec.setMaximum(59)
 
         self.horizontalLayout_4.addWidget(self.spin_duration_sec)
 
+        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_7)
+
 
         self.gridLayout_5.addLayout(self.horizontalLayout_4, 0, 1, 1, 1)
+
+        self.checkbox_save_log = QCheckBox(self.groupBox_5)
+        self.checkbox_save_log.setObjectName(u"checkbox_save_log")
+        self.checkbox_save_log.setLayoutDirection(Qt.RightToLeft)
+
+        self.gridLayout_5.addWidget(self.checkbox_save_log, 4, 0, 1, 1)
 
         self.checkbox_save_video = QCheckBox(self.groupBox_5)
         self.checkbox_save_video.setObjectName(u"checkbox_save_video")
@@ -406,47 +414,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.checkbox_save_video, 3, 0, 1, 1)
 
-        self.line_edit_video_path = QLineEdit(self.groupBox_5)
-        self.line_edit_video_path.setObjectName(u"line_edit_video_path")
-
-        self.gridLayout_5.addWidget(self.line_edit_video_path, 3, 1, 1, 1)
-
-        self.label_13 = QLabel(self.groupBox_5)
-        self.label_13.setObjectName(u"label_13")
-
-        self.gridLayout_5.addWidget(self.label_13, 0, 0, 1, 1)
-
-        self.checkbox_save_log = QCheckBox(self.groupBox_5)
-        self.checkbox_save_log.setObjectName(u"checkbox_save_log")
-        self.checkbox_save_log.setLayoutDirection(Qt.RightToLeft)
-
-        self.gridLayout_5.addWidget(self.checkbox_save_log, 4, 0, 1, 1)
-
-        self.btn_set_video_path = QPushButton(self.groupBox_5)
-        self.btn_set_video_path.setObjectName(u"btn_set_video_path")
-
-        self.gridLayout_5.addWidget(self.btn_set_video_path, 3, 2, 1, 1)
-
-        self.btn_set_duration = QPushButton(self.groupBox_5)
-        self.btn_set_duration.setObjectName(u"btn_set_duration")
-
-        self.gridLayout_5.addWidget(self.btn_set_duration, 0, 2, 1, 1)
-
-        self.line_edit_log_path = QLineEdit(self.groupBox_5)
-        self.line_edit_log_path.setObjectName(u"line_edit_log_path")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.line_edit_log_path.sizePolicy().hasHeightForWidth())
-        self.line_edit_log_path.setSizePolicy(sizePolicy6)
-
-        self.gridLayout_5.addWidget(self.line_edit_log_path, 4, 1, 1, 1)
-
-        self.btn_set_log_path = QPushButton(self.groupBox_5)
-        self.btn_set_log_path.setObjectName(u"btn_set_log_path")
-
-        self.gridLayout_5.addWidget(self.btn_set_log_path, 4, 2, 1, 1)
-
         self.checkbox_view_live = QCheckBox(self.groupBox_5)
         self.checkbox_view_live.setObjectName(u"checkbox_view_live")
         self.checkbox_view_live.setLayoutDirection(Qt.RightToLeft)
@@ -454,6 +421,21 @@ class Ui_MainWindow(object):
         self.checkbox_view_live.setChecked(False)
 
         self.gridLayout_5.addWidget(self.checkbox_view_live, 5, 0, 1, 1)
+
+        self.line_edit_video_path = QLineEdit(self.groupBox_5)
+        self.line_edit_video_path.setObjectName(u"line_edit_video_path")
+
+        self.gridLayout_5.addWidget(self.line_edit_video_path, 3, 1, 1, 1)
+
+        self.btn_set_log_path = QPushButton(self.groupBox_5)
+        self.btn_set_log_path.setObjectName(u"btn_set_log_path")
+
+        self.gridLayout_5.addWidget(self.btn_set_log_path, 4, 2, 1, 1)
+
+        self.btn_set_video_path = QPushButton(self.groupBox_5)
+        self.btn_set_video_path.setObjectName(u"btn_set_video_path")
+
+        self.gridLayout_5.addWidget(self.btn_set_video_path, 3, 2, 1, 1)
 
         self.horizontalLayout_20 = QHBoxLayout()
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
@@ -554,13 +536,18 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addLayout(self.horizontalLayout_20, 5, 1, 1, 1)
 
+        self.line_edit_log_path = QLineEdit(self.groupBox_5)
+        self.line_edit_log_path.setObjectName(u"line_edit_log_path")
+        sizePolicy7 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.line_edit_log_path.sizePolicy().hasHeightForWidth())
+        self.line_edit_log_path.setSizePolicy(sizePolicy7)
+
+        self.gridLayout_5.addWidget(self.line_edit_log_path, 4, 1, 1, 1)
+
 
         self.verticalLayout_4.addLayout(self.gridLayout_5)
-
-        self.horizontalLayout_9 = QHBoxLayout()
-        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-
-        self.verticalLayout_4.addLayout(self.horizontalLayout_9)
 
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
@@ -569,210 +556,301 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_6.addWidget(self.label_17)
 
-        self.label_15 = QLabel(self.groupBox_5)
-        self.label_15.setObjectName(u"label_15")
-        sizePolicy5.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
-        self.label_15.setSizePolicy(sizePolicy5)
+        self.label_stim_profile_name = QLabel(self.groupBox_5)
+        self.label_stim_profile_name.setObjectName(u"label_stim_profile_name")
+        sizePolicy5.setHeightForWidth(self.label_stim_profile_name.sizePolicy().hasHeightForWidth())
+        self.label_stim_profile_name.setSizePolicy(sizePolicy5)
 
-        self.horizontalLayout_6.addWidget(self.label_15)
+        self.horizontalLayout_6.addWidget(self.label_stim_profile_name)
+
+        self.check_box_draw_mode = QCheckBox(self.groupBox_5)
+        self.check_box_draw_mode.setObjectName(u"check_box_draw_mode")
+
+        self.horizontalLayout_6.addWidget(self.check_box_draw_mode)
 
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_6)
 
-        self.stim_profile_view = PlotWidget(self.groupBox_5)
-        self.stim_profile_view.setObjectName(u"stim_profile_view")
-        sizePolicy4.setHeightForWidth(self.stim_profile_view.sizePolicy().hasHeightForWidth())
-        self.stim_profile_view.setSizePolicy(sizePolicy4)
+        self.stim_profile_plot = PlotWidget(self.groupBox_5)
+        self.stim_profile_plot.setObjectName(u"stim_profile_plot")
+        sizePolicy4.setHeightForWidth(self.stim_profile_plot.sizePolicy().hasHeightForWidth())
+        self.stim_profile_plot.setSizePolicy(sizePolicy4)
 
-        self.verticalLayout_4.addWidget(self.stim_profile_view)
-
-        self.horizontalLayout_19 = QHBoxLayout()
-        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
-        self.label_16 = QLabel(self.groupBox_5)
-        self.label_16.setObjectName(u"label_16")
-
-        self.horizontalLayout_19.addWidget(self.label_16)
-
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_19.addItem(self.horizontalSpacer_4)
-
-        self.btn_center_graph = QPushButton(self.groupBox_5)
-        self.btn_center_graph.setObjectName(u"btn_center_graph")
-
-        self.horizontalLayout_19.addWidget(self.btn_center_graph)
-
-
-        self.verticalLayout_4.addLayout(self.horizontalLayout_19)
+        self.verticalLayout_4.addWidget(self.stim_profile_plot)
 
         self.gridLayout_4 = QGridLayout()
         self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.gridLayout_13 = QGridLayout()
+        self.gridLayout_13.setObjectName(u"gridLayout_13")
+        self.horizontalLayout_8 = QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.btn_add_stim = QPushButton(self.groupBox_5)
         self.btn_add_stim.setObjectName(u"btn_add_stim")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
         sizePolicy7.setHeightForWidth(self.btn_add_stim.sizePolicy().hasHeightForWidth())
         self.btn_add_stim.setSizePolicy(sizePolicy7)
 
-        self.gridLayout_4.addWidget(self.btn_add_stim, 5, 0, 1, 1)
+        self.horizontalLayout_8.addWidget(self.btn_add_stim)
+
+
+        self.gridLayout_13.addLayout(self.horizontalLayout_8, 3, 0, 1, 1)
+
+        self.checkbox_sync_led = QCheckBox(self.groupBox_5)
+        self.checkbox_sync_led.setObjectName(u"checkbox_sync_led")
+        sizePolicy8 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
+        sizePolicy8.setHorizontalStretch(0)
+        sizePolicy8.setVerticalStretch(0)
+        sizePolicy8.setHeightForWidth(self.checkbox_sync_led.sizePolicy().hasHeightForWidth())
+        self.checkbox_sync_led.setSizePolicy(sizePolicy8)
+
+        self.gridLayout_13.addWidget(self.checkbox_sync_led, 1, 0, 1, 1)
+
+        self.horizontalLayout_10 = QHBoxLayout()
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.spin_stim_led_end = QSpinBox(self.groupBox_5)
+        self.spin_stim_led_end.setObjectName(u"spin_stim_led_end")
+        sizePolicy3.setHeightForWidth(self.spin_stim_led_end.sizePolicy().hasHeightForWidth())
+        self.spin_stim_led_end.setSizePolicy(sizePolicy3)
+        self.spin_stim_led_end.setMaximum(100)
+
+        self.horizontalLayout_10.addWidget(self.spin_stim_led_end)
+
+        self.hslider_stim_led_end = QSlider(self.groupBox_5)
+        self.hslider_stim_led_end.setObjectName(u"hslider_stim_led_end")
+        sizePolicy7.setHeightForWidth(self.hslider_stim_led_end.sizePolicy().hasHeightForWidth())
+        self.hslider_stim_led_end.setSizePolicy(sizePolicy7)
+        self.hslider_stim_led_end.setMaximum(100)
+        self.hslider_stim_led_end.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_10.addWidget(self.hslider_stim_led_end)
+
+
+        self.gridLayout_13.addLayout(self.horizontalLayout_10, 2, 0, 1, 1)
+
+
+        self.gridLayout_4.addLayout(self.gridLayout_13, 3, 2, 1, 1)
+
+        self.line_2 = QFrame(self.groupBox_5)
+        self.line_2.setObjectName(u"line_2")
+        self.line_2.setFrameShape(QFrame.HLine)
+        self.line_2.setFrameShadow(QFrame.Sunken)
+
+        self.gridLayout_4.addWidget(self.line_2, 2, 0, 1, 1)
+
+        self.line_11 = QFrame(self.groupBox_5)
+        self.line_11.setObjectName(u"line_11")
+        self.line_11.setFrameShape(QFrame.VLine)
+        self.line_11.setFrameShadow(QFrame.Sunken)
+
+        self.gridLayout_4.addWidget(self.line_11, 3, 1, 1, 1)
+
+        self.gridLayout_12 = QGridLayout()
+        self.gridLayout_12.setObjectName(u"gridLayout_12")
+        self.label_16 = QLabel(self.groupBox_5)
+        self.label_16.setObjectName(u"label_16")
+
+        self.gridLayout_12.addWidget(self.label_16, 2, 0, 1, 1)
+
+        self.horizontalLayout_9 = QHBoxLayout()
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.spin_stim_led_start = QSpinBox(self.groupBox_5)
+        self.spin_stim_led_start.setObjectName(u"spin_stim_led_start")
+        sizePolicy3.setHeightForWidth(self.spin_stim_led_start.sizePolicy().hasHeightForWidth())
+        self.spin_stim_led_start.setSizePolicy(sizePolicy3)
+        self.spin_stim_led_start.setMaximum(100)
+
+        self.horizontalLayout_9.addWidget(self.spin_stim_led_start)
+
+        self.hslider_stim_led_start = QSlider(self.groupBox_5)
+        self.hslider_stim_led_start.setObjectName(u"hslider_stim_led_start")
+        sizePolicy7.setHeightForWidth(self.hslider_stim_led_start.sizePolicy().hasHeightForWidth())
+        self.hslider_stim_led_start.setSizePolicy(sizePolicy7)
+        self.hslider_stim_led_start.setMaximum(100)
+        self.hslider_stim_led_start.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_9.addWidget(self.hslider_stim_led_start)
+
+
+        self.gridLayout_12.addLayout(self.horizontalLayout_9, 1, 0, 1, 1)
 
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.label_5 = QLabel(self.groupBox_5)
         self.label_5.setObjectName(u"label_5")
-        sizePolicy2.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
-        self.label_5.setSizePolicy(sizePolicy2)
+        sizePolicy9 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+        sizePolicy9.setHorizontalStretch(0)
+        sizePolicy9.setVerticalStretch(0)
+        sizePolicy9.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
+        self.label_5.setSizePolicy(sizePolicy9)
 
         self.horizontalLayout_7.addWidget(self.label_5)
 
         self.label_14 = QLabel(self.groupBox_5)
         self.label_14.setObjectName(u"label_14")
-        sizePolicy5.setHeightForWidth(self.label_14.sizePolicy().hasHeightForWidth())
-        self.label_14.setSizePolicy(sizePolicy5)
+        sizePolicy10 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy10.setHorizontalStretch(0)
+        sizePolicy10.setVerticalStretch(0)
+        sizePolicy10.setHeightForWidth(self.label_14.sizePolicy().hasHeightForWidth())
+        self.label_14.setSizePolicy(sizePolicy10)
 
         self.horizontalLayout_7.addWidget(self.label_14)
 
-        self.spinBox_2 = QSpinBox(self.groupBox_5)
-        self.spinBox_2.setObjectName(u"spinBox_2")
-        sizePolicy3.setHeightForWidth(self.spinBox_2.sizePolicy().hasHeightForWidth())
-        self.spinBox_2.setSizePolicy(sizePolicy3)
-        self.spinBox_2.setMaximum(100)
 
-        self.horizontalLayout_7.addWidget(self.spinBox_2)
+        self.gridLayout_12.addLayout(self.horizontalLayout_7, 0, 0, 1, 1)
 
 
-        self.gridLayout_4.addLayout(self.horizontalLayout_7, 4, 0, 1, 1)
+        self.gridLayout_4.addLayout(self.gridLayout_12, 3, 0, 1, 1)
 
-        self.horizontalLayout_17 = QHBoxLayout()
-        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
-        self.btn_inc_start = QPushButton(self.groupBox_5)
-        self.btn_inc_start.setObjectName(u"btn_inc_start")
+        self.line = QFrame(self.groupBox_5)
+        self.line.setObjectName(u"line")
+        sizePolicy11 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Minimum)
+        sizePolicy11.setHorizontalStretch(0)
+        sizePolicy11.setVerticalStretch(0)
+        sizePolicy11.setHeightForWidth(self.line.sizePolicy().hasHeightForWidth())
+        self.line.setSizePolicy(sizePolicy11)
+        self.line.setFrameShape(QFrame.VLine)
+        self.line.setFrameShadow(QFrame.Sunken)
 
-        self.horizontalLayout_17.addWidget(self.btn_inc_start)
+        self.gridLayout_4.addWidget(self.line, 1, 1, 1, 1)
 
-        self.btn_dec_start = QPushButton(self.groupBox_5)
-        self.btn_dec_start.setObjectName(u"btn_dec_start")
-
-        self.horizontalLayout_17.addWidget(self.btn_dec_start)
-
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_17.addItem(self.horizontalSpacer_5)
-
-
-        self.gridLayout_4.addLayout(self.horizontalLayout_17, 0, 1, 1, 1)
-
-        self.btn_load_stim = QPushButton(self.groupBox_5)
-        self.btn_load_stim.setObjectName(u"btn_load_stim")
-        sizePolicy8 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy8.setHorizontalStretch(0)
-        sizePolicy8.setVerticalStretch(0)
-        sizePolicy8.setHeightForWidth(self.btn_load_stim.sizePolicy().hasHeightForWidth())
-        self.btn_load_stim.setSizePolicy(sizePolicy8)
-
-        self.gridLayout_4.addWidget(self.btn_load_stim, 7, 0, 1, 1)
-
-        self.horizontalLayout_12 = QHBoxLayout()
-        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
-        self.btn_inc_end = QPushButton(self.groupBox_5)
-        self.btn_inc_end.setObjectName(u"btn_inc_end")
-        sizePolicy6.setHeightForWidth(self.btn_inc_end.sizePolicy().hasHeightForWidth())
-        self.btn_inc_end.setSizePolicy(sizePolicy6)
-
-        self.horizontalLayout_12.addWidget(self.btn_inc_end)
-
-        self.btn_dec_end = QPushButton(self.groupBox_5)
-        self.btn_dec_end.setObjectName(u"btn_dec_end")
-
-        self.horizontalLayout_12.addWidget(self.btn_dec_end)
-
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_12.addItem(self.horizontalSpacer_2)
-
-
-        self.gridLayout_4.addLayout(self.horizontalLayout_12, 1, 1, 1, 1)
-
-        self.horizontalLayout_8 = QHBoxLayout()
-        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.label_12 = QLabel(self.groupBox_5)
-        self.label_12.setObjectName(u"label_12")
-
-        self.horizontalLayout_8.addWidget(self.label_12)
-
+        self.gridLayout_11 = QGridLayout()
+        self.gridLayout_11.setObjectName(u"gridLayout_11")
         self.checkbox_end = QCheckBox(self.groupBox_5)
         self.checkbox_end.setObjectName(u"checkbox_end")
-        sizePolicy8.setHeightForWidth(self.checkbox_end.sizePolicy().hasHeightForWidth())
-        self.checkbox_end.setSizePolicy(sizePolicy8)
-        self.checkbox_end.setLayoutDirection(Qt.RightToLeft)
+        sizePolicy7.setHeightForWidth(self.checkbox_end.sizePolicy().hasHeightForWidth())
+        self.checkbox_end.setSizePolicy(sizePolicy7)
+        self.checkbox_end.setLayoutDirection(Qt.LeftToRight)
 
-        self.horizontalLayout_8.addWidget(self.checkbox_end)
+        self.gridLayout_11.addWidget(self.checkbox_end, 2, 1, 1, 1)
 
-        self.line_edit_end = QLineEdit(self.groupBox_5)
-        self.line_edit_end.setObjectName(u"line_edit_end")
-        sizePolicy7.setHeightForWidth(self.line_edit_end.sizePolicy().hasHeightForWidth())
-        self.line_edit_end.setSizePolicy(sizePolicy7)
+        self.spin_end_secs = QDoubleSpinBox(self.groupBox_5)
+        self.spin_end_secs.setObjectName(u"spin_end_secs")
 
-        self.horizontalLayout_8.addWidget(self.line_edit_end)
+        self.gridLayout_11.addWidget(self.spin_end_secs, 4, 3, 1, 1)
+
+        self.label_23 = QLabel(self.groupBox_5)
+        self.label_23.setObjectName(u"label_23")
+        sizePolicy7.setHeightForWidth(self.label_23.sizePolicy().hasHeightForWidth())
+        self.label_23.setSizePolicy(sizePolicy7)
+
+        self.gridLayout_11.addWidget(self.label_23, 3, 3, 1, 1)
+
+        self.label_12 = QLabel(self.groupBox_5)
+        self.label_12.setObjectName(u"label_12")
+        sizePolicy7.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
+        self.label_12.setSizePolicy(sizePolicy7)
+
+        self.gridLayout_11.addWidget(self.label_12, 1, 1, 1, 1)
+
+        self.spin_end_hours = QSpinBox(self.groupBox_5)
+        self.spin_end_hours.setObjectName(u"spin_end_hours")
+
+        self.gridLayout_11.addWidget(self.spin_end_hours, 4, 1, 1, 1)
+
+        self.spin_end_mins = QSpinBox(self.groupBox_5)
+        self.spin_end_mins.setObjectName(u"spin_end_mins")
+
+        self.gridLayout_11.addWidget(self.spin_end_mins, 4, 2, 1, 1)
+
+        self.label_15 = QLabel(self.groupBox_5)
+        self.label_15.setObjectName(u"label_15")
+        sizePolicy7.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
+        self.label_15.setSizePolicy(sizePolicy7)
+
+        self.gridLayout_11.addWidget(self.label_15, 3, 1, 1, 1)
+
+        self.label_22 = QLabel(self.groupBox_5)
+        self.label_22.setObjectName(u"label_22")
+        sizePolicy7.setHeightForWidth(self.label_22.sizePolicy().hasHeightForWidth())
+        self.label_22.setSizePolicy(sizePolicy7)
+
+        self.gridLayout_11.addWidget(self.label_22, 3, 2, 1, 1)
+
+        self.btn_reset_stim = QPushButton(self.groupBox_5)
+        self.btn_reset_stim.setObjectName(u"btn_reset_stim")
+        sizePolicy7.setHeightForWidth(self.btn_reset_stim.sizePolicy().hasHeightForWidth())
+        self.btn_reset_stim.setSizePolicy(sizePolicy7)
+
+        self.gridLayout_11.addWidget(self.btn_reset_stim, 1, 3, 1, 1)
+
+        self.btn_clear_plot = QPushButton(self.groupBox_5)
+        self.btn_clear_plot.setObjectName(u"btn_clear_plot")
+
+        self.gridLayout_11.addWidget(self.btn_clear_plot, 0, 3, 1, 1)
 
 
-        self.gridLayout_4.addLayout(self.horizontalLayout_8, 1, 0, 1, 1)
+        self.gridLayout_4.addLayout(self.gridLayout_11, 1, 2, 1, 1)
 
-        self.btn_save_stim = QPushButton(self.groupBox_5)
-        self.btn_save_stim.setObjectName(u"btn_save_stim")
-        sizePolicy8.setHeightForWidth(self.btn_save_stim.sizePolicy().hasHeightForWidth())
-        self.btn_save_stim.setSizePolicy(sizePolicy8)
+        self.line_3 = QFrame(self.groupBox_5)
+        self.line_3.setObjectName(u"line_3")
+        self.line_3.setFrameShape(QFrame.HLine)
+        self.line_3.setFrameShadow(QFrame.Sunken)
 
-        self.gridLayout_4.addWidget(self.btn_save_stim, 7, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.line_3, 2, 2, 1, 1)
 
-        self.horizontalLayout_16 = QHBoxLayout()
-        self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
-        self.horizontalLayout_11 = QHBoxLayout()
-        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.gridLayout_10 = QGridLayout()
+        self.gridLayout_10.setObjectName(u"gridLayout_10")
         self.label_11 = QLabel(self.groupBox_5)
         self.label_11.setObjectName(u"label_11")
-        sizePolicy9 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
-        sizePolicy9.setHorizontalStretch(0)
-        sizePolicy9.setVerticalStretch(0)
-        sizePolicy9.setHeightForWidth(self.label_11.sizePolicy().hasHeightForWidth())
-        self.label_11.setSizePolicy(sizePolicy9)
+        sizePolicy10.setHeightForWidth(self.label_11.sizePolicy().hasHeightForWidth())
+        self.label_11.setSizePolicy(sizePolicy10)
 
-        self.horizontalLayout_11.addWidget(self.label_11)
+        self.gridLayout_10.addWidget(self.label_11, 3, 0, 1, 1)
+
+        self.spin_start_secs = QDoubleSpinBox(self.groupBox_5)
+        self.spin_start_secs.setObjectName(u"spin_start_secs")
+        self.spin_start_secs.setDecimals(3)
+        self.spin_start_secs.setMaximum(59.999000000000002)
+
+        self.gridLayout_10.addWidget(self.spin_start_secs, 6, 2, 1, 1)
+
+        self.label_21 = QLabel(self.groupBox_5)
+        self.label_21.setObjectName(u"label_21")
+        sizePolicy10.setHeightForWidth(self.label_21.sizePolicy().hasHeightForWidth())
+        self.label_21.setSizePolicy(sizePolicy10)
+        self.label_21.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+
+        self.gridLayout_10.addWidget(self.label_21, 5, 0, 1, 1)
 
         self.checkbox_start = QCheckBox(self.groupBox_5)
         self.checkbox_start.setObjectName(u"checkbox_start")
-        sizePolicy8.setHeightForWidth(self.checkbox_start.sizePolicy().hasHeightForWidth())
-        self.checkbox_start.setSizePolicy(sizePolicy8)
-        self.checkbox_start.setLayoutDirection(Qt.RightToLeft)
 
-        self.horizontalLayout_11.addWidget(self.checkbox_start)
+        self.gridLayout_10.addWidget(self.checkbox_start, 4, 0, 1, 1)
 
-        self.line_edit_start = QLineEdit(self.groupBox_5)
-        self.line_edit_start.setObjectName(u"line_edit_start")
-        sizePolicy7.setHeightForWidth(self.line_edit_start.sizePolicy().hasHeightForWidth())
-        self.line_edit_start.setSizePolicy(sizePolicy7)
+        self.label_20 = QLabel(self.groupBox_5)
+        self.label_20.setObjectName(u"label_20")
+        sizePolicy10.setHeightForWidth(self.label_20.sizePolicy().hasHeightForWidth())
+        self.label_20.setSizePolicy(sizePolicy10)
+        self.label_20.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
-        self.horizontalLayout_11.addWidget(self.line_edit_start)
+        self.gridLayout_10.addWidget(self.label_20, 5, 2, 1, 1)
+
+        self.spin_start_mins = QSpinBox(self.groupBox_5)
+        self.spin_start_mins.setObjectName(u"spin_start_mins")
+        self.spin_start_mins.setMaximum(59)
+
+        self.gridLayout_10.addWidget(self.spin_start_mins, 6, 1, 1, 1)
+
+        self.label_19 = QLabel(self.groupBox_5)
+        self.label_19.setObjectName(u"label_19")
+        sizePolicy10.setHeightForWidth(self.label_19.sizePolicy().hasHeightForWidth())
+        self.label_19.setSizePolicy(sizePolicy10)
+        self.label_19.setLayoutDirection(Qt.LeftToRight)
+        self.label_19.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+
+        self.gridLayout_10.addWidget(self.label_19, 5, 1, 1, 1)
+
+        self.spin_start_hours = QSpinBox(self.groupBox_5)
+        self.spin_start_hours.setObjectName(u"spin_start_hours")
+
+        self.gridLayout_10.addWidget(self.spin_start_hours, 6, 0, 1, 1)
+
+        self.btn_center_graph = QPushButton(self.groupBox_5)
+        self.btn_center_graph.setObjectName(u"btn_center_graph")
+
+        self.gridLayout_10.addWidget(self.btn_center_graph, 2, 0, 1, 1)
 
 
-        self.horizontalLayout_16.addLayout(self.horizontalLayout_11)
-
-
-        self.gridLayout_4.addLayout(self.horizontalLayout_16, 0, 0, 1, 1)
-
-        self.horizontalLayout_13 = QHBoxLayout()
-        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
-        self.hslider_exp_LED = QSlider(self.groupBox_5)
-        self.hslider_exp_LED.setObjectName(u"hslider_exp_LED")
-        sizePolicy8.setHeightForWidth(self.hslider_exp_LED.sizePolicy().hasHeightForWidth())
-        self.hslider_exp_LED.setSizePolicy(sizePolicy8)
-        self.hslider_exp_LED.setOrientation(Qt.Horizontal)
-
-        self.horizontalLayout_13.addWidget(self.hslider_exp_LED)
-
-
-        self.gridLayout_4.addLayout(self.horizontalLayout_13, 4, 1, 1, 1)
+        self.gridLayout_4.addLayout(self.gridLayout_10, 1, 0, 1, 1)
 
 
         self.verticalLayout_4.addLayout(self.gridLayout_4)
@@ -827,15 +905,15 @@ class Ui_MainWindow(object):
 
         self.lineEdit_2 = QLineEdit(self.tab_exp_settings)
         self.lineEdit_2.setObjectName(u"lineEdit_2")
-        sizePolicy6.setHeightForWidth(self.lineEdit_2.sizePolicy().hasHeightForWidth())
-        self.lineEdit_2.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.lineEdit_2.sizePolicy().hasHeightForWidth())
+        self.lineEdit_2.setSizePolicy(sizePolicy7)
 
         self.gridLayout_7.addWidget(self.lineEdit_2, 4, 3, 1, 1)
 
         self.lineEdit = QLineEdit(self.tab_exp_settings)
         self.lineEdit.setObjectName(u"lineEdit")
-        sizePolicy6.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
+        self.lineEdit.setSizePolicy(sizePolicy7)
 
         self.gridLayout_7.addWidget(self.lineEdit, 2, 3, 1, 1)
 
@@ -854,28 +932,25 @@ class Ui_MainWindow(object):
 
         self.comboBox = QComboBox(self.tab_exp_settings)
         self.comboBox.setObjectName(u"comboBox")
-        sizePolicy10 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
-        sizePolicy10.setHorizontalStretch(0)
-        sizePolicy10.setVerticalStretch(0)
-        sizePolicy10.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
-        self.comboBox.setSizePolicy(sizePolicy10)
+        sizePolicy12 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
+        sizePolicy12.setHorizontalStretch(0)
+        sizePolicy12.setVerticalStretch(0)
+        sizePolicy12.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
+        self.comboBox.setSizePolicy(sizePolicy12)
 
         self.gridLayout_7.addWidget(self.comboBox, 0, 3, 1, 1)
 
         self.label = QLabel(self.tab_exp_settings)
         self.label.setObjectName(u"label")
-        sizePolicy11 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
-        sizePolicy11.setHorizontalStretch(0)
-        sizePolicy11.setVerticalStretch(0)
-        sizePolicy11.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy11)
+        sizePolicy9.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy9)
 
         self.gridLayout_7.addWidget(self.label, 0, 2, 1, 1)
 
         self.checkBox_3 = QCheckBox(self.tab_exp_settings)
         self.checkBox_3.setObjectName(u"checkBox_3")
-        sizePolicy11.setHeightForWidth(self.checkBox_3.sizePolicy().hasHeightForWidth())
-        self.checkBox_3.setSizePolicy(sizePolicy11)
+        sizePolicy9.setHeightForWidth(self.checkBox_3.sizePolicy().hasHeightForWidth())
+        self.checkBox_3.setSizePolicy(sizePolicy9)
         self.checkBox_3.setLayoutDirection(Qt.RightToLeft)
         self.checkBox_3.setAutoExclusive(False)
 
@@ -892,13 +967,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.tabWidget, 2, 2, 3, 1)
 
-        self.label_18 = QLabel(self.groupBox_main)
-        self.label_18.setObjectName(u"label_18")
+        self.label_path_stim = QLabel(self.groupBox_main)
+        self.label_path_stim.setObjectName(u"label_path_stim")
 
-        self.gridLayout_3.addWidget(self.label_18, 3, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.label_path_stim, 3, 0, 1, 1)
 
 
-        self.gridLayout.addWidget(self.groupBox_main, 0, 0, 1, 2)
+        self.gridLayout.addWidget(self.groupBox_main, 0, 1, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -920,12 +995,15 @@ class Ui_MainWindow(object):
         self.menuRun.setObjectName(u"menuRun")
         self.menuAnalysis = QMenu(self.menubar)
         self.menuAnalysis.setObjectName(u"menuAnalysis")
+        self.menuEdit = QMenu(self.menubar)
+        self.menuEdit.setObjectName(u"menuEdit")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuSettings.menuAction())
         self.menubar.addAction(self.menuRun.menuAction())
         self.menubar.addAction(self.menuAnalysis.menuAction())
@@ -945,6 +1023,8 @@ class Ui_MainWindow(object):
         self.menuRun.addAction(self.actionSelected_Experiments)
         self.menuRun.addAction(self.actionAll_Experiments_2)
         self.menuAnalysis.addAction(self.actionView)
+        self.menuEdit.addAction(self.actionUndo)
+        self.menuEdit.addAction(self.actionRedo)
 
         self.retranslateUi(MainWindow)
 
@@ -968,10 +1048,10 @@ class Ui_MainWindow(object):
         self.actionSelected_Experiments.setText(QCoreApplication.translate("MainWindow", u"Selected Experiments", None))
         self.actionAll_Experiments_2.setText(QCoreApplication.translate("MainWindow", u"All Experiments", None))
         self.actionView.setText(QCoreApplication.translate("MainWindow", u"View", None))
+        self.actionUndo.setText(QCoreApplication.translate("MainWindow", u"Undo (Ctrl + z)", None))
+        self.actionRedo.setText(QCoreApplication.translate("MainWindow", u"Redo (Ctrl + y)", None))
         self.groupBox_main.setTitle("")
         self.groupBox_3.setTitle("")
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Add", None))
-        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Refresh", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profiles", None))
         self.label_status.setText(QCoreApplication.translate("MainWindow", u"Status:", None))
         self.label_status_value.setText(QCoreApplication.translate("MainWindow", u"STATUSTEXT", None))
@@ -981,42 +1061,43 @@ class Ui_MainWindow(object):
         self.label_temp_val.setText(QCoreApplication.translate("MainWindow", u"TEMP_VAL", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u00b0C", None))
         self.groupBox_2.setTitle("")
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Refresh", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Experiments", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Add", None))
         self.groupBox_4.setTitle("")
-        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"+", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Experiements to Run", None))
+        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"+", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.groupBox_5.setTitle("")
-        self.line_edit_duration.setText(QCoreApplication.translate("MainWindow", u"HH:MM:SS", None))
-        self.checkbox_save_video.setText(QCoreApplication.translate("MainWindow", u"Save Video", None))
-        self.line_edit_video_path.setText(QCoreApplication.translate("MainWindow", u"\"Path to video\"", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Full Duration", None))
+        self.line_edit_duration.setText(QCoreApplication.translate("MainWindow", u"HH:MM:SS", None))
         self.checkbox_save_log.setText(QCoreApplication.translate("MainWindow", u"Save log", None))
-        self.btn_set_video_path.setText(QCoreApplication.translate("MainWindow", u"Set Video Path", None))
-        self.btn_set_duration.setText(QCoreApplication.translate("MainWindow", u"Set Duration", None))
-        self.line_edit_log_path.setText(QCoreApplication.translate("MainWindow", u"\"Path to logs\"", None))
-        self.btn_set_log_path.setText(QCoreApplication.translate("MainWindow", u"Set Logs Path", None))
+        self.checkbox_save_video.setText(QCoreApplication.translate("MainWindow", u"Save Video", None))
         self.checkbox_view_live.setText(QCoreApplication.translate("MainWindow", u"View Live", None))
+        self.line_edit_video_path.setText(QCoreApplication.translate("MainWindow", u"\"Path to video\"", None))
+        self.btn_set_log_path.setText(QCoreApplication.translate("MainWindow", u"Set Logs Path", None))
+        self.btn_set_video_path.setText(QCoreApplication.translate("MainWindow", u"Set Video Path", None))
         self.checkbox_live_ir.setText(QCoreApplication.translate("MainWindow", u"Infrared", None))
+        self.line_edit_log_path.setText(QCoreApplication.translate("MainWindow", u"\"Path to logs\"", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Stimulus profile:", None))
-        self.label_15.setText(QCoreApplication.translate("MainWindow", u"PROFILE NAME", None))
-        self.label_16.setText(QCoreApplication.translate("MainWindow", u"Add Stimulus", None))
-        self.btn_center_graph.setText(QCoreApplication.translate("MainWindow", u"Center Graph", None))
+        self.label_stim_profile_name.setText(QCoreApplication.translate("MainWindow", u"PROFILE NAME", None))
+        self.check_box_draw_mode.setText(QCoreApplication.translate("MainWindow", u"Draw Mode", None))
         self.btn_add_stim.setText(QCoreApplication.translate("MainWindow", u"Add", None))
+        self.checkbox_sync_led.setText(QCoreApplication.translate("MainWindow", u"Same as Start", None))
+        self.label_16.setText("")
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"LED Intensity", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"%", None))
-        self.btn_inc_start.setText(QCoreApplication.translate("MainWindow", u"+", None))
-        self.btn_dec_start.setText(QCoreApplication.translate("MainWindow", u"-", None))
-        self.btn_load_stim.setText(QCoreApplication.translate("MainWindow", u"Load Profile", None))
-        self.btn_inc_end.setText(QCoreApplication.translate("MainWindow", u"+", None))
-        self.btn_dec_end.setText(QCoreApplication.translate("MainWindow", u"-", None))
-        self.label_12.setText(QCoreApplication.translate("MainWindow", u"To", None))
         self.checkbox_end.setText(QCoreApplication.translate("MainWindow", u"End", None))
-        self.btn_save_stim.setText(QCoreApplication.translate("MainWindow", u"Save Profile", None))
+        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Seconds", None))
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"To", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Hours", None))
+        self.label_22.setText(QCoreApplication.translate("MainWindow", u"Minutes", None))
+        self.btn_reset_stim.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
+        self.btn_clear_plot.setText(QCoreApplication.translate("MainWindow", u"Clear Plot", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"From", None))
+        self.label_21.setText(QCoreApplication.translate("MainWindow", u"Hours", None))
         self.checkbox_start.setText(QCoreApplication.translate("MainWindow", u"Start", None))
+        self.label_20.setText(QCoreApplication.translate("MainWindow", u"Seconds", None))
+        self.label_19.setText(QCoreApplication.translate("MainWindow", u"Minutes", None))
+        self.btn_center_graph.setText(QCoreApplication.translate("MainWindow", u"Center Graph", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_exp_profile), QCoreApplication.translate("MainWindow", u"EXP_NAME", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Crowdsize", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Drug Name", None))
@@ -1026,7 +1107,7 @@ class Ui_MainWindow(object):
         self.label.setText(QCoreApplication.translate("MainWindow", u"Hatching Time", None))
         self.checkBox_3.setText(QCoreApplication.translate("MainWindow", u"Dechorionated", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_exp_settings), QCoreApplication.translate("MainWindow", u"Additional Settings", None))
-        self.label_18.setText(QCoreApplication.translate("MainWindow", u"C:/PATH_TO_STIM_FILES", None))
+        self.label_path_stim.setText(QCoreApplication.translate("MainWindow", u"C:/PATH_TO_STIM_FILES", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuNew.setTitle(QCoreApplication.translate("MainWindow", u"New", None))
         self.menuOpen.setTitle(QCoreApplication.translate("MainWindow", u"Open", None))
@@ -1035,5 +1116,6 @@ class Ui_MainWindow(object):
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
         self.menuRun.setTitle(QCoreApplication.translate("MainWindow", u"Run", None))
         self.menuAnalysis.setTitle(QCoreApplication.translate("MainWindow", u"Analysis", None))
+        self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))
     # retranslateUi
 

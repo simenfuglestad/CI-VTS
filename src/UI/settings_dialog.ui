@@ -163,7 +163,11 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QSpinBox" name="spin_gamma"/>
+           <widget class="QSpinBox" name="spin_gamma">
+            <property name="maximum">
+             <number>100</number>
+            </property>
+           </widget>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_5">
@@ -192,13 +196,24 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="spin_framerate"/>
+           <widget class="QSpinBox" name="spin_framerate">
+            <property name="maximum">
+             <number>100</number>
+            </property>
+           </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QSpinBox" name="spin_IR_LED"/>
+           <widget class="QSpinBox" name="spin_IR_LED">
+            <property name="maximum">
+             <number>100</number>
+            </property>
+           </widget>
           </item>
           <item row="1" column="2">
            <widget class="QSlider" name="hslider_brightness">
+            <property name="maximum">
+             <number>100</number>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -206,6 +221,9 @@
           </item>
           <item row="3" column="2">
            <widget class="QSlider" name="hslider_gamma">
+            <property name="maximum">
+             <number>100</number>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -246,6 +264,12 @@
           </item>
           <item row="2" column="2">
            <widget class="QSlider" name="hslider_IR_LED">
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="tracking">
+             <bool>true</bool>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -295,20 +319,43 @@
          </layout>
         </item>
         <item>
-         <widget class="QComboBox" name="combo_serial">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
-           <property name="text">
-            <string>(no serial device selected)</string>
-           </property>
+           <widget class="QComboBox" name="combo_serial">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <item>
+             <property name="text">
+              <string>(no serial device selected)</string>
+             </property>
+            </item>
+           </widget>
           </item>
-         </widget>
+          <item>
+           <widget class="QPushButton" name="btn_scan_serial">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Scan</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QPushButton" name="btn_scan_serial">
+           <widget class="QPushButton" name="btn_connect_serial">
             <property name="text">
-             <string>Scan</string>
+             <string>Connect</string>
             </property>
            </widget>
           </item>
@@ -378,6 +425,9 @@
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="2">
            <widget class="QSlider" name="hslider_LED_live">
+            <property name="maximum">
+             <number>100</number>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -467,38 +517,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
