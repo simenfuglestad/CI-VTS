@@ -57,7 +57,6 @@ def load_stimulus_profile(file_path, extension=".json"):
         print(e)
 
 
-
 def get_all_stimulus_profile_names():
     names = []
     for p in os.listdir(_sp_dir):
@@ -66,5 +65,8 @@ def get_all_stimulus_profile_names():
     return names
 
 
-def update_profile(self, data):
-    pass
+def delete_stimulus_profile(name, ext=".json"):
+    if name is not None:
+        os.remove(_sp_dir + name + ext)
+        return True
+    return False

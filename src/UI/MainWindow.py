@@ -40,12 +40,16 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         # self.stim_profile_plot.setXRange(0, 100, 0)
         # self.stim_profile_plot.setYRange(0, 100, 0)
 
-        # self.stim_profile_plot.plot([3, 5], [1, 1])
-
         # Keyboard event control variables
         self.holding_ctrl = False
+        self.holding_s = False
 
         self.resize(size.width(), size.height())
+
+    def show_stimulus_profile_names(self):
+        self.list_stim_profiles.clear()
+        for n in get_all_stimulus_profile_names():
+            self.list_stim_profiles.addItem(n)
 
     def reset_spin_and_slider(self):
         self.spin_start_secs.setValue(0)
@@ -75,11 +79,18 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
                 self.deleted_plot_items.append(deleted)
                 self.plot_stimulus_data()
 
-        if self.holding_ctrl:
-            if event.key() == Qt.Key_Y and len(self.deleted_plot_items) > 0:
+            elif event.key() == Qt.Key_S and len(self.stimulus_plot_data) > 0:
+                save_stimulus_profile(self.stimulus_plot_data)
+                self.show_stimulus_profile_names()
+
+            elif event.key() == Qt.Key_Y and len(self.deleted_plot_items) > 0:
                 undeleted = self.deleted_plot_items.pop()
                 self.stimulus_plot_data.append(undeleted)
                 self.plot_stimulus_data()
+
+        elif event.key() == Qt.Key_Delete:
+            delete_stimulus_profile(self.list_stim_profiles.currentItem().text())
+            self.list_stim_profiles.takeItem(self.list_stim_profiles.currentRow())
 
         if event.key() == Qt.Key_Control:
             self.holding_ctrl = True
@@ -131,9 +142,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         return hours * 60 * 60 + mins * 60 + secs
 
-    def get_stimulus_led(self):
-        return self.hslider_stim_led_end.value()
-
     def add_to_stimulus_plot(self):
         start = self.get_stimulus_start()
         end = self.get_stimulus_end()
@@ -175,14 +183,17 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
     def view_stimulus_profile(self):
         selected = self.list_stim_profiles.selectedItems()[0].text()
-        # self.tabWidget.setTabText(0, selected)
         profile = load_stimulus_profile(selected)
         if profile is not None:
             self.label_stim_profile_name.setText(selected)
             self.stim_profile_plot.clear()
             self.current_stimulus_profile = profile
-            self.stim_profile_plot.plot(profile["data"])
+            data = profile["data"]
+            for d in data:
+                self.stim_profile_plot.plot(d["time"], d["value"])
+
             self.stimulus_plot_data = profile["data"]
+            self.deleted_plot_items = []
 
     def add_profile_to_experiment(self):
         selected = self.list_stim_profiles.selectedItems()
