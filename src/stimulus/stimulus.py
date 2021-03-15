@@ -1,25 +1,70 @@
 import json
-import io
+import os
+from datetime import datetime
+
+_sp_dir = "stimulus/stimulus_profiles/"
 
 
-class Stimulus(object):
-    def __init__(self):
-        self.save_profile_to_file("a", "name.json")
-        self.load_profile_from_file("name.json")
+def get_sp_dir():
+    return _sp_dir
 
-    def build_profile(self, name, data):
-        pass
 
-    def save_profile_to_file(self, profile, file_name, file_format="json"):
-        data = json.dumps([{"some_index" : "some_data"}, "1"])
-        with open("experiments/" + file_name, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
-        print(data)
+def save_stimulus_profile(data, file_name=None, description=None, file_ext=".json"):
+    try:
+        if file_name is None:
+            done = False
+            index = 1
+            file_name = "stimulus_profile"
+            while not done:
+                if not os.path.isfile(_sp_dir + file_name + file_ext):
+                    done = True
+                else:
+                    file_name = "stimulus_profile" + str(index)
+                    index = index + 1
 
-    def load_profile_from_file(self, file_name):
-        with open("experiments/" + file_name, 'r') as f:
+        elif os.path.isfile(_sp_dir + file_name + file_ext):
+            done = False
+            index = 1
+            tmp_file_name = file_name + str(index)
+            while not done:
+                if not os.path.isfile(_sp_dir + tmp_file_name + file_ext):
+                    done = True
+                    file_name = tmp_file_name
+                else:
+                    index = index + 1
+                    tmp_file_name = file_name + str(index)
+
+        profile = {"name": file_name, "description": description, "date_created": str(datetime.now().date()), "data": data,}
+
+        with open(_sp_dir + file_name + file_ext, 'w') as f:
+            json.dump(profile, f, ensure_ascii=False, indent=4)
+
+        return profile
+
+    except Exception as e:
+        print("Error when saving profile:")
+        print(e)
+        return False
+
+
+def load_stimulus_profile(file_path, extension=".json"):
+    try:
+        with open(_sp_dir + file_path + extension, 'r') as f:
             r_data = json.load(f)
-            print(json.loads(r_data)[0])
+            return r_data
+    except Exception as e:
+        print("Error when loading profile:")
+        print(e)
 
-    def update_profile(self, data):
-        pass
+
+
+def get_all_stimulus_profile_names():
+    names = []
+    for p in os.listdir(_sp_dir):
+        with open(_sp_dir + p, 'r') as f:
+            names.append(json.load(f)["name"])
+    return names
+
+
+def update_profile(self, data):
+    pass

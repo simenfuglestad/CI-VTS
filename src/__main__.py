@@ -5,7 +5,6 @@ from PySide6.QtWidgets import *
 
 from UI.MainWindow import MainWindow
 from serial_interface.serial_interface import *
-from stimulus.stimulus import Stimulus
 from arduino.arduino import Arduino
 from UI.AnalysisDialog import AnalysisDialog
 from UI.SettingsDialog import SettingsDialog
@@ -18,9 +17,6 @@ class Main(QApplication):
         #init serial_interface interface
         self.serial_interface = SerialInterface()
 
-        #init stimulus
-        self.stimulus = Stimulus()
-
         #init Arduino
         self.arduino = Arduino()
 
@@ -28,7 +24,9 @@ class Main(QApplication):
         self.settings_dialog = SettingsDialog(serial_interface=self.serial_interface)
         self.analysis_dialog = AnalysisDialog()
 
-        self.main_window = MainWindow(settings_dialog=self.settings_dialog, analysis_dialog=self.analysis_dialog, size=self.primaryScreen().size())
+        self.main_window = MainWindow(
+            settings_dialog=self.settings_dialog, analysis_dialog=self.analysis_dialog,
+            size=self.primaryScreen().size())
         self.main_window.setWindowTitle("CI-VTS")
         self.main_window.show()
 
@@ -36,4 +34,4 @@ class Main(QApplication):
 if __name__ == '__main__':
     # app = QApplication(sys.argv)
     app = Main()
-    # sys.exit(app.exec_())
+    sys.exit(app.exec_())
