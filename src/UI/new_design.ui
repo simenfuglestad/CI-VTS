@@ -1017,7 +1017,7 @@
                  </widget>
                 </item>
                 <item row="3" column="1">
-                 <widget class="QLineEdit" name="line_edit_video_path">
+                 <widget class="QLineEdit" name="lineedit_video_path">
                   <property name="text">
                    <string>&quot;Path to video&quot;</string>
                   </property>
@@ -2138,7 +2138,7 @@
               </spacer>
              </item>
              <item row="6" column="3">
-              <widget class="QSpinBox" name="spinBox">
+              <widget class="QSpinBox" name="spin_crowdsize">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -2190,7 +2190,7 @@
               </widget>
              </item>
              <item row="4" column="1">
-              <widget class="QCheckBox" name="checkBox_2">
+              <widget class="QCheckBox" name="checkbox_drugs">
                <property name="layoutDirection">
                 <enum>Qt::RightToLeft</enum>
                </property>
@@ -2200,7 +2200,7 @@
               </widget>
              </item>
              <item row="4" column="3">
-              <widget class="QLineEdit" name="lineEdit_2">
+              <widget class="QLineEdit" name="lineedit_drug_name">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -2210,7 +2210,7 @@
               </widget>
              </item>
              <item row="2" column="3">
-              <widget class="QLineEdit" name="lineEdit">
+              <widget class="QLineEdit" name="lineedit_geno">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -2233,7 +2233,7 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QCheckBox" name="checkBox">
+              <widget class="QCheckBox" name="checkbox_genetics">
                <property name="layoutDirection">
                 <enum>Qt::RightToLeft</enum>
                </property>
@@ -2243,7 +2243,7 @@
               </widget>
              </item>
              <item row="0" column="3">
-              <widget class="QComboBox" name="comboBox">
+              <widget class="QComboBox" name="combo_hatch">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2266,7 +2266,7 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QCheckBox" name="checkBox_3">
+              <widget class="QCheckBox" name="checkbox_dechorionated">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                  <horstretch>0</horstretch>

@@ -54,7 +54,7 @@ def save_stimulus_profile(data, file_name=None, description=None, file_ext=".jso
         return profile
 
     except Exception as e:
-        print("Error when saving profile:")
+        print("Error when saving stimulus profile:")
         print(e)
         return False
 
@@ -78,7 +78,7 @@ def get_all_stimulus_profile_names():
             with open(_sp_dir + p, 'r') as f:
                 names.append(json.load(f)["name"])
     except Exception as e:
-        print("Error when getting profile names:")
+        print("Error when getting stimulus profile names:")
         print(e)
     return names
 

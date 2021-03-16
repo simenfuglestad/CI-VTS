@@ -2,12 +2,21 @@ from PySide6.QtCore import *
 from PySide6.QtWidgets import *
 from UI.ui import Ui_MainWindow
 from stimulus.stimulus import *
-import pyqtgraph as pg
+from experiment.experiment import *
+
 
 class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
-    def __init__(self, settings_dialog, analysis_dialog, size, parent=None):
+    def __init__(self, settings_dialog, analysis_dialog, serial_interface, size, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+
+        """Initialize Experiment Settings"""
+        self.show_experiment_profile_names()
+        self.current_experiment = None
+        self.list_exp_profiles.itemDoubleClicked.connect(self.add_experiment_to_run)
+
+        self.btn_run.clicked.connect(self.run_experiment)
+        """Initialize Stimulus Settings"""
 
         # Bind menu actions
         QObject.connect(self.actionSetup, SIGNAL("triggered()"), settings_dialog.show)
@@ -45,6 +54,18 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.holding_s = False
 
         self.resize(size.width(), size.height())
+
+    def show_experiment_profile_names(self):
+        self.list_exp_profiles.clear()
+        for e in get_all_experiment_profile_names():
+            self.list_exp_profiles.addItem(e)
+
+    def add_experiment_to_run(self):
+        selected = self.list_exp_profiles.selectedItems()[0].text()
+        self.list_experiments_to_run.addItem(selected)
+
+    def run_experiment(self):
+        print("running")
 
     def show_stimulus_profile_names(self):
         self.list_stim_profiles.clear()
@@ -100,6 +121,25 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         if event.key() == Qt.Key_Control:
             self.holding_ctrl = True
+
+    def save_current_config(self):
+        save_stimulus_profile(self.stimulus_plot_data)
+        save_experiment_profile()
+
+    def get_current_experiment_settings(self):
+        return {"duration": self.get_duration(), "video_path": self.lineedit_video_path.text(),
+                "log_path": self.line_edit_log_path.text(), "view_live": self.checkbox_view_live.isChecked(),
+                "view_infrared": self.checkbox_live_ir.isChecked(), "dechorionated": self.checkbox_dechorionated.isChecked(),
+                "hatching_time": self.combo_hatch.currentText(), "genetics": self.checkbox_genetics.isChecked(),
+                "geno_type": self.lineedit_geno.text(), "drugs": self.checkbox_drugs,
+                "drug_name": self.lineedit_drug_name.text(), "crowd_size": self.spin_crowdsize.value()}
+
+    def get_duration(self):
+        hours = self.spin_duration_hour.value()
+        mins = self.spin_duration_min.value()
+        secs = self.spin_duration_sec.value()
+        self.line_edit_duration.setText(str(hours) + ":" + str(mins) + ":" + str(secs))
+        return hours * 60 * 60 + mins * 60 + secs
 
     def slide_adjust_led_end(self):
         slide_val = self.hslider_stim_led_end.value()
@@ -204,6 +244,5 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
     def add_profile_to_experiment(self):
         selected = self.list_stim_profiles.selectedItems()
         for s in selected:
-
             print(s.text())
         print(selected)
