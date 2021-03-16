@@ -15,10 +15,10 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         # Init Stimulus Profile and Data
         self.current_stimulus_profile = None
-        self.stimulus_profile_names = [self.list_stim_profiles.addItem(x) for x in get_all_stimulus_profile_names()]
+        self.show_stimulus_profile_names()
+        # self.stimulus_profile_names = [self.list_stim_profiles.addItem(x) for x in get_all_stimulus_profile_names()]
         self.stimulus_plot_data = []
         self.deleted_plot_items = []
-
 
         # Bindings Stimulus List
         self.list_stim_profiles.itemDoubleClicked.connect(self.view_stimulus_profile)
@@ -51,6 +51,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         for n in get_all_stimulus_profile_names():
             self.list_stim_profiles.addItem(n)
 
+        self.list_stim_profiles.sortItems()
+
     def reset_spin_and_slider(self):
         self.spin_start_secs.setValue(0)
         self.spin_start_mins.setValue(0)
@@ -67,6 +69,9 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         if event.key() == Qt.Key_Control:
             self.holding_ctrl = False
 
+        if event.key() == Qt.Key_S:
+            self.holding_s = False
+
     def plot_stimulus_data(self):
         self.stim_profile_plot.clear()
         for p in self.stimulus_plot_data:
@@ -79,16 +84,17 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
                 self.deleted_plot_items.append(deleted)
                 self.plot_stimulus_data()
 
-            elif event.key() == Qt.Key_S and len(self.stimulus_plot_data) > 0:
+            elif event.key() == Qt.Key_S and len(self.stimulus_plot_data) > 0 and not self.holding_s:
                 save_stimulus_profile(self.stimulus_plot_data)
                 self.show_stimulus_profile_names()
+                self.holding_s = True
 
             elif event.key() == Qt.Key_Y and len(self.deleted_plot_items) > 0:
                 undeleted = self.deleted_plot_items.pop()
                 self.stimulus_plot_data.append(undeleted)
                 self.plot_stimulus_data()
 
-        elif event.key() == Qt.Key_Delete:
+        elif event.key() == Qt.Key_Delete and self.list_stim_profiles.count() > 0:
             delete_stimulus_profile(self.list_stim_profiles.currentItem().text())
             self.list_stim_profiles.takeItem(self.list_stim_profiles.currentRow())
 
