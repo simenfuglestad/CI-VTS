@@ -9,6 +9,17 @@ def get_sp_dir():
     return _sp_dir
 
 
+def verify_or_create_sp_dir(func):
+    try:
+        if not os.path.isdir(_sp_dir):
+            os.mkdir(_sp_dir)
+        return func
+    except Exception as e:
+        print("Error verifying stimulus profile dir:")
+        print(e)
+
+
+@verify_or_create_sp_dir
 def save_stimulus_profile(data, file_name=None, description=None, file_ext=".json"):
     try:
         if file_name is None:
@@ -34,7 +45,8 @@ def save_stimulus_profile(data, file_name=None, description=None, file_ext=".jso
                     index = index + 1
                     tmp_file_name = file_name + str(index)
 
-        profile = {"name": file_name, "description": description, "date_created": str(datetime.now().date()), "data": data,}
+        profile = {"name": file_name, "description": description, "date_created": str(datetime.now().date()),
+                   "data": data, }
 
         with open(_sp_dir + file_name + file_ext, 'w') as f:
             json.dump(profile, f, ensure_ascii=False, indent=4)
@@ -47,6 +59,7 @@ def save_stimulus_profile(data, file_name=None, description=None, file_ext=".jso
         return False
 
 
+@verify_or_create_sp_dir
 def load_stimulus_profile(file_path, extension=".json"):
     try:
         with open(_sp_dir + file_path + extension, 'r') as f:
@@ -57,14 +70,25 @@ def load_stimulus_profile(file_path, extension=".json"):
         print(e)
 
 
-
+@verify_or_create_sp_dir
 def get_all_stimulus_profile_names():
     names = []
-    for p in os.listdir(_sp_dir):
-        with open(_sp_dir + p, 'r') as f:
-            names.append(json.load(f)["name"])
+    try:
+        for p in os.listdir(_sp_dir):
+            with open(_sp_dir + p, 'r') as f:
+                names.append(json.load(f)["name"])
+    except Exception as e:
+        print("Error when getting profile names:")
+        print(e)
     return names
 
 
-def update_profile(self, data):
-    pass
+def delete_stimulus_profile(name, ext=".json"):
+    try:
+        if name is not None:
+            os.remove(_sp_dir + name + ext)
+            return True
+    except Exception as e:
+        print("An error occurred when deleting stimulus profile:")
+        print(e)
+        return False
