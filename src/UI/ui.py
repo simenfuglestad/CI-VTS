@@ -20,20 +20,20 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1219, 759)
-        self.actionExperiment = QAction(MainWindow)
-        self.actionExperiment.setObjectName(u"actionExperiment")
-        self.actionStimulus_Profile = QAction(MainWindow)
-        self.actionStimulus_Profile.setObjectName(u"actionStimulus_Profile")
-        self.actionExperiment_2 = QAction(MainWindow)
-        self.actionExperiment_2.setObjectName(u"actionExperiment_2")
-        self.actionStimulus_Profile_2 = QAction(MainWindow)
-        self.actionStimulus_Profile_2.setObjectName(u"actionStimulus_Profile_2")
+        self.actionExperiment_new = QAction(MainWindow)
+        self.actionExperiment_new.setObjectName(u"actionExperiment_new")
+        self.actionStimulus_Profile_new = QAction(MainWindow)
+        self.actionStimulus_Profile_new.setObjectName(u"actionStimulus_Profile_new")
+        self.actionExperiment_open = QAction(MainWindow)
+        self.actionExperiment_open.setObjectName(u"actionExperiment_open")
+        self.actionStimulus_Profile_open = QAction(MainWindow)
+        self.actionStimulus_Profile_open.setObjectName(u"actionStimulus_Profile_open")
         self.actionSetup = QAction(MainWindow)
         self.actionSetup.setObjectName(u"actionSetup")
         self.actionGeneral = QAction(MainWindow)
         self.actionGeneral.setObjectName(u"actionGeneral")
-        self.actionCurrent_Run_Profile = QAction(MainWindow)
-        self.actionCurrent_Run_Profile.setObjectName(u"actionCurrent_Run_Profile")
+        self.actionExperiment_save = QAction(MainWindow)
+        self.actionExperiment_save.setObjectName(u"actionExperiment_save")
         self.actionSelected_Experiment = QAction(MainWindow)
         self.actionSelected_Experiment.setObjectName(u"actionSelected_Experiment")
         self.actionAll_Experiments = QAction(MainWindow)
@@ -48,6 +48,8 @@ class Ui_MainWindow(object):
         self.actionUndo.setObjectName(u"actionUndo")
         self.actionRedo = QAction(MainWindow)
         self.actionRedo.setObjectName(u"actionRedo")
+        self.actionStimulus_Profile_save = QAction(MainWindow)
+        self.actionStimulus_Profile_save.setObjectName(u"actionStimulus_Profile_save")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
@@ -363,6 +365,7 @@ class Ui_MainWindow(object):
         self.line_edit_duration.setObjectName(u"line_edit_duration")
         sizePolicy3.setHeightForWidth(self.line_edit_duration.sizePolicy().hasHeightForWidth())
         self.line_edit_duration.setSizePolicy(sizePolicy3)
+        self.line_edit_duration.setReadOnly(True)
 
         self.horizontalLayout_4.addWidget(self.line_edit_duration)
 
@@ -373,6 +376,8 @@ class Ui_MainWindow(object):
         sizePolicy6.setVerticalStretch(0)
         sizePolicy6.setHeightForWidth(self.spin_duration_hour.sizePolicy().hasHeightForWidth())
         self.spin_duration_hour.setSizePolicy(sizePolicy6)
+        self.spin_duration_hour.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        self.spin_duration_hour.setDisplayIntegerBase(10)
 
         self.horizontalLayout_4.addWidget(self.spin_duration_hour)
 
@@ -422,15 +427,16 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.checkbox_view_live, 5, 0, 1, 1)
 
-        self.lineedit_video_path = QLineEdit(self.groupBox_5)
-        self.lineedit_video_path.setObjectName(u"lineedit_video_path")
+        self.line_edit_video_path = QLineEdit(self.groupBox_5)
+        self.line_edit_video_path.setObjectName(u"line_edit_video_path")
+        self.line_edit_video_path.setReadOnly(True)
 
-        self.gridLayout_5.addWidget(self.lineedit_video_path, 3, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.line_edit_video_path, 3, 1, 1, 1)
 
-        self.btn_set_log_path = QPushButton(self.groupBox_5)
-        self.btn_set_log_path.setObjectName(u"btn_set_log_path")
+        self.btn_set_logs_path = QPushButton(self.groupBox_5)
+        self.btn_set_logs_path.setObjectName(u"btn_set_logs_path")
 
-        self.gridLayout_5.addWidget(self.btn_set_log_path, 4, 2, 1, 1)
+        self.gridLayout_5.addWidget(self.btn_set_logs_path, 4, 2, 1, 1)
 
         self.btn_set_video_path = QPushButton(self.groupBox_5)
         self.btn_set_video_path.setObjectName(u"btn_set_video_path")
@@ -536,15 +542,16 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addLayout(self.horizontalLayout_20, 5, 1, 1, 1)
 
-        self.line_edit_log_path = QLineEdit(self.groupBox_5)
-        self.line_edit_log_path.setObjectName(u"line_edit_log_path")
+        self.line_edit_logs_path = QLineEdit(self.groupBox_5)
+        self.line_edit_logs_path.setObjectName(u"line_edit_logs_path")
         sizePolicy7 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         sizePolicy7.setHorizontalStretch(0)
         sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.line_edit_log_path.sizePolicy().hasHeightForWidth())
-        self.line_edit_log_path.setSizePolicy(sizePolicy7)
+        sizePolicy7.setHeightForWidth(self.line_edit_logs_path.sizePolicy().hasHeightForWidth())
+        self.line_edit_logs_path.setSizePolicy(sizePolicy7)
+        self.line_edit_logs_path.setReadOnly(True)
 
-        self.gridLayout_5.addWidget(self.line_edit_log_path, 4, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.line_edit_logs_path, 4, 1, 1, 1)
 
 
         self.verticalLayout_4.addLayout(self.gridLayout_5)
@@ -722,11 +729,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_11.addWidget(self.checkbox_end, 2, 1, 1, 1)
 
-        self.spin_end_secs = QDoubleSpinBox(self.groupBox_5)
-        self.spin_end_secs.setObjectName(u"spin_end_secs")
-
-        self.gridLayout_11.addWidget(self.spin_end_secs, 4, 3, 1, 1)
-
         self.label_23 = QLabel(self.groupBox_5)
         self.label_23.setObjectName(u"label_23")
         sizePolicy7.setHeightForWidth(self.label_23.sizePolicy().hasHeightForWidth())
@@ -777,6 +779,12 @@ class Ui_MainWindow(object):
 
         self.gridLayout_11.addWidget(self.btn_clear_plot, 0, 3, 1, 1)
 
+        self.spin_end_secs = QSpinBox(self.groupBox_5)
+        self.spin_end_secs.setObjectName(u"spin_end_secs")
+        self.spin_end_secs.setMaximum(59)
+
+        self.gridLayout_11.addWidget(self.spin_end_secs, 4, 3, 1, 1)
+
 
         self.gridLayout_4.addLayout(self.gridLayout_11, 1, 2, 1, 1)
 
@@ -795,13 +803,6 @@ class Ui_MainWindow(object):
         self.label_11.setSizePolicy(sizePolicy10)
 
         self.gridLayout_10.addWidget(self.label_11, 3, 0, 1, 1)
-
-        self.spin_start_secs = QDoubleSpinBox(self.groupBox_5)
-        self.spin_start_secs.setObjectName(u"spin_start_secs")
-        self.spin_start_secs.setDecimals(3)
-        self.spin_start_secs.setMaximum(59.999000000000002)
-
-        self.gridLayout_10.addWidget(self.spin_start_secs, 6, 2, 1, 1)
 
         self.label_21 = QLabel(self.groupBox_5)
         self.label_21.setObjectName(u"label_21")
@@ -848,6 +849,12 @@ class Ui_MainWindow(object):
         self.btn_center_graph.setObjectName(u"btn_center_graph")
 
         self.gridLayout_10.addWidget(self.btn_center_graph, 2, 0, 1, 1)
+
+        self.spin_start_secs = QSpinBox(self.groupBox_5)
+        self.spin_start_secs.setObjectName(u"spin_start_secs")
+        self.spin_start_secs.setMaximum(59)
+
+        self.gridLayout_10.addWidget(self.spin_start_secs, 6, 2, 1, 1)
 
 
         self.gridLayout_4.addLayout(self.gridLayout_10, 1, 0, 1, 1)
@@ -903,19 +910,19 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.checkbox_drugs, 4, 1, 1, 1)
 
-        self.lineedit_drug_name = QLineEdit(self.tab_exp_settings)
-        self.lineedit_drug_name.setObjectName(u"lineedit_drug_name")
-        sizePolicy7.setHeightForWidth(self.lineedit_drug_name.sizePolicy().hasHeightForWidth())
-        self.lineedit_drug_name.setSizePolicy(sizePolicy7)
+        self.line_edit_drug_name = QLineEdit(self.tab_exp_settings)
+        self.line_edit_drug_name.setObjectName(u"line_edit_drug_name")
+        sizePolicy7.setHeightForWidth(self.line_edit_drug_name.sizePolicy().hasHeightForWidth())
+        self.line_edit_drug_name.setSizePolicy(sizePolicy7)
 
-        self.gridLayout_7.addWidget(self.lineedit_drug_name, 4, 3, 1, 1)
+        self.gridLayout_7.addWidget(self.line_edit_drug_name, 4, 3, 1, 1)
 
-        self.lineedit_geno = QLineEdit(self.tab_exp_settings)
-        self.lineedit_geno.setObjectName(u"lineedit_geno")
-        sizePolicy7.setHeightForWidth(self.lineedit_geno.sizePolicy().hasHeightForWidth())
-        self.lineedit_geno.setSizePolicy(sizePolicy7)
+        self.line_edit_geno_type = QLineEdit(self.tab_exp_settings)
+        self.line_edit_geno_type.setObjectName(u"line_edit_geno_type")
+        sizePolicy7.setHeightForWidth(self.line_edit_geno_type.sizePolicy().hasHeightForWidth())
+        self.line_edit_geno_type.setSizePolicy(sizePolicy7)
 
-        self.gridLayout_7.addWidget(self.lineedit_geno, 2, 3, 1, 1)
+        self.gridLayout_7.addWidget(self.line_edit_geno_type, 2, 3, 1, 1)
 
         self.label_3 = QLabel(self.tab_exp_settings)
         self.label_3.setObjectName(u"label_3")
@@ -930,15 +937,15 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.checkbox_genetics, 2, 1, 1, 1)
 
-        self.combo_hatch = QComboBox(self.tab_exp_settings)
-        self.combo_hatch.setObjectName(u"combo_hatch")
+        self.combo_hatching_time = QComboBox(self.tab_exp_settings)
+        self.combo_hatching_time.setObjectName(u"combo_hatching_time")
         sizePolicy12 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
         sizePolicy12.setHorizontalStretch(0)
         sizePolicy12.setVerticalStretch(0)
-        sizePolicy12.setHeightForWidth(self.combo_hatch.sizePolicy().hasHeightForWidth())
-        self.combo_hatch.setSizePolicy(sizePolicy12)
+        sizePolicy12.setHeightForWidth(self.combo_hatching_time.sizePolicy().hasHeightForWidth())
+        self.combo_hatching_time.setSizePolicy(sizePolicy12)
 
-        self.gridLayout_7.addWidget(self.combo_hatch, 0, 3, 1, 1)
+        self.gridLayout_7.addWidget(self.combo_hatching_time, 0, 3, 1, 1)
 
         self.label = QLabel(self.tab_exp_settings)
         self.label.setObjectName(u"label")
@@ -981,8 +988,6 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QRect(0, 0, 1219, 23))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
-        self.menuNew = QMenu(self.menuFile)
-        self.menuNew.setObjectName(u"menuNew")
         self.menuOpen = QMenu(self.menuFile)
         self.menuOpen.setObjectName(u"menuOpen")
         self.menuSave = QMenu(self.menuFile)
@@ -1008,16 +1013,14 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuSettings.menuAction())
         self.menubar.addAction(self.menuAnalysis.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
-        self.menuFile.addAction(self.menuNew.menuAction())
         self.menuFile.addAction(self.menuOpen.menuAction())
         self.menuFile.addAction(self.menuSave.menuAction())
-        self.menuNew.addAction(self.actionExperiment)
-        self.menuNew.addAction(self.actionStimulus_Profile)
         self.menuOpen.addSeparator()
         self.menuOpen.addSeparator()
-        self.menuOpen.addAction(self.actionExperiment_2)
-        self.menuOpen.addAction(self.actionStimulus_Profile_2)
-        self.menuSave.addAction(self.actionCurrent_Run_Profile)
+        self.menuOpen.addAction(self.actionExperiment_open)
+        self.menuOpen.addAction(self.actionStimulus_Profile_open)
+        self.menuSave.addAction(self.actionExperiment_save)
+        self.menuSave.addAction(self.actionStimulus_Profile_save)
         self.menuSettings.addAction(self.actionSetup)
         self.menuSettings.addAction(self.actionGeneral)
         self.menuRun.addAction(self.actionSelected_Experiments)
@@ -1036,13 +1039,13 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.actionExperiment.setText(QCoreApplication.translate("MainWindow", u"Experiment", None))
-        self.actionStimulus_Profile.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profile", None))
-        self.actionExperiment_2.setText(QCoreApplication.translate("MainWindow", u"Experiment", None))
-        self.actionStimulus_Profile_2.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profile", None))
+        self.actionExperiment_new.setText(QCoreApplication.translate("MainWindow", u"Experiment", None))
+        self.actionStimulus_Profile_new.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profile", None))
+        self.actionExperiment_open.setText(QCoreApplication.translate("MainWindow", u"Experiment", None))
+        self.actionStimulus_Profile_open.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profile", None))
         self.actionSetup.setText(QCoreApplication.translate("MainWindow", u"Setup", None))
         self.actionGeneral.setText(QCoreApplication.translate("MainWindow", u"General", None))
-        self.actionCurrent_Run_Profile.setText(QCoreApplication.translate("MainWindow", u"Current Run Profile", None))
+        self.actionExperiment_save.setText(QCoreApplication.translate("MainWindow", u"Experiment", None))
         self.actionSelected_Experiment.setText(QCoreApplication.translate("MainWindow", u"Selected Experiment", None))
         self.actionAll_Experiments.setText(QCoreApplication.translate("MainWindow", u"All Experiments", None))
         self.actionSelected_Experiments.setText(QCoreApplication.translate("MainWindow", u"Selected Experiments", None))
@@ -1050,6 +1053,7 @@ class Ui_MainWindow(object):
         self.actionView.setText(QCoreApplication.translate("MainWindow", u"View", None))
         self.actionUndo.setText(QCoreApplication.translate("MainWindow", u"Undo (Ctrl + z)", None))
         self.actionRedo.setText(QCoreApplication.translate("MainWindow", u"Redo (Ctrl + y)", None))
+        self.actionStimulus_Profile_save.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profile", None))
         self.groupBox_main.setTitle("")
         self.groupBox_3.setTitle("")
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profiles", None))
@@ -1072,11 +1076,11 @@ class Ui_MainWindow(object):
         self.checkbox_save_log.setText(QCoreApplication.translate("MainWindow", u"Save log", None))
         self.checkbox_save_video.setText(QCoreApplication.translate("MainWindow", u"Save Video", None))
         self.checkbox_view_live.setText(QCoreApplication.translate("MainWindow", u"View Live", None))
-        self.lineedit_video_path.setText(QCoreApplication.translate("MainWindow", u"\"Path to video\"", None))
-        self.btn_set_log_path.setText(QCoreApplication.translate("MainWindow", u"Set Logs Path", None))
+        self.line_edit_video_path.setText(QCoreApplication.translate("MainWindow", u"\"Path to video\"", None))
+        self.btn_set_logs_path.setText(QCoreApplication.translate("MainWindow", u"Set Logs Path", None))
         self.btn_set_video_path.setText(QCoreApplication.translate("MainWindow", u"Set Video Path", None))
         self.checkbox_live_ir.setText(QCoreApplication.translate("MainWindow", u"Infrared", None))
-        self.line_edit_log_path.setText(QCoreApplication.translate("MainWindow", u"\"Path to logs\"", None))
+        self.line_edit_logs_path.setText(QCoreApplication.translate("MainWindow", u"\"Path to logs\"", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Stimulus profile:", None))
         self.label_stim_profile_name.setText(QCoreApplication.translate("MainWindow", u"PROFILE NAME", None))
         self.check_box_draw_mode.setText(QCoreApplication.translate("MainWindow", u"Draw Mode", None))
@@ -1109,7 +1113,6 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_exp_settings), QCoreApplication.translate("MainWindow", u"Additional Settings", None))
         self.label_path_stim.setText(QCoreApplication.translate("MainWindow", u"C:/PATH_TO_STIM_FILES", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
-        self.menuNew.setTitle(QCoreApplication.translate("MainWindow", u"New", None))
         self.menuOpen.setTitle(QCoreApplication.translate("MainWindow", u"Open", None))
         self.menuSave.setTitle(QCoreApplication.translate("MainWindow", u"Save", None))
         self.menuSettings.setTitle(QCoreApplication.translate("MainWindow", u"Settings", None))
