@@ -22,13 +22,17 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.current_experiment = None
         self.list_exp_profiles.itemDoubleClicked.connect(self.add_experiment_to_run)
 
-        self.list_experiments_to_run.itemDoubleClicked.connect(self.view_experiment_to_run)
+        self.list_experiments_to_run.itemClicked.connect(self.view_experiment_to_run)
 
         self.video_path = video_path
+        self.line_edit_video_path.setText(video_path)
         self.btn_set_video_path.clicked.connect(self.set_video_path)
 
         self.logs_path = logs_path
+        self.line_edit_logs_path.setText(logs_path)
         self.btn_set_logs_path.clicked.connect(self.set_logs_path)
+
+        self.format_duration_text()
 
         self.spin_duration_hour.valueChanged.connect(self.format_duration_text)
         self.spin_duration_min.valueChanged.connect(self.format_duration_text)
@@ -133,6 +137,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             profile = make_stimulus_profile(self.stimulus_plotted_data, file_name=file_name)
             save_stimulus_profile(profile)
             self.current_stimulus_profile_name = file_name
+            self.label_stim_profile_name.setText(file_name)
             self.current_stimulus_profile = profile
         self.show_stimulus_profile_names()
 
@@ -146,10 +151,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
                                                  caption="Save Experiment")
         ext = experiment[1]
         file_name = experiment[0][experiment[0].rfind('/') + 1: len(experiment[0])].split('.')[0]
-        print(self.current_stimulus_profile)
         if file_name != '':
             path = experiment[1][0:experiment[1].rfind('/') + 1]
-            print(path)
             save_experiment_profile(stimulus_profile=self.current_stimulus_profile, file_name=file_name,
                                     experiment_settings=self.get_current_experiment_settings())
             # save_stimulus_profile(self.current_stimulus_profile)
@@ -190,7 +193,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
     def view_experiment_to_run(self):
         selected = self.list_experiments_to_run.selectedItems()[0].text()
-        print(selected)
         experiment = load_experiment_profile(file_name=selected, file_path=self.experiments_path)
         if experiment is not None:
             self.current_experiment = experiment
@@ -367,9 +369,3 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
     def center_stimulus_plot(self):
         self.stim_profile_plot.enableAutoRange(enable=True)
-
-    def add_profile_to_experiment(self):
-        selected = self.list_stim_profiles.selectedItems()
-        for s in selected:
-            print(s.text())
-        print(selected)
