@@ -4,6 +4,7 @@ from datetime import datetime
 import math
 from PySide6.QtCore import QRunnable
 import time
+import timeit
 
 _ex_dir = "experiment/experiment_profiles/"
 
@@ -31,6 +32,10 @@ class ExperimentRunner(QRunnable):
             time.sleep(self.resolution)
             time_passed = time_passed + self.resolution
             val = val + step_val
+            if val > 100:
+                val = 100
+            elif val < 0:
+                val = 0
 
     def run(self):
         for item in self.plot_data:
