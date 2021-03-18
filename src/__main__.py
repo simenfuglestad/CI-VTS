@@ -26,7 +26,7 @@ class Main(QApplication):
 
         self.main_window = MainWindow(
             settings_dialog=self.settings_dialog, analysis_dialog=self.analysis_dialog,
-            size=self.primaryScreen().size())
+            serial_interface=self.serial_interface, size=self.primaryScreen().size())
         self.main_window.setWindowTitle("CI-VTS")
         self.main_window.show()
 

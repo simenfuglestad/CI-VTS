@@ -76,6 +76,9 @@ class SerialInterface(object):
             print(e)
             return False
 
+    def run_experiment(self, experiment):
+        print("running")
+
     def verify_serial_connection(f):
         def inner_verify(self, data):
             if self.connected:

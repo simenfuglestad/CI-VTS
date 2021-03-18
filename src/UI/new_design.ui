@@ -918,6 +918,9 @@
                     <property name="text">
                      <string>HH:MM:SS</string>
                     </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
                    </widget>
                   </item>
                   <item>
@@ -927,6 +930,12 @@
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
+                    </property>
+                    <property name="stepType">
+                     <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+                    </property>
+                    <property name="displayIntegerBase">
+                     <number>10</number>
                     </property>
                    </widget>
                   </item>
@@ -1021,10 +1030,13 @@
                   <property name="text">
                    <string>&quot;Path to video&quot;</string>
                   </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
                 <item row="4" column="2">
-                 <widget class="QPushButton" name="btn_set_log_path">
+                 <widget class="QPushButton" name="btn_set_logs_path">
                   <property name="text">
                    <string>Set Logs Path</string>
                   </property>
@@ -1659,7 +1671,7 @@
                  </layout>
                 </item>
                 <item row="4" column="1">
-                 <widget class="QLineEdit" name="line_edit_log_path">
+                 <widget class="QLineEdit" name="line_edit_logs_path">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1668,6 +1680,9 @@
                   </property>
                   <property name="text">
                    <string>&quot;Path to logs&quot;</string>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -1902,9 +1917,6 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="3">
-                   <widget class="QDoubleSpinBox" name="spin_end_secs"/>
-                  </item>
                   <item row="3" column="3">
                    <widget class="QLabel" name="label_23">
                     <property name="sizePolicy">
@@ -1983,6 +1995,13 @@
                     </property>
                    </widget>
                   </item>
+                  <item row="4" column="3">
+                   <widget class="QSpinBox" name="spin_end_secs">
+                    <property name="maximum">
+                     <number>59</number>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </item>
                 <item row="2" column="2">
@@ -2004,16 +2023,6 @@
                     </property>
                     <property name="text">
                      <string>From</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="2">
-                   <widget class="QDoubleSpinBox" name="spin_start_secs">
-                    <property name="decimals">
-                     <number>3</number>
-                    </property>
-                    <property name="maximum">
-                     <double>59.999000000000002</double>
                     </property>
                    </widget>
                   </item>
@@ -2092,6 +2101,13 @@
                     </property>
                    </widget>
                   </item>
+                  <item row="6" column="2">
+                   <widget class="QSpinBox" name="spin_start_secs">
+                    <property name="maximum">
+                     <number>59</number>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </item>
                </layout>
@@ -2138,7 +2154,7 @@
               </spacer>
              </item>
              <item row="6" column="3">
-              <widget class="QSpinBox" name="spinBox">
+              <widget class="QSpinBox" name="spin_crowdsize">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -2190,7 +2206,7 @@
               </widget>
              </item>
              <item row="4" column="1">
-              <widget class="QCheckBox" name="checkBox_2">
+              <widget class="QCheckBox" name="checkbox_drugs">
                <property name="layoutDirection">
                 <enum>Qt::RightToLeft</enum>
                </property>
@@ -2200,7 +2216,7 @@
               </widget>
              </item>
              <item row="4" column="3">
-              <widget class="QLineEdit" name="lineEdit_2">
+              <widget class="QLineEdit" name="line_edit_drug_name">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -2210,7 +2226,7 @@
               </widget>
              </item>
              <item row="2" column="3">
-              <widget class="QLineEdit" name="lineEdit">
+              <widget class="QLineEdit" name="line_edit_geno_type">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -2233,7 +2249,7 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QCheckBox" name="checkBox">
+              <widget class="QCheckBox" name="checkbox_genetics">
                <property name="layoutDirection">
                 <enum>Qt::RightToLeft</enum>
                </property>
@@ -2243,7 +2259,7 @@
               </widget>
              </item>
              <item row="0" column="3">
-              <widget class="QComboBox" name="comboBox">
+              <widget class="QComboBox" name="combo_hatching_time">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2266,7 +2282,7 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QCheckBox" name="checkBox_3">
+              <widget class="QCheckBox" name="checkbox_dechorionated">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2331,29 +2347,22 @@
     <property name="title">
      <string>File</string>
     </property>
-    <widget class="QMenu" name="menuNew">
-     <property name="title">
-      <string>New</string>
-     </property>
-     <addaction name="actionExperiment"/>
-     <addaction name="actionStimulus_Profile"/>
-    </widget>
     <widget class="QMenu" name="menuOpen">
      <property name="title">
       <string>Open</string>
      </property>
      <addaction name="separator"/>
      <addaction name="separator"/>
-     <addaction name="actionExperiment_2"/>
-     <addaction name="actionStimulus_Profile_2"/>
+     <addaction name="actionExperiment_open"/>
+     <addaction name="actionStimulus_Profile_open"/>
     </widget>
     <widget class="QMenu" name="menuSave">
      <property name="title">
       <string>Save</string>
      </property>
-     <addaction name="actionCurrent_Run_Profile"/>
+     <addaction name="actionExperiment_save"/>
+     <addaction name="actionStimulus_Profile_save"/>
     </widget>
-    <addaction name="menuNew"/>
     <addaction name="menuOpen"/>
     <addaction name="menuSave"/>
    </widget>
@@ -2397,22 +2406,22 @@
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionExperiment">
+  <action name="actionExperiment_new">
    <property name="text">
     <string>Experiment</string>
    </property>
   </action>
-  <action name="actionStimulus_Profile">
+  <action name="actionStimulus_Profile_new">
    <property name="text">
     <string>Stimulus Profile</string>
    </property>
   </action>
-  <action name="actionExperiment_2">
+  <action name="actionExperiment_open">
    <property name="text">
     <string>Experiment</string>
    </property>
   </action>
-  <action name="actionStimulus_Profile_2">
+  <action name="actionStimulus_Profile_open">
    <property name="text">
     <string>Stimulus Profile</string>
    </property>
@@ -2427,9 +2436,9 @@
     <string>General</string>
    </property>
   </action>
-  <action name="actionCurrent_Run_Profile">
+  <action name="actionExperiment_save">
    <property name="text">
-    <string>Current Run Profile</string>
+    <string>Experiment</string>
    </property>
   </action>
   <action name="actionSelected_Experiment">
@@ -2465,6 +2474,11 @@
   <action name="actionRedo">
    <property name="text">
     <string>Redo (Ctrl + y)</string>
+   </property>
+  </action>
+  <action name="actionStimulus_Profile_save">
+   <property name="text">
+    <string>Stimulus Profile</string>
    </property>
   </action>
  </widget>
