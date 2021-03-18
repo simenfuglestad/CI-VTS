@@ -42,17 +42,17 @@ def make_stimulus_profile(data, file_name=None, description=None, file_ext=".jso
                     file_name = "stimulus_profile" + str(index)
                     index = index + 1
 
-        elif os.path.isfile(_sp_dir + file_name + file_ext):
-            done = False
-            index = 1
-            tmp_file_name = file_name + str(index)
-            while not done:
-                if not os.path.isfile(_sp_dir + tmp_file_name + file_ext):
-                    done = True
-                    file_name = tmp_file_name
-                else:
-                    index = index + 1
-                    tmp_file_name = file_name + str(index)
+        # elif os.path.isfile(_sp_dir + file_name + file_ext):
+        #     done = False
+        #     index = 1
+        #     tmp_file_name = file_name + str(index)
+        #     while not done:
+        #         if not os.path.isfile(_sp_dir + tmp_file_name + file_ext):
+        #             done = True
+        #             file_name = tmp_file_name
+        #         else:
+        #             index = index + 1
+        #             tmp_file_name = file_name + str(index)
 
         profile = {"name": file_name, "description": description, "date_created": str(datetime.now().date()),
                    "data": data, "extension": file_ext}

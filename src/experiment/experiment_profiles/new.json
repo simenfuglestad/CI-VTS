@@ -4,7 +4,18 @@
         "name": "stimulus_profile4",
         "description": null,
         "date_created": "2021-03-18",
-        "data": [],
+        "data": [
+            {
+                "time": [
+                    0,
+                    4
+                ],
+                "value": [
+                    0,
+                    31
+                ]
+            }
+        ],
         "extension": ".json"
     },
     "settings": {

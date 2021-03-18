@@ -125,11 +125,15 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.plot_stimulus_data()
 
     def save_stimulus_profile(self):
-        stimulus_profile = QFileDialog.getSaveFileName(self, dir=self.stimulus_path, filter="*.json",
-                                                       caption="Save Stimulus Profile")
-        file_name = stimulus_profile[0][stimulus_profile[0].rfind('/') + 1: len(stimulus_profile[0])].split('.')[0]
+        file = QFileDialog.getSaveFileName(self, dir=self.stimulus_path, filter="*.json",
+                                           caption="Save Stimulus Profile")
+
+        file_name = file[0][file[0].rfind('/') + 1: len(file[0])].split('.')[0]
         if file_name != '':
-            save_stimulus_profile(make_stimulus_profile(self.stimulus_plotted_data, file_name=file_name))
+            profile = make_stimulus_profile(self.stimulus_plotted_data, file_name=file_name)
+            save_stimulus_profile(profile)
+            self.current_stimulus_profile_name = file_name
+            self.current_stimulus_profile = profile
         self.show_stimulus_profile_names()
 
     def open_experiment(self):
@@ -197,6 +201,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
             self.set_experiment_settings(experiment["settings"])
 
+            self.stim_profile_plot.clear()
             for d in self.stimulus_plotted_data:
                 self.stim_profile_plot.plot(d["time"], d["value"])
 
@@ -242,10 +247,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.stim_profile_plot.clear()
         for p in self.stimulus_plotted_data:
             self.stim_profile_plot.plot(p["time"], p["value"])
-
-    def save_current_config(self):
-        make_stimulus_profile(self.stimulus_plotted_data)
-        save_experiment_profile()
 
     def get_all_hatching_times(self):
         return [self.combo_hatching_time.itemText(i) for i in range(0, self.combo_hatching_time.count())]
