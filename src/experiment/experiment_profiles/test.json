@@ -1,0 +1,30 @@
+{
+    "name": "test",
+    "stimulus_profile": {
+        "name": "stimulus_profile4",
+        "description": null,
+        "date_created": "2021-03-18",
+        "data": [],
+        "extension": ".json"
+    },
+    "settings": {
+        "duration": {
+            "hours": 1,
+            "mins": 2,
+            "secs": 2
+        },
+        "video_path": "\"Path to video\"",
+        "log_path": "\"Path to logs\"",
+        "view_live": false,
+        "view_infrared": false,
+        "dechorionated": false,
+        "hatching_times": [],
+        "genetics": false,
+        "geno_type": "",
+        "drugs": false,
+        "drug_name": "",
+        "crowd_size": 0
+    },
+    "description": null,
+    "date_created": "2021-03-18"
+}

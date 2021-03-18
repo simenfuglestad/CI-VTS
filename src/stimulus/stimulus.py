@@ -19,8 +19,17 @@ def verify_or_create_sp_dir(func):
         print(e)
 
 
+def save_stimulus_profile(profile, path=_sp_dir):
+    try:
+        with open(path + profile["name"] + profile["extension"], 'w') as f:
+            json.dump(profile, f, ensure_ascii=False, indent=4)
+    except Exception as e:
+        print("Error when saving stimulus profile")
+        print(e)
+
+
 @verify_or_create_sp_dir
-def save_stimulus_profile(data, file_name=None, description=None, file_ext=".json"):
+def make_stimulus_profile(data, file_name=None, description=None, file_ext=".json"):
     try:
         if file_name is None:
             done = False
@@ -46,27 +55,24 @@ def save_stimulus_profile(data, file_name=None, description=None, file_ext=".jso
                     tmp_file_name = file_name + str(index)
 
         profile = {"name": file_name, "description": description, "date_created": str(datetime.now().date()),
-                   "data": data, }
-
-        with open(_sp_dir + file_name + file_ext, 'w') as f:
-            json.dump(profile, f, ensure_ascii=False, indent=4)
+                   "data": data, "extension": file_ext}
 
         return profile
 
     except Exception as e:
-        print("Error when saving stimulus profile:")
+        print("Error when making stimulus profile:")
         print(e)
         return False
 
 
 @verify_or_create_sp_dir
-def load_stimulus_profile(file_path, extension=".json"):
+def load_stimulus_profile(file_name, file_path=_sp_dir, extension=".json"):
     try:
-        with open(_sp_dir + file_path + extension, 'r') as f:
+        with open(file_path + file_name + extension, 'r') as f:
             r_data = json.load(f)
             return r_data
     except Exception as e:
-        print("Error when loading profile:")
+        print("Error when loading stimulus profile:")
         print(e)
 
 
