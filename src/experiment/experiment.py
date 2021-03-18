@@ -28,14 +28,18 @@ class ExperimentRunner(QRunnable):
         time_passed = 0
         val = start_val
         while time_passed <= run_time:
-            self.serial_interface.send_data(val, "sl")
-            time.sleep(self.resolution)
-            time_passed = time_passed + self.resolution
             val = val + step_val
             if val > 100:
                 val = 100
-            elif val < 0:
+            elif val < 0.01:  # quick fix to appropriately set val to either 0 or 1, requires testing
+                print(val)
                 val = 0
+
+            self.serial_interface.send_data(val, "sl")
+            time.sleep(self.resolution)
+            time_passed = time_passed + self.resolution
+
+        # print(val)
 
     def run(self):
         for item in self.plot_data:
