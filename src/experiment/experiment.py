@@ -1,11 +1,11 @@
 import json
 import os
 from datetime import datetime
+import math
 from PySide6.QtCore import QRunnable
 import time
 
 _ex_dir = "experiment/experiment_profiles/"
-
 
 class ExperimentRunner(QRunnable):
     def __init__(self, plot_data, serial_interface, resolution=0.1, parent=None):
@@ -24,13 +24,8 @@ class ExperimentRunner(QRunnable):
 
         step_val = ((end_val - start_val)/run_time) / (1/self.resolution)
 
-        if end_val == start_val:
-            vals = [start_val for _ in range(0, run_time* int((1/self.resolution)))]
-        else:
-            vals = [x for x in range(start_val, end_val+1)]
         time_passed = 0
         val = start_val
-
         while time_passed <= run_time:
             self.serial_interface.send_data(val, "sl")
             time.sleep(self.resolution)
@@ -42,18 +37,6 @@ class ExperimentRunner(QRunnable):
             self.send_interval(item)
 
         print("Experiment run completed")
-
-    def get_total_stimulus_time(self):
-        return sum([x["time"][1] for x in self.plot_data])
-        # return sum([sum(t["time"]) for t in self.plot_data])
-
-    def make_interval(self, time_dir, val_dir):
-        start_val = val_dir[0]
-        end_val = val_dir[1]
-
-        duration = time_dir[1] - time_dir[0]
-        val_change = val_dir[1] - val_dir[0]
-
 
 
 def get_ex_dir():
