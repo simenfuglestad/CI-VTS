@@ -1,8 +1,51 @@
 import json
 import os
 from datetime import datetime
+import math
+from PySide6.QtCore import QRunnable
+import time
+import timeit
 
 _ex_dir = "experiment/experiment_profiles/"
+
+class ExperimentRunner(QRunnable):
+    def __init__(self, plot_data, serial_interface, resolution=0.1, parent=None):
+        super().__init__(parent)
+        self.plot_data = plot_data
+        self.serial_interface = serial_interface
+        self.resolution = resolution
+
+    def send_interval(self, item):
+        start_val = item["value"][0]
+        end_val = item["value"][1]
+
+        start_time = item["time"][0]
+        end_time = item["time"][1]
+        run_time = end_time-start_time
+
+        step_val = ((end_val - start_val)/run_time) / (1/self.resolution)
+
+        time_passed = 0
+        val = start_val
+        while time_passed <= run_time:
+            val = val + step_val
+            if val > 100:
+                val = 100
+            elif val < 0.01:  # quick fix to appropriately set val to either 0 or 1, requires testing
+                print(val)
+                val = 0
+
+            self.serial_interface.send_data(val, "sl")
+            time.sleep(self.resolution)
+            time_passed = time_passed + self.resolution
+
+        # print(val)
+
+    def run(self):
+        for item in self.plot_data:
+            self.send_interval(item)
+
+        print("Experiment run completed")
 
 
 def get_ex_dir():

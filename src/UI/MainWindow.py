@@ -16,6 +16,10 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         super().__init__(parent)
         self.setupUi(self)
 
+        """Init Run Settings"""
+        self.thread_pool = QThreadPool()
+        self.serial_interface = serial_interface
+
         """Initialize Experiment Settings"""
         self.experiments_path = experiments_path
         self.show_experiment_profile_names()
@@ -224,7 +228,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.deleted_plot_items = []
 
     def run_experiment(self):
-        print("running")
+        runner = ExperimentRunner(plot_data=self.stimulus_plotted_data, serial_interface=self.serial_interface)
+        self.thread_pool.start(runner)
 
     def show_stimulus_profile_names(self):
         self.list_stim_profiles.clear()
@@ -343,7 +348,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.stim_profile_plot.plot(data["time"], data["value"])
 
     def validate_plot(self, start, end, led_start, led_end):
-        if led_start <= 0 and led_end <= 0 or end < start:
+        # if led_start <= 0 and led_end <= 0 or end < start:
+        if end < start:
             return False
 
         interval = [start, end]
