@@ -149,19 +149,6 @@
         </item>
         <item>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_7">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Exposure</string>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="1">
            <widget class="QSpinBox" name="spin_gamma">
             <property name="maximum">
@@ -169,20 +156,14 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Framerate</string>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="spin_brightness">
+            <property name="maximum">
+             <number>100</number>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QLabel" name="label_4">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -195,57 +176,29 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="spin_framerate">
+          <item row="8" column="1">
+           <widget class="QSpinBox" name="spin_IR_right"/>
+          </item>
+          <item row="7" column="1">
+           <widget class="QSpinBox" name="spin_IR_left"/>
+          </item>
+          <item row="6" column="2">
+           <widget class="QSlider" name="hslider_IR_bottom">
             <property name="maximum">
              <number>100</number>
             </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="spin_IR_LED">
-            <property name="maximum">
-             <number>100</number>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QSlider" name="hslider_brightness">
-            <property name="maximum">
-             <number>100</number>
+            <property name="tracking">
+             <bool>true</bool>
             </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
-          <item row="3" column="2">
-           <widget class="QSlider" name="hslider_gamma">
-            <property name="maximum">
-             <number>100</number>
-            </property>
+          <item row="7" column="2">
+           <widget class="QSlider" name="hslider_IR_left">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="spin_brightness">
-            <property name="maximum">
-             <number>100</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>IR Light</string>
             </property>
            </widget>
           </item>
@@ -262,21 +215,145 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
-           <widget class="QSlider" name="hslider_IR_LED">
+          <item row="6" column="1">
+           <widget class="QSpinBox" name="spin_IR_bottom">
             <property name="maximum">
              <number>100</number>
             </property>
-            <property name="tracking">
-             <bool>true</bool>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Exposure</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Framerate</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>IR Bottom</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="spin_framerate">
+            <property name="maximum">
+             <number>100</number>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Infrared Lights</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QSlider" name="hslider_brightness">
+            <property name="maximum">
+             <number>100</number>
             </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
-          <item row="5" column="2">
+          <item row="4" column="2">
            <widget class="QComboBox" name="combo_exposure"/>
+          </item>
+          <item row="8" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>IR Right</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>IR Left</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="2">
+           <widget class="QSlider" name="hslider_IR_right">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QSlider" name="hslider_gamma">
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_18">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Camera Settings</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QSlider" name="hslider_framerate">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -292,7 +369,7 @@
             </property>
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="text">
