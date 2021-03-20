@@ -12,8 +12,6 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
-from pyqtgraph import ImageView
-
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -397,18 +395,23 @@ class Ui_Dialog(object):
 
         self.verticalLayout_5.addLayout(self.gridLayout_4)
 
-        self.imgview_live = ImageView(self.groupBox_2)
-        self.imgview_live.setObjectName(u"imgview_live")
+        self.label_live_video_feed = QLabel(self.groupBox_2)
+        self.label_live_video_feed.setObjectName(u"label_live_video_feed")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.label_live_video_feed.sizePolicy().hasHeightForWidth())
+        self.label_live_video_feed.setSizePolicy(sizePolicy6)
 
-        self.verticalLayout_5.addWidget(self.imgview_live)
+        self.verticalLayout_5.addWidget(self.label_live_video_feed)
 
         self.label_2 = QLabel(self.groupBox_2)
         self.label_2.setObjectName(u"label_2")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy6)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy7)
         self.label_2.setWordWrap(True)
 
         self.verticalLayout_5.addWidget(self.label_2)
@@ -466,6 +469,7 @@ class Ui_Dialog(object):
         self.label_15.setText(QCoreApplication.translate("Dialog", u"Infrared", None))
         self.label_16.setText("")
         self.checkbox_infrared_live.setText(QCoreApplication.translate("Dialog", u"Enabled", None))
+        self.label_live_video_feed.setText("")
         self.label_2.setText(QCoreApplication.translate("Dialog", u"NOTE: Any adjustmens made in this window will not be carried over in an experiment   ", None))
     # retranslateUi
 

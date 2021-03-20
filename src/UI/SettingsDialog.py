@@ -39,28 +39,33 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.hslider_LED_live.valueChanged.connect(self.slide_adjust_led_live)
 
         self.feed = None  # should init live camera feed on show()
+        img = QPixmap("../Test_images/CE_Heat_1.bmp")
+        self.label_live_video_feed.setPixmap(img.scaled(300, 400))
+        # self.label_live_video_feed.show()
+        self.label_live_video_feed.resize(300, 400)
 
     def showEvent(self, event):
         print("show")
         # super().show()
-        self.cap = cv2.VideoCapture(0)
-        self.feed = CameraLiveFeed(self.cap)
-        self.feed.img_changed.connect(lambda img_data: self.view_live_camera(img_data))
-        self.feed.start()
+        # self.cap = cv2.VideoCapture(0)
+        # self.feed = CameraLiveFeed(self.cap)
+        # self.feed.img_changed.connect(lambda img_data: self.view_live_camera(img_data))
+        # self.feed.start()
+
 
     def closeEvent(self, event):
         print("close")
-        self.feed.terminate()
+        # self.feed.terminate()
 
     def close(self):
         print("closed")
         super().close()
-        self.feed.terminate()
+        # self.feed.terminate()
 
     def view_live_camera(self, img_data):
         # print(img_data)
-
-        self.imgview_live.setImage(img_data)
+        pass
+        # self.imgview_live.setImage(img_data)
         # cap = cv2.VideoCapture(0)
         # if not cap.isOpened():
         #     return

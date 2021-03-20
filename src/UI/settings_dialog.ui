@@ -554,7 +554,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QLabel" name="img_label">
+         <widget class="QLabel" name="label_live_video_feed">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
