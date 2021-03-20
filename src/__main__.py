@@ -14,13 +14,13 @@ class Main(QApplication):
     def __init__(self):
         super().__init__()
 
-        #init serial_interface interface
+        # init serial_interface interface
         self.serial_interface = SerialInterface()
 
-        #init Arduino
+        # init Arduino
         self.arduino = Arduino()
 
-        #init UI
+        # init UI
         self.settings_dialog = SettingsDialog(serial_interface=self.serial_interface)
         self.analysis_dialog = AnalysisDialog()
 
