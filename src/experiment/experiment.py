@@ -8,6 +8,7 @@ import timeit
 
 _ex_dir = "experiment/experiment_profiles/"
 
+
 class ExperimentRunner(QRunnable):
     def __init__(self, plot_data, serial_interface, resolution=0.1, parent=None):
         super().__init__(parent)

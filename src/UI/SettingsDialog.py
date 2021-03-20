@@ -1,6 +1,9 @@
 from PySide6.QtWidgets import *
+from PySide6.QtGui import *
+from PySide6.QtCore import *
 from UI.settings_dialog import Ui_Dialog
-
+import cv2
+from camera.camera import CameraLiveFeed
 
 class SettingsDialog(QDialog, Ui_Dialog):
     def __init__(self, serial_interface, parent=None):
@@ -34,6 +37,36 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.btn_connect_serial.clicked.connect(self.connect_current_device)
 
         self.hslider_LED_live.valueChanged.connect(self.slide_adjust_led_live)
+
+        self.feed = None  # should init live camera feed on show()
+
+    def showEvent(self, event):
+        print("show")
+        # super().show()
+        self.cap = cv2.VideoCapture(0)
+        self.feed = CameraLiveFeed(self.cap)
+        self.feed.img_changed.connect(lambda img_data: self.view_live_camera(img_data))
+        self.feed.start()
+
+    def closeEvent(self, event):
+        print("close")
+        self.feed.terminate()
+
+    def close(self):
+        print("closed")
+        super().close()
+        self.feed.terminate()
+
+    def view_live_camera(self, img_data):
+        # print(img_data)
+
+        self.imgview_live.setImage(img_data)
+        # cap = cv2.VideoCapture(0)
+        # if not cap.isOpened():
+        #     return
+        # ret, frame = cap.read()
+        # self.imgview_live.setImage(frame)
+        # cv2.imshow('view', frame)
 
     def slide_adjust_led_live(self):
         slide_val = self.hslider_LED_live.value()
