@@ -39,30 +39,25 @@ def empty(a):
 # Create a videoCapture object and read from input filter
 capture = cv2.VideoCapture('CI_Film.avi')
 
+# Multipurpose trackbars for setup
 #cv2.namedWindow("trackBars")
 #cv2.resizeWindow("trackBars", 640, 240)
 
-# Some trackbars
-#cv2.createTrackbar("MinX", "trackBars", 40, 1300,empty)
-#cv2.createTrackbar("MaxX", "trackBars", 100, 1300,empty)
-#cv2.createTrackbar("MinY", "trackBars", 40, 1300,empty)
-#cv2.createTrackbar("MaxY", "trackBars", 200, 1300,empty)
-#cv2.createTrackbar("thresh", "trackBars", 0, 255,empty)
-#cv2.createTrackbar("Gamma", "trackBars", 0, 255,empty)
 
-# Adjusting Colors in HSV
-#cv2.createTrackbar("Hue Min", "trackBars", 0, 179,empty)
-#cv2.createTrackbar("Hue Max", "trackBars", 179, 179,empty)
-#cv2.createTrackbar("Sat Min", "trackBars", 0, 255,empty)
-#cv2.createTrackbar("Sat Max", "trackBars", 255, 255,empty)
-#v2.createTrackbar("Val Min", "trackBars", 0, 255,empty)
-#v2.createTrackbar("Val Max", "trackBars", 255, 255,empty)
+# Slider for canny
+cv2.namedWindow("Adjust Canny")
+cv2.resizeWindow("Adjust Canny", 600, 140)
+cv2.createTrackbar("Threshold1_1", "Adjust Canny", 0, 1000,empty)
+cv2.createTrackbar("Threshold1_2", "Adjust Canny", 0, 1000,empty)
+cv2.createTrackbar("Dialation", "Adjust Canny", 0, 1000,empty)
+cv2.createTrackbar("erosion", "Adjust Canny", 0, 1000,empty)
 
-# Gausian blur and canny
-#cv2.namedWindow("Gausian and canny")
-#cv2.resizeWindow("Gausian and canny", 640, 240)
-#cv2.createTrackbar("Can value from", "Gausian and canny", 0, 1000,empty)
-#cv2.createTrackbar("Can value to", "Gausian and canny", 0, 1000,empty)
+# sliders for filtering
+#cv2.namedWindow("Adjust mask")
+#cv2.resizeWindow("Adjust mask", 600, 140)
+#cv2.createTrackbar("HSV1", "Adjust mask", 0, 255,empty)
+#cv2.createTrackbar("HSV2", "Adjust mask", 0, 255,empty)
+#cv2.createTrackbar("HSV3", "Adjust mask", 0, 255,empty)
 
 
 if (capture.isOpened() == False):
@@ -71,56 +66,64 @@ if (capture.isOpened() == False):
 while(capture.isOpened()):
     ret, frame = capture.read()
     if ret == True:
+
+        # Sliders to crop image
         #MinX = cv2.getTrackbarPos("MinX", "trackBars")
         #MaxX = cv2.getTrackbarPos("MaxX", "trackBars")
         #MinY = cv2.getTrackbarPos("MinY", "trackBars")
         #MaxY = cv2.getTrackbarPos("MaxY", "trackBars")
         #AdjThresh = cv2.getTrackbarPos("thresh", "trackBars")
 
-        #Adjusting colors in HSV
-        #h_min = cv2.getTrackbarPos("Hue Min", "trackBars")
-        #h_max = cv2.getTrackbarPos("Hue Max", "trackBars")
-        #s_min = cv2.getTrackbarPos("Sat Min", "trackBars")
-        #s_max = cv2.getTrackbarPos("Sat Max", "trackBars")
-        #v_min = cv2.getTrackbarPos("Val Min", "trackBars")
-        #v_max = cv2.getTrackbarPos("Val Max", "trackBars")
-        #print(h_min,h_max,s_min,s_max,v_min,v_max)
-
         # Cropping video
         crop_frame = frame[32:834, 845:1157]
         imgContour = crop_frame.copy()
         imgGray = cv2.cvtColor(crop_frame, cv2.COLOR_BGR2GRAY)
 
-        # Testing colors
-        #imgHSV = cv2.cvtColor(crop_frame,cv2.COLOR_RGB2HSV)
-        #lower = np.array([h_min,s_min,v_min])
-        #upper = np.array([h_max,s_max,v_max])
-        #mask = cv2.inRange(imgHSV,lower,upper)
-
-        ## Testing thresh
-        #gray = cv2.cvtColor(crop_frame, cv2.COLOR_BGR2GRAY)
-        #(thresh, blackAndWhiteImage) = cv2.threshold(gray,196,255,cv2.THRESH_BINARY)
-
-        # distributed histogram
-        #equ = cv2.equalizeHist(blackAndWhiteImage)
-        #plt.imshow(equ)
-
-        # Testing HoughLines
-        #gray = cv2.cvtColor(crop_frame, cv2.COLOR_BGR2GRAY)
-
+        # Kernel for Dialation
+        kernel = np.ones((5, 5), np.uint8)
         # Testing Canny
-        #cannyValFrom = cv2.getTrackbarPos("Can value from", "Gausian and canny")
-        #cannyValTo = cv2.getTrackbarPos("Can value to", "Gausian and canny")
-        blur = cv2.GaussianBlur(imgGray, (13, 13),1)
-        canny = cv2.Canny(blur, 27, 41)
+        Threshold1_1 = cv2.getTrackbarPos("Threshold1_1", "Adjust Canny")
+        Threshold1_2 = cv2.getTrackbarPos("Threshold1_2", "Adjust Canny")
+        dialation = cv2.getTrackbarPos("Dialation", "Adjust Canny")
+        erosion = cv2.getTrackbarPos("erosion", "Adjust Canny")
+        # adding blur to get less noise in the image
+        blur = cv2.GaussianBlur(imgGray, (7, 7),0)
+        # filtering image to just show edges
+        canny = cv2.Canny(blur, Threshold1_1, Threshold1_2)
+        # making edges thicker
+        cannyDialation = cv2.dilate(canny,kernel,iterations = dialation)
+        #eroding image
+        erodedimg = cv2.erode(cannyDialation, kernel, iterations=erosion)
         getContours(canny)
 
 
+        #Filtering image
+        #HSV1 = cv2.getTrackbarPos('HSV1', 'Adjust mask')
+        #HSV2 = cv2.getTrackbarPos('HSV2', 'Adjust mask')
+        #HSV3 = cv2.getTrackbarPos('HSV3', 'Adjust mask')
+        #Trying to filter original film
+        #hsv = cv2.cvtColor(crop_frame,cv2.COLOR_BGR2HSV)
+
+        # Array for red
+        #lower_red = np.array([HSV1,HSV2,HSV3])
+        #upper_red = np.array([255,255,255])
+
+        #mask = cv2.inRange(hsv, lower_red, upper_red)
+        #result = cv2.bitwise_and(crop_frame, crop_frame , mask = mask)
 
 
+        # Filtering image
+        #cv2.imshow('frame',hsv)
+        #cv2.imshow('mask', mask)
+        #cv2.imshow('result', result)
+
+        # Tracking with canny and gaussian blur
         cv2.imshow('Contours', imgContour)
         cv2.imshow('Canny', canny)
         cv2.imshow('blur', blur)
+        cv2.imshow('Cropped image', crop_frame)
+        cv2.imshow('dialated', cannyDialation)
+        cv2.imshow('erodedimg', erodedimg)
 
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break
