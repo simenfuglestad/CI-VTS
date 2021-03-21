@@ -1,4 +1,4 @@
-# Import librarys
+# managed to track CI using canny, blur and contours. It is still a bit nervous. Missing identities
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt

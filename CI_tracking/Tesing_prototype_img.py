@@ -1,3 +1,4 @@
+# Testing different filters to increase visibility
 import cv2
 import numpy as np
 def getContours(img):

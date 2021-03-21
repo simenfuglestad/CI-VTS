@@ -1,3 +1,5 @@
+## Program to create negatives and positives from a videofile
+
 import cv2
 
 #Open videofile
