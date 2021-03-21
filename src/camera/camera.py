@@ -4,48 +4,37 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 import time
 
+
 class CameraLiveFeed(QThread):
     img_changed = Signal(bytes)
 
-    def __init__(self, camera, parent=None):
+    def __init__(self, camera, width=400, height=600, running=True, parent=None):
         super().__init__(parent)
-        self.cap = camera
+        self.camera = camera
         self.current_frame = None
-        self.running = False
+        self.running = running
+        self.width = width
+        self.height = height
+        print(self.width)
+        print(self.height)
 
     def run(self):
-        while True:
-            time.sleep(0.05)
-            ret, frame = self.cap.read()
-            # image = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
-            # h, w, ch = image.shape
-            # bytesPerLine = ch * w
-            # qt_image = QImage(image.data, w, h, bytesPerLine, QImage.Format_RGB888)
-            # # p = qt_image.scaled()
-            self.send_img(frame)
-            key = cv2.waitKey(20)
-            if key == 27:
-                break
-        print("feed done")
+        self.running = True
+        while self.running and self.camera is not None:
+            ret, frame = self.camera.read()
 
-    def send_img(self, frame):
-        self.img_changed.emit(frame)
+            if ret is True:
+                h, w, ch = frame.shape
+                bytes_per_line = ch * w
+                qt_image = QImage(frame.data, w, h, bytes_per_line, QImage.Format_Grayscale8)
+                # qt_image.scaled()
+                scaled_img = qt_image.scaled(self.width, self.height)
+                pix_map = QPixmap.fromImage(scaled_img)
+                self.img_changed.emit(pix_map)
 
-def init_camera():
-    cap = cv2.VideoCapture(0)
-    if not cap.isOpened():
-        print("skhbfgd")
-        return
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-    ret, frame = cap.read()
-    print(frame)
-    cv2.imshow('view', frame)
-    print(cap)
-    print("init camera")
+    def set_camera(self, camera):
+        self.camera = camera
 
-    while ret:
-        key = cv2.waitKey(20)
-        if key == 27:
-            break
-    cv2.destroyWindow('view')
+    def stop(self):
+        self.running = False
+        self.exit(0)

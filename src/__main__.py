@@ -13,20 +13,30 @@ from UI.SettingsDialog import SettingsDialog
 class Main(QApplication):
     def __init__(self):
         super().__init__()
-
+        # self.thread_pool = QThrea
         # init serial_interface interface
         self.serial_interface = SerialInterface()
+
+        # Init Camera
+        self.camera = cv2.VideoCapture(0)
+        # self.camera.start()
 
         # init Arduino
         self.arduino = Arduino()
 
         # init UI
-        self.settings_dialog = SettingsDialog(serial_interface=self.serial_interface)
+        self.settings_dialog = SettingsDialog(
+            serial_interface=self.serial_interface,
+            camera=self.camera)
+
         self.analysis_dialog = AnalysisDialog()
 
         self.main_window = MainWindow(
-            settings_dialog=self.settings_dialog, analysis_dialog=self.analysis_dialog,
-            serial_interface=self.serial_interface, size=self.primaryScreen().size())
+            settings_dialog=self.settings_dialog,
+            analysis_dialog=self.analysis_dialog,
+            serial_interface=self.serial_interface,
+            size=self.primaryScreen().size())
+
         self.main_window.setWindowTitle("CI-VTS")
         self.main_window.show()
 

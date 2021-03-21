@@ -4,11 +4,22 @@ from PySide6.QtCore import *
 from UI.settings_dialog import Ui_Dialog
 import cv2
 from camera.camera import CameraLiveFeed
+import time
 
 class SettingsDialog(QDialog, Ui_Dialog):
-    def __init__(self, serial_interface, parent=None):
+    def __init__(self, serial_interface, camera, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+
+        self.capture = camera
+        self.capture.set(cv2.CAP_PROP_FPS, int(30))
+
+        self.feed = CameraLiveFeed(
+            camera=self.capture
+            # width=self.label_live_video_feed.width(),
+            # height=self.label_live_video_feed.height()
+        )
+        self.feed.img_changed.connect(lambda x: self.view_live_camera(x))
 
         self.device_name = None
         self.serial_interface = serial_interface
@@ -22,10 +33,6 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.hslider_IR_left.valueChanged.connect(self.slide_adjust_ir_left)
         self.hslider_IR_right.valueChanged.connect(self.slide_adjust_ir_right)
 
-
-        # self.hslider_IR_LED.sliderReleased.connect(self.slide_release_adjust_ir)
-        # self.hslider_IR_LED.sliderPressed.connect(self.slide_pressed_adjust_ir)
-
         self.spin_IR_bottom.valueChanged.connect(self.spin_adjust_ir_bottom)
         self.spin_IR_left.valueChanged.connect(self.spin_adjust_ir_left)
         self.spin_IR_right.valueChanged.connect(self.spin_adjust_ir_right)
@@ -38,40 +45,15 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
         self.hslider_LED_live.valueChanged.connect(self.slide_adjust_led_live)
 
-        self.feed = None  # should init live camera feed on show()
-        img = QPixmap("../Test_images/CE_Heat_1.bmp")
-        self.label_live_video_feed.setPixmap(img.scaled(300, 400))
-        # self.label_live_video_feed.show()
-        self.label_live_video_feed.resize(300, 400)
-
     def showEvent(self, event):
-        print("show")
-        # super().show()
-        # self.cap = cv2.VideoCapture(0)
-        # self.feed = CameraLiveFeed(self.cap)
-        # self.feed.img_changed.connect(lambda img_data: self.view_live_camera(img_data))
-        # self.feed.start()
-
+        self.feed.start()
 
     def closeEvent(self, event):
-        print("close")
-        # self.feed.terminate()
-
-    def close(self):
-        print("closed")
-        super().close()
-        # self.feed.terminate()
+        self.feed.stop()
 
     def view_live_camera(self, img_data):
-        # print(img_data)
-        pass
-        # self.imgview_live.setImage(img_data)
-        # cap = cv2.VideoCapture(0)
-        # if not cap.isOpened():
-        #     return
-        # ret, frame = cap.read()
-        # self.imgview_live.setImage(frame)
-        # cv2.imshow('view', frame)
+        self.label_live_video_feed.setPixmap(img_data)
+        self.label_live_video_feed.resize(600, 800)
 
     def slide_adjust_led_live(self):
         slide_val = self.hslider_LED_live.value()
