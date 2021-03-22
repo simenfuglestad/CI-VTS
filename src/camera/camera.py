@@ -26,7 +26,7 @@ class CameraLiveFeed(QThread):
             if ret is True:
                 h, w, ch = frame.shape
                 bytes_per_line = ch * w
-                qt_image = QImage(frame.data, w, h, bytes_per_line, QImage.Format_Grayscale8)
+                qt_image = QImage(frame.data, w, h, bytes_per_line, QImage.Format_Grayscale16)
                 # qt_image.scaled()
                 scaled_img = qt_image.scaled(self.width, self.height)
                 pix_map = QPixmap.fromImage(scaled_img)

@@ -45,6 +45,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
         self.hslider_LED_live.valueChanged.connect(self.slide_adjust_led_live)
 
+
     def showEvent(self, event):
         self.feed.start()
 

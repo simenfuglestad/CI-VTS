@@ -41,6 +41,7 @@ class Main(QApplication):
         self.main_window.show()
 
 
+
 if __name__ == '__main__':
     # app = QApplication(sys.argv)
     app = Main()
