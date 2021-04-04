@@ -112,13 +112,30 @@
          </layout>
         </item>
         <item>
-         <widget class="QComboBox" name="combo_camera">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
-           <property name="text">
-            <string>(no camera selected)</string>
-           </property>
+           <widget class="QComboBox" name="combo_camera">
+            <item>
+             <property name="text">
+              <string>No cameras available</string>
+             </property>
+            </item>
+           </widget>
           </item>
-         </widget>
+          <item>
+           <widget class="QPushButton" name="btn_scan_camera">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Scan</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -126,7 +143,7 @@
            <enum>QLayout::SetDefaultConstraint</enum>
           </property>
           <item>
-           <widget class="QPushButton" name="btn_scan_camera">
+           <widget class="QPushButton" name="btn_connect_camera">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -134,7 +151,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Scan</string>
+             <string>Connect</string>
             </property>
            </widget>
           </item>
@@ -556,7 +573,7 @@
         <item>
          <widget class="QLabel" name="label_live_video_feed">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>

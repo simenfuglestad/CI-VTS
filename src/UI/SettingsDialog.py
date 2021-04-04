@@ -3,7 +3,7 @@ from PySide6.QtGui import *
 from PySide6.QtCore import *
 from UI.settings_dialog import Ui_Dialog
 import cv2
-from camera.camera import CameraLiveFeed
+from camera.camera import *
 import time
 
 class SettingsDialog(QDialog, Ui_Dialog):
@@ -11,15 +11,24 @@ class SettingsDialog(QDialog, Ui_Dialog):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.capture = camera
-        self.capture.set(cv2.CAP_PROP_FPS, int(30))
+        self.camera = camera
+        self.feed_stopped = True
 
-        self.feed = CameraLiveFeed(
-            camera=self.capture
-            # width=self.label_live_video_feed.width(),
-            # height=self.label_live_video_feed.height()
-        )
-        self.feed.img_changed.connect(lambda x: self.view_live_camera(x))
+        # self.camera_index_map = [] #openCV sometimes uses arbitrary numbers for device numbers, fix with mapping
+
+        self.camera.finished.connect(self.restart_live_camera)
+        self.available_cameras = self.get_available_cameras()
+        self.btn_connect_camera.clicked.connect(self.set_live_camera)
+        self.btn_scan_camera.clicked.connect(self.get_available_cameras)
+        self.combo_camera.activated.connect(lambda x: self.set_live_camera(x))
+
+        self.btn_disc_camera.clicked.connect(self.disconnect_camera)
+        # self.combo_camera.currentIndexChanged.connect(self.set_live_camera)
+        #
+        # self.capture.set(cv2.CAP_PROP_FPS, int(60))
+        #
+
+        self.camera.img_changed.connect(lambda x: self.update_live_cam_view(x))
 
         self.device_name = None
         self.serial_interface = serial_interface
@@ -45,16 +54,57 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
         self.hslider_LED_live.valueChanged.connect(self.slide_adjust_led_live)
 
+    def disconnect_camera(self):
+        self.feed_stopped = True
+        self.camera.running = False
+        self.label_live_video_feed.clear()
+
+    def restart_live_camera(self):
+        """
+        Called when camera thread is done, used for safely switching cameras
+        :return: None
+        """
+        if not self.feed_stopped:
+            self.camera.running = True
+            self.camera.start()
+
+    def set_live_camera(self, index=0):
+        if len(self.available_cameras) > 0:
+            self.camera.set_capture_device(self.available_cameras[index])
+            self.feed_stopped = False
+            if self.camera.running:
+                self.camera.running = False
+
+            else:
+                self.camera.running = True
+                self.camera.start()
+
+    def get_available_cameras(self):
+        """
+        Gets available cameras, adds them to combobox and finally returns a tuple list used for mapping device number to
+        item in combobox
+        :return: list of capture devices corresponding to index in combobox
+        """
+        indices = self.camera.capture_indices
+        self.combo_camera.clear()
+        if len(indices) == 0:
+            self.combo_camera.addItem("No cameras available")
+        else:
+            for i in indices:
+                self.combo_camera.addItem("Camera " + str(i + 1))
+        return indices
 
     def showEvent(self, event):
-        self.feed.start()
+        self.set_live_camera()
 
     def closeEvent(self, event):
-        self.feed.stop()
+        self.camera.running = False
 
-    def view_live_camera(self, img_data):
-        self.label_live_video_feed.setPixmap(img_data)
-        self.label_live_video_feed.resize(600, 800)
+    def update_live_cam_view(self, img_data):
+        if self.feed_stopped:
+            self.label_live_video_feed.clear()
+        else:
+            self.label_live_video_feed.setPixmap(img_data)
 
     def slide_adjust_led_live(self):
         slide_val = self.hslider_LED_live.value()

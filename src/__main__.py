@@ -8,18 +8,17 @@ from serial_interface.serial_interface import *
 from arduino.arduino import Arduino
 from UI.AnalysisDialog import AnalysisDialog
 from UI.SettingsDialog import SettingsDialog
+from camera.camera import *
 
 
 class Main(QApplication):
     def __init__(self):
         super().__init__()
-        # self.thread_pool = QThrea
         # init serial_interface interface
         self.serial_interface = SerialInterface()
 
         # Init Camera
-        self.camera = cv2.VideoCapture(0)
-        # self.camera.start()
+        self.camera = Camera()
 
         # init Arduino
         self.arduino = Arduino()
