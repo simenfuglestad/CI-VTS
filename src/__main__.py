@@ -8,27 +8,37 @@ from serial_interface.serial_interface import *
 from arduino.arduino import Arduino
 from UI.AnalysisDialog import AnalysisDialog
 from UI.SettingsDialog import SettingsDialog
+from camera.camera import *
 
 
 class Main(QApplication):
     def __init__(self):
         super().__init__()
-
-        #init serial_interface interface
+        # init serial_interface interface
         self.serial_interface = SerialInterface()
 
-        #init Arduino
+        # Init Camera
+        self.camera = Camera()
+
+        # init Arduino
         self.arduino = Arduino()
 
-        #init UI
-        self.settings_dialog = SettingsDialog(serial_interface=self.serial_interface)
+        # init UI
+        self.settings_dialog = SettingsDialog(
+            serial_interface=self.serial_interface,
+            camera=self.camera)
+
         self.analysis_dialog = AnalysisDialog()
 
         self.main_window = MainWindow(
-            settings_dialog=self.settings_dialog, analysis_dialog=self.analysis_dialog,
-            serial_interface=self.serial_interface, size=self.primaryScreen().size())
+            settings_dialog=self.settings_dialog,
+            analysis_dialog=self.analysis_dialog,
+            serial_interface=self.serial_interface,
+            size=self.primaryScreen().size())
+
         self.main_window.setWindowTitle("CI-VTS")
         self.main_window.show()
+
 
 
 if __name__ == '__main__':

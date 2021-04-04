@@ -12,8 +12,6 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
-from pyqtgraph import ImageView
-
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -80,24 +78,39 @@ class Ui_Dialog(object):
 
         self.verticalLayout_4.addLayout(self.gridLayout_3)
 
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.combo_camera = QComboBox(self.groupBox)
         self.combo_camera.addItem("")
         self.combo_camera.setObjectName(u"combo_camera")
 
-        self.verticalLayout_4.addWidget(self.combo_camera)
+        self.horizontalLayout_6.addWidget(self.combo_camera)
 
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.btn_scan_camera = QPushButton(self.groupBox)
         self.btn_scan_camera.setObjectName(u"btn_scan_camera")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.btn_scan_camera.sizePolicy().hasHeightForWidth())
         self.btn_scan_camera.setSizePolicy(sizePolicy2)
 
-        self.horizontalLayout_2.addWidget(self.btn_scan_camera)
+        self.horizontalLayout_6.addWidget(self.btn_scan_camera)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_6)
+
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.btn_connect_camera = QPushButton(self.groupBox)
+        self.btn_connect_camera.setObjectName(u"btn_connect_camera")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.btn_connect_camera.sizePolicy().hasHeightForWidth())
+        self.btn_connect_camera.setSizePolicy(sizePolicy3)
+
+        self.horizontalLayout_2.addWidget(self.btn_connect_camera)
 
         self.btn_disc_camera = QPushButton(self.groupBox)
         self.btn_disc_camera.setObjectName(u"btn_disc_camera")
@@ -194,11 +207,11 @@ class Ui_Dialog(object):
 
         self.label_17 = QLabel(self.groupBox)
         self.label_17.setObjectName(u"label_17")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.label_17.sizePolicy().hasHeightForWidth())
-        self.label_17.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.label_17.sizePolicy().hasHeightForWidth())
+        self.label_17.setSizePolicy(sizePolicy4)
         font2 = QFont()
         font2.setPointSize(14)
         self.label_17.setFont(font2)
@@ -242,8 +255,8 @@ class Ui_Dialog(object):
 
         self.label_18 = QLabel(self.groupBox)
         self.label_18.setObjectName(u"label_18")
-        sizePolicy3.setHeightForWidth(self.label_18.sizePolicy().hasHeightForWidth())
-        self.label_18.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.label_18.sizePolicy().hasHeightForWidth())
+        self.label_18.setSizePolicy(sizePolicy4)
         self.label_18.setFont(font2)
 
         self.gridLayout_2.addWidget(self.label_18, 0, 0, 1, 1)
@@ -261,16 +274,16 @@ class Ui_Dialog(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.label_9 = QLabel(self.groupBox)
         self.label_9.setObjectName(u"label_9")
-        sizePolicy3.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
-        self.label_9.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
+        self.label_9.setSizePolicy(sizePolicy4)
         self.label_9.setFont(font2)
 
         self.horizontalLayout_3.addWidget(self.label_9)
 
         self.label_serial_status = QLabel(self.groupBox)
         self.label_serial_status.setObjectName(u"label_serial_status")
-        sizePolicy3.setHeightForWidth(self.label_serial_status.sizePolicy().hasHeightForWidth())
-        self.label_serial_status.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.label_serial_status.sizePolicy().hasHeightForWidth())
+        self.label_serial_status.setSizePolicy(sizePolicy4)
         self.label_serial_status.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.horizontalLayout_3.addWidget(self.label_serial_status)
@@ -290,11 +303,8 @@ class Ui_Dialog(object):
 
         self.btn_scan_serial = QPushButton(self.groupBox)
         self.btn_scan_serial.setObjectName(u"btn_scan_serial")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.btn_scan_serial.sizePolicy().hasHeightForWidth())
-        self.btn_scan_serial.setSizePolicy(sizePolicy4)
+        sizePolicy2.setHeightForWidth(self.btn_scan_serial.sizePolicy().hasHeightForWidth())
+        self.btn_scan_serial.setSizePolicy(sizePolicy2)
 
         self.horizontalLayout_5.addWidget(self.btn_scan_serial)
 
@@ -383,8 +393,8 @@ class Ui_Dialog(object):
 
         self.checkbox_infrared_live = QCheckBox(self.groupBox_2)
         self.checkbox_infrared_live.setObjectName(u"checkbox_infrared_live")
-        sizePolicy4.setHeightForWidth(self.checkbox_infrared_live.sizePolicy().hasHeightForWidth())
-        self.checkbox_infrared_live.setSizePolicy(sizePolicy4)
+        sizePolicy2.setHeightForWidth(self.checkbox_infrared_live.sizePolicy().hasHeightForWidth())
+        self.checkbox_infrared_live.setSizePolicy(sizePolicy2)
 
         self.gridLayout_4.addWidget(self.checkbox_infrared_live, 1, 1, 1, 1)
 
@@ -397,18 +407,23 @@ class Ui_Dialog(object):
 
         self.verticalLayout_5.addLayout(self.gridLayout_4)
 
-        self.imgview_live = ImageView(self.groupBox_2)
-        self.imgview_live.setObjectName(u"imgview_live")
+        self.label_live_video_feed = QLabel(self.groupBox_2)
+        self.label_live_video_feed.setObjectName(u"label_live_video_feed")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.label_live_video_feed.sizePolicy().hasHeightForWidth())
+        self.label_live_video_feed.setSizePolicy(sizePolicy6)
 
-        self.verticalLayout_5.addWidget(self.imgview_live)
+        self.verticalLayout_5.addWidget(self.label_live_video_feed)
 
         self.label_2 = QLabel(self.groupBox_2)
         self.label_2.setObjectName(u"label_2")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy6)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy7)
         self.label_2.setWordWrap(True)
 
         self.verticalLayout_5.addWidget(self.label_2)
@@ -439,9 +454,10 @@ class Ui_Dialog(object):
         self.groupBox.setTitle("")
         self.label_camera_status.setText(QCoreApplication.translate("Dialog", u"CONNECTED_STATUS", None))
         self.label.setText(QCoreApplication.translate("Dialog", u"Camera", None))
-        self.combo_camera.setItemText(0, QCoreApplication.translate("Dialog", u"(no camera selected)", None))
+        self.combo_camera.setItemText(0, QCoreApplication.translate("Dialog", u"No cameras available", None))
 
         self.btn_scan_camera.setText(QCoreApplication.translate("Dialog", u"Scan", None))
+        self.btn_connect_camera.setText(QCoreApplication.translate("Dialog", u"Connect", None))
         self.btn_disc_camera.setText(QCoreApplication.translate("Dialog", u"Disconnect", None))
         self.label_4.setText(QCoreApplication.translate("Dialog", u"Brightness", None))
         self.label_3.setText(QCoreApplication.translate("Dialog", u"Gamma", None))
@@ -466,6 +482,7 @@ class Ui_Dialog(object):
         self.label_15.setText(QCoreApplication.translate("Dialog", u"Infrared", None))
         self.label_16.setText("")
         self.checkbox_infrared_live.setText(QCoreApplication.translate("Dialog", u"Enabled", None))
+        self.label_live_video_feed.setText("")
         self.label_2.setText(QCoreApplication.translate("Dialog", u"NOTE: Any adjustmens made in this window will not be carried over in an experiment   ", None))
     # retranslateUi
 
