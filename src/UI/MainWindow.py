@@ -36,7 +36,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.line_edit_logs_path.setText(logs_path)
         self.btn_set_logs_path.clicked.connect(self.set_logs_path)
 
-        self.format_duration_text()
+        # self.format_duration_text()
+        self.set_duration_display(self.spin_duration_hour.value(), self.spin_duration_min.value(), self.spin_duration_sec.value())
 
         self.spin_duration_hour.valueChanged.connect(self.format_duration_text)
         self.spin_duration_min.valueChanged.connect(self.format_duration_text)
@@ -228,8 +229,9 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.deleted_plot_items = []
 
     def run_experiment(self):
-        runner = ExperimentRunner(plot_data=self.stimulus_plotted_data, serial_interface=self.serial_interface)
-        self.thread_pool.start(runner)
+        self.runner = ExperimentRunner2(plot_data=self.stimulus_plotted_data, duration=self.get_total_duration(), serial_interface=self.serial_interface)
+        # self.thread_pool.start(runner)
+        self.runner.run()
 
     def show_stimulus_profile_names(self):
         self.list_stim_profiles.clear()
@@ -259,7 +261,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         return [self.combo_hatching_time.itemText(i) for i in range(0, self.combo_hatching_time.count())]
 
     def get_current_experiment_settings(self):
-        return {"duration": self.get_duration_val(), "video_path": self.line_edit_video_path.text(),
+        return {"duration": self.get_duration_as_dict(), "video_path": self.line_edit_video_path.text(),
                 "log_path": self.line_edit_logs_path.text(), "view_live": self.checkbox_view_live.isChecked(),
                 "view_infrared": self.checkbox_live_ir.isChecked(),
                 "dechorionated": self.checkbox_dechorionated.isChecked(),
@@ -278,16 +280,30 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         self.line_edit_duration.setText(h + ":" + m + ":" + s)
 
-    def adjust_duration(self):
-        time = self.line_edit_duration.split(':')
-        # if time
-
-    def get_duration_val(self):
+    def get_duration_as_dict(self):
         hours = self.spin_duration_hour.value()
         mins = self.spin_duration_min.value()
         secs = self.spin_duration_sec.value()
 
         return {"hours": hours, "mins": mins, "secs": secs}
+
+    def set_duration_display(self, h_val, m_val, s_val):
+        h = "0" + str(h_val) if h_val < 10 else str(h_val)
+        m = "0" + str(m_val) if m_val < 10 else str(m_val)
+        s = "0" + str(s_val) if s_val < 10 else str(s_val)
+
+        self.line_edit_duration.setText(h + ":" + m + ":" + s)
+
+        self.spin_duration_hour.setValue(h_val)
+        self.spin_duration_min.setValue(m_val)
+        self.spin_duration_sec.setValue(s_val)
+
+    def get_total_duration(self):
+        h = self.spin_duration_hour.value()
+        m = self.spin_duration_min.value()
+        s = self.spin_duration_sec.value()
+
+        return h * 60 * 60 + m * 60 + s
 
     def slide_adjust_led_end(self):
         slide_val = self.hslider_stim_led_end.value()
@@ -346,6 +362,16 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             data = {"time": [start, end], "value": [led_val_start, led_val_end]}
             self.stimulus_plotted_data.append(data)
             self.stim_profile_plot.plot(data["time"], data["value"])
+            d = self.convert_to_duration(end)
+            self.set_duration_display(d["h"], d["m"], d["s"])
+
+    def convert_to_duration(self, time_in_seconds):
+        h = time_in_seconds // 60 // 60 % 60
+        m = time_in_seconds // 60 % 60
+        s = time_in_seconds % 60
+
+        return {"h": h, "m": m, "s" : s}
+
 
     def validate_plot(self, start, end, led_start, led_end):
         # if led_start <= 0 and led_end <= 0 or end < start:

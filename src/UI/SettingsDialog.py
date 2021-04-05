@@ -130,32 +130,32 @@ class SettingsDialog(QDialog, Ui_Dialog):
     def slide_adjust_ir_bottom(self):
         slide_val = self.hslider_IR_bottom.value()
         self.spin_IR_bottom.setValue(slide_val)
-        self.serial_interface.send_data(slide_val, "ir3")
+        self.serial_interface.send_data(slide_val, "ir5")
 
     def slide_adjust_ir_left(self):
         slide_val = self.hslider_IR_left.value()
         self.spin_IR_left.setValue(slide_val)
-        self.serial_interface.send_data(slide_val, "ir5")
+        self.serial_interface.send_data(slide_val, "ir6")
 
     def slide_adjust_ir_right(self):
         slide_val = self.hslider_IR_right.value()
         self.spin_IR_right.setValue(slide_val)
-        self.serial_interface.send_data(slide_val, "ir6")
+        self.serial_interface.send_data(slide_val, "ir3")
 
     def spin_adjust_ir_bottom(self):
         spin_val = self.spin_IR_bottom.value()
         self.hslider_IR_bottom.setValue(spin_val)
-        self.serial_interface.send_data(spin_val, "ir3")
+        self.serial_interface.send_data(spin_val, "ir5")
 
     def spin_adjust_ir_left(self):
         spin_val = self.spin_IR_left.value()
         self.hslider_IR_left.setValue(spin_val)
-        self.serial_interface.send_data(spin_val, "ir5")
+        self.serial_interface.send_data(spin_val, "ir6")
 
     def spin_adjust_ir_right(self):
         spin_val = self.spin_IR_right.value()
         self.hslider_IR_right.setValue(spin_val)
-        self.serial_interface.send_data(spin_val, "ir6")
+        self.serial_interface.send_data(spin_val, "ir3")
 
     def slide_release_adjust_ir(self):
         slider_val = self.hslider_IR_LED.value()

@@ -35,7 +35,7 @@ class Camera(QThread):
 
         if self.capture_device.isOpened():
             self.capture_device.release()
-        print("cam thread reached end")
+        # print("cam thread reached end")
 
     def scan_capture_indices(self, captures_to_try=3):
         indices = []
