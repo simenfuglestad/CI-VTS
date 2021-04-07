@@ -12,6 +12,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.setupUi(self)
 
         self.camera = camera
+        self.camera.set_live_mode()
         self.feed_stopped = True
 
         # self.camera_index_map = [] #openCV sometimes uses arbitrary numbers for device numbers, fix with mapping
@@ -24,9 +25,6 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
         self.btn_disc_camera.clicked.connect(self.disconnect_camera)
         # self.combo_camera.currentIndexChanged.connect(self.set_live_camera)
-        #
-        # self.capture.set(cv2.CAP_PROP_FPS, int(60))
-        #
 
         self.camera.img_changed.connect(lambda x: self.update_live_cam_view(x))
 
@@ -98,7 +96,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.set_live_camera()
 
     def closeEvent(self, event):
-        self.camera.running = False
+        pass
 
     def update_live_cam_view(self, img_data):
         if self.feed_stopped:

@@ -9,8 +9,8 @@ import timeit
 _ex_dir = "experiment/experiment_profiles/"
 
 
-class ExperimentRunner2(QObject):
-    def __init__(self, plot_data, serial_interface, duration, resolution=100, parent=None):
+class ExperimentRunner(QObject):
+    def __init__(self, plot_data, serial_interface, duration, camera, resolution=100, parent=None):
         super().__init__(parent)
         self.plot_data = plot_data
         self.serial_interface = serial_interface
@@ -24,6 +24,8 @@ class ExperimentRunner2(QObject):
         self.timer.timeout.connect(self.update)
 
         self.stim_vals = self.make_stim_vals()
+
+        self.camera = camera
 
     def make_stim_vals(self):
         result = []
@@ -40,7 +42,6 @@ class ExperimentRunner2(QObject):
         end_time = item["time"][1]
         run_time = end_time - start_time
 
-        # step_val = ((end_val - start_val) / run_time) / (1/self.resolution)
         step_val = ((end_val - start_val) / run_time) / self.resolution  #1ms resolution
         val = start_val
         interval_vals = []
@@ -53,8 +54,7 @@ class ExperimentRunner2(QObject):
     def run(self):
         self.start_time = time.perf_counter()
         self.current_time = self.start_time
-        print(self.stim_vals)
-        print(self.timer.interval())
+        self.camera.set_rec_mode()
         self.timer.start()
 
     def update(self):
@@ -63,52 +63,12 @@ class ExperimentRunner2(QObject):
         self.serial_interface.send_data(stim_val, "sl")
         self.timer.start()
         self.current_time = time.perf_counter() - self.start_time
-        print(self.current_time)
         if self.current_time >= self.duration:
+            self.camera.set_live_mode()
             self.timer.stop()
             print("timer stopped!")
             # print(self.stim_vals)
             # print(len(self.stim_vals))
-
-
-class ExperimentRunner(QRunnable):
-    def __init__(self, plot_data, serial_interface, resolution=0.1, parent=None):
-        super().__init__(parent)
-        self.plot_data = plot_data
-        self.serial_interface = serial_interface
-        self.resolution = resolution
-
-    def send_interval(self, item):
-        start_val = item["value"][0]
-        end_val = item["value"][1]
-
-        start_time = item["time"][0]
-        end_time = item["time"][1]
-        run_time = end_time-start_time
-
-        step_val = ((end_val - start_val)/run_time) / (1/self.resolution)
-
-        time_passed = 0
-        val = start_val
-        while time_passed <= run_time:
-            val = val + step_val
-            if val > 100:
-                val = 100
-            elif val < 0.01:  # quick fix to appropriately set val to either 0 or 1, requires testing
-                print(val)
-                val = 0
-
-            self.serial_interface.send_data(val, "sl")
-            time.sleep(self.resolution)
-            time_passed = time_passed + self.resolution
-
-        # print(val)
-
-    def run(self):
-        for item in self.plot_data:
-            self.send_interval(item)
-
-        print("Experiment run completed")
 
 
 def get_ex_dir():

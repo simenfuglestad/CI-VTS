@@ -7,7 +7,7 @@ from experiment.experiment import *
 
 
 class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
-    def __init__(self, settings_dialog, analysis_dialog, serial_interface, size,
+    def __init__(self, settings_dialog, analysis_dialog, serial_interface, size, camera,
                  stimulus_path="stimulus/stimulus_profiles/",
                  experiments_path="experiment/experiment_profiles/",
                  video_path="experiment/videos/",
@@ -15,6 +15,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         super().__init__(parent)
         self.setupUi(self)
+
+        self.camera = camera
 
         """Init Run Settings"""
         self.thread_pool = QThreadPool()
@@ -229,7 +231,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.deleted_plot_items = []
 
     def run_experiment(self):
-        self.runner = ExperimentRunner2(plot_data=self.stimulus_plotted_data, duration=self.get_total_duration(), serial_interface=self.serial_interface)
+        self.runner = ExperimentRunner(plot_data=self.stimulus_plotted_data, duration=self.get_total_duration(),
+                                       serial_interface=self.serial_interface, camera=self.camera)
         # self.thread_pool.start(runner)
         self.runner.run()
 
@@ -401,3 +404,9 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
     def center_stimulus_plot(self):
         self.stim_profile_plot.enableAutoRange(enable=True)
+
+    def closeEvent(self, event):
+        if self.camera.out is not None:
+            self.camera.out.release()
+        if self.camera.capture_device is not None:
+            self.camera.capture_device.release()

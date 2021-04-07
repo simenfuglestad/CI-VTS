@@ -19,6 +19,7 @@ class Main(QApplication):
 
         # Init Camera
         self.camera = Camera()
+        self.camera.start()
 
         # init Arduino
         self.arduino = Arduino()
@@ -34,11 +35,11 @@ class Main(QApplication):
             settings_dialog=self.settings_dialog,
             analysis_dialog=self.analysis_dialog,
             serial_interface=self.serial_interface,
+            camera=self.camera,
             size=self.primaryScreen().size())
 
         self.main_window.setWindowTitle("CI-VTS")
         self.main_window.show()
-
 
 
 if __name__ == '__main__':
