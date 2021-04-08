@@ -10,11 +10,12 @@ _ex_dir = "experiment/experiment_profiles/"
 
 
 class ExperimentRunner(QObject):
-    def __init__(self, plot_data, serial_interface, duration, camera, resolution=100, parent=None):
+    def __init__(self, plot_data, serial_interface, duration, camera, recording, resolution=100, parent=None):
         super().__init__(parent)
         self.plot_data = plot_data
         self.serial_interface = serial_interface
         self.resolution = resolution
+        self.recording = recording
         self.start_time = 0
         self.current_time = 0
         self.duration = duration
@@ -52,20 +53,35 @@ class ExperimentRunner(QObject):
         return interval_vals
 
     def run(self):
-        self.start_time = time.perf_counter()
-        self.current_time = self.start_time
-        self.camera.set_rec_mode()
-        self.timer.start()
+        if self.camera.capture_device is not None:
+            if not self.camera.capture_device.isOpened():
+                print("Capture device is not opened")
+                return
+        else:
+            print("no capture device")
+            return
+
+        if len(self.stim_vals) > 0:
+            self.start_time = time.perf_counter()
+            if self.recording:
+                self.camera.set_rec_mode()
+            self.timer.start()
+        else:
+            print("no values to plot")
 
     def update(self):
-        stim_val = self.stim_vals.pop(0)
-        self.timer.stop()
-        self.serial_interface.send_data(stim_val, "sl")
-        self.timer.start()
+        if len(self.stim_vals) > 0:
+
+            stim_val = self.stim_vals.pop(0)
+            # self.timer.stop()
+            self.serial_interface.send_data(stim_val, "sl")
+            # self.timer.start()
         self.current_time = time.perf_counter() - self.start_time
         if self.current_time >= self.duration:
-            self.camera.set_live_mode()
+            # self.camera.set_live_mode()
             self.timer.stop()
+            if self.recording:
+                self.camera.set_live_mode()
             print("timer stopped!")
             # print(self.stim_vals)
             # print(len(self.stim_vals))

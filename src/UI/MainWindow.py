@@ -1,3 +1,4 @@
+import os
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
@@ -15,8 +16,17 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         super().__init__(parent)
         self.setupUi(self)
+        self.settings_dialog = settings_dialog
+
+        """Init Camera and Video Settings"""
+        self.video_path = video_path
+        self.line_edit_video_path.setText(video_path)
+        self.btn_set_video_path.clicked.connect(self.set_video_path)
 
         self.camera = camera
+        # self.camera.set_video_path(self.video_path)
+        self.camera.cam_connected_signal.connect(self.show_camera_status)
+        self.camera.emit_cam_status()
 
         """Init Run Settings"""
         self.thread_pool = QThreadPool()
@@ -29,10 +39,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.list_exp_profiles.itemDoubleClicked.connect(self.add_experiment_to_run)
 
         self.list_experiments_to_run.itemClicked.connect(self.view_experiment_to_run)
-
-        self.video_path = video_path
-        self.line_edit_video_path.setText(video_path)
-        self.btn_set_video_path.clicked.connect(self.set_video_path)
 
         self.logs_path = logs_path
         self.line_edit_logs_path.setText(logs_path)
@@ -49,7 +55,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         """Initialize Stimulus Settings"""
         # Bind menu actions
-        self.actionSetup.triggered.connect(settings_dialog.show)
+        self.actionSetup.triggered.connect(self.settings_dialog.show)
         self.actionView.triggered.connect(analysis_dialog.show)
         self.actionExperiment_save.triggered.connect(self.save_experiment)
         self.actionExperiment_open.triggered.connect(self.open_experiment)
@@ -103,15 +109,25 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         self.resize(size.width(), size.height())
 
+    def show_camera_status(self, status):
+        if status is True:
+            self.label_status_value.setText("Connected")
+            self.label_status_value.setStyleSheet("QLabel { color : green }")
+        else:
+            self.label_status_value.setText("Not Connected")
+            self.label_status_value.setStyleSheet("QLabel { color : red }")
+
     def set_video_path(self):
         path = QFileDialog.getExistingDirectory(dir=self.video_path, caption="Set Path to Videos")
-        self.video_path = path
-        self.line_edit_video_path.setText(path)
+        if self.camera.set_video_path(path):
+            self.video_path = path
+            self.line_edit_video_path.setText(path)
 
     def set_logs_path(self):
         path = QFileDialog.getExistingDirectory(dir=self.video_path, caption="Set Path to Logs")
-        self.logs_path = path
-        self.line_edit_logs_path.setText(path)
+        if os.path.exists(path):
+            self.logs_path = path
+            self.line_edit_logs_path.setText(path)
 
     def refresh_items(self):
         self.show_experiment_profile_names()
@@ -129,11 +145,19 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         deleted = self.stimulus_plotted_data.pop()
         self.deleted_plot_items.append(deleted)
         self.plot_stimulus_data()
+        if len(self.stimulus_plotted_data) == 0:
+            self.set_duration_display(00, 00, 00)
+        else:
+            d = self.convert_to_duration(self.stimulus_plotted_data[-1][1]["time"])
+            self.set_duration_display(d["h"], d["m"], d["s"])
 
     def redo(self):
         undeleted = self.deleted_plot_items.pop()
         self.stimulus_plotted_data.append(undeleted)
         self.plot_stimulus_data()
+        print(undeleted)
+        d = self.convert_to_duration(undeleted["time"][1])
+        self.set_duration_display(d["h"], d["m"], d["s"])
 
     def save_stimulus_profile(self):
         file = QFileDialog.getSaveFileName(self, dir=self.stimulus_path, filter="*.json",
@@ -228,12 +252,18 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
                 self.stim_profile_plot.plot(d["time"], d["value"])
 
             self.stimulus_plotted_data = profile["data"]
+            if self.get_total_duration() < profile["data"][-1]["time"][1]:
+                d = self.convert_to_duration(profile["data"][-1]["time"][1])
+                self.set_duration_display(d["h"], d["m"], d["s"])
             self.deleted_plot_items = []
 
     def run_experiment(self):
         self.runner = ExperimentRunner(plot_data=self.stimulus_plotted_data, duration=self.get_total_duration(),
-                                       serial_interface=self.serial_interface, camera=self.camera)
-        # self.thread_pool.start(runner)
+                                       serial_interface=self.serial_interface, camera=self.camera,
+                                       recording=self.checkbox_save_video.isChecked())
+
+        if self.checkbox_view_live.isChecked():
+            self.settings_dialog.show()
         self.runner.run()
 
     def show_stimulus_profile_names(self):
@@ -366,7 +396,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.stimulus_plotted_data.append(data)
             self.stim_profile_plot.plot(data["time"], data["value"])
             d = self.convert_to_duration(end)
-            self.set_duration_display(d["h"], d["m"], d["s"])
+            if end > self.get_total_duration():
+                self.set_duration_display(d["h"], d["m"], d["s"])
 
     def convert_to_duration(self, time_in_seconds):
         h = time_in_seconds // 60 // 60 % 60
@@ -406,6 +437,10 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.stim_profile_plot.enableAutoRange(enable=True)
 
     def closeEvent(self, event):
+        self.camera.stop_cam()
+        self.camera.shutdown()
+        # self.camera.exit(0)
+        time.sleep(1)
         if self.camera.out is not None:
             self.camera.out.release()
         if self.camera.capture_device is not None:
