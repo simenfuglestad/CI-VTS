@@ -1057,7 +1057,7 @@ class Ui_MainWindow(object):
         self.groupBox_main.setTitle("")
         self.groupBox_3.setTitle("")
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profiles", None))
-        self.label_status.setText(QCoreApplication.translate("MainWindow", u"Status:", None))
+        self.label_status.setText(QCoreApplication.translate("MainWindow", u"Camera Status:", None))
         self.label_status_value.setText(QCoreApplication.translate("MainWindow", u"STATUSTEXT", None))
         self.btn_run.setText(QCoreApplication.translate("MainWindow", u"Run", None))
         self.label_working_dir.setText(QCoreApplication.translate("MainWindow", u"C:/PATH_TO_EXP_FILES", None))
