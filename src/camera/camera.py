@@ -10,7 +10,7 @@ class Camera(QThread):
     img_changed_signal = Signal(bytes)
     cam_connected_signal = Signal(bytes)
 
-    def __init__(self, video_path, width=420, height=640, res_width=1280.0, res_height=1024.0, running=True,
+    def __init__(self, video_path, fps=60, width=420, height=640, res_width=1280.0, res_height=1024.0, running=True,
                  parent=None):
         super().__init__(parent)
         self.is_alive = True
@@ -20,7 +20,7 @@ class Camera(QThread):
 
         self.res_width = res_width
         self.res_height = res_height
-        self.current_frame = None
+        self.fps = fps
         self.running = running
         self.width = width
         self.height = height
@@ -71,10 +71,10 @@ class Camera(QThread):
             self.capture_device.release()
         print("cam thread reached end")
 
-    def set_video_path(self, path):
+    def set_video_path(self, path, video_name=""):
         try:
             if os.path.exists(path):
-                self.video_path = path
+                self.video_path = path + "/" + video_name
                 return True
             else:
                 return False
@@ -91,6 +91,19 @@ class Camera(QThread):
         if self.out is not None:
             self.out.release()
         self.emit_cam_status()
+
+    def set_fps(self, fps):
+        if self.recording:
+            print("Camnot set fps while recording")
+            return False
+        elif self.capture_device is None:
+            print("Camera is not connected")
+            return False
+        else:
+            self.fps = fps
+            self.capture_device.set(cv2.CAP_PROP_FPS, fps)
+            return True
+
 
     def set_running(self, is_running):
         # print(self.mutex.)
@@ -140,9 +153,10 @@ class Camera(QThread):
         print(self.capture_device.get(4))
         print(self.capture_device.get(5))
         fourcc = cv2.VideoWriter_fourcc('X', 'V', 'I', 'D')
-        self.out = cv2.VideoWriter(self.video_path + "test.avi", fourcc, 60, (int(self.res_width), int(self.res_height)), isColor=True)
-        self.recording = True
-        self.live = False
+        if self.video_path[-4:len(self.video_path)] == ".avi":
+            self.out = cv2.VideoWriter(self.video_path, fourcc, self.fps, (int(self.res_width), int(self.res_height)), isColor=True)
+            self.recording = True
+            self.live = False
 
     def set_capture_device(self, cap_index):
         if self.capture_device is not None:

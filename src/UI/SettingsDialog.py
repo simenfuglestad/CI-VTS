@@ -49,6 +49,10 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
         self.hslider_LED_live.valueChanged.connect(self.slide_adjust_led_live)
 
+    def set_camera_fps(self, combo_fps_value):
+        set_fps = self.camera.set_fps(combo_fps_value)
+        # if set
+
     def disconnect_camera(self):
         self.feed_stopped = True
         # self.feed_reached_end = False

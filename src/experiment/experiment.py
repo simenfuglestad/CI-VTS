@@ -10,12 +10,12 @@ _ex_dir = "experiment/experiment_profiles/"
 
 
 class ExperimentRunner(QObject):
-    def __init__(self, plot_data, serial_interface, duration, camera, recording, resolution=100, parent=None):
+    def __init__(self, plot_data, serial_interface, duration, camera, recording_experiment, resolution=100, parent=None):
         super().__init__(parent)
         self.plot_data = plot_data
         self.serial_interface = serial_interface
         self.resolution = resolution
-        self.recording = recording
+        self.recording_experiment = recording_experiment
         self.start_time = 0
         self.current_time = 0
         self.duration = duration
@@ -63,7 +63,7 @@ class ExperimentRunner(QObject):
 
         if len(self.stim_vals) > 0:
             self.start_time = time.perf_counter()
-            if self.recording:
+            if self.recording_experiment:
                 self.camera.set_rec_mode()
             self.timer.start()
         else:
@@ -80,7 +80,7 @@ class ExperimentRunner(QObject):
         if self.current_time >= self.duration:
             # self.camera.set_live_mode()
             self.timer.stop()
-            if self.recording:
+            if self.recording_experiment:
                 self.camera.set_live_mode()
             print("timer stopped!")
             # print(self.stim_vals)

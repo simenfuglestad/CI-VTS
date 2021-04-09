@@ -20,6 +20,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         """Init Camera and Video Settings"""
         self.video_path = video_path
+        self.video_name = None
         self.line_edit_video_path.setText(video_path)
         self.btn_set_video_path.clicked.connect(self.set_video_path)
 
@@ -68,6 +69,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.show_stimulus_profile_names()
         self.stimulus_plotted_data = []
         self.deleted_plot_items = []
+        self.center_stimulus_plot()
 
         # Bindings Stimulus List
         self.list_stim_profiles.itemDoubleClicked.connect(self.view_stimulus_profile)
@@ -117,17 +119,26 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.label_status_value.setText("Not Connected")
             self.label_status_value.setStyleSheet("QLabel { color : red }")
 
-    def set_video_path(self):
-        path = QFileDialog.getExistingDirectory(dir=self.video_path, caption="Set Path to Videos")
-        if self.camera.set_video_path(path):
-            self.video_path = path
-            self.line_edit_video_path.setText(path)
+    def set_video_path(self, manual=True):
+        path = ""
+        if manual:
+            path = QFileDialog.getExistingDirectory(dir=self.video_path, caption="Set Path to Videos")
+        else:
+            path = self.video_path
+        if self.video_name is not None:
+            if self.camera.set_video_path(path, self.video_name):
+                self.video_path = path + "/"
+                self.line_edit_video_path.setText(path + "/" + self.video_name)
+        else:
+            if self.camera.set_video_path(path):
+                self.video_path = path + "/"
+                self.line_edit_video_path.setText(path + "/")
 
     def set_logs_path(self):
         path = QFileDialog.getExistingDirectory(dir=self.video_path, caption="Set Path to Logs")
-        if os.path.exists(path):
-            self.logs_path = path
-            self.line_edit_logs_path.setText(path)
+        # if os.path.exists(path):
+            # self.logs_path = path
+            # self.line_edit_logs_path.setText(path)
 
     def refresh_items(self):
         self.show_experiment_profile_names()
@@ -148,7 +159,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         if len(self.stimulus_plotted_data) == 0:
             self.set_duration_display(00, 00, 00)
         else:
-            d = self.convert_to_duration(self.stimulus_plotted_data[-1][1]["time"])
+            d = self.convert_to_duration(self.stimulus_plotted_data[-1]["time"][1])
             self.set_duration_display(d["h"], d["m"], d["s"])
 
     def redo(self):
@@ -227,6 +238,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         experiment = load_experiment_profile(file_name=selected, file_path=self.experiments_path)
         if experiment is not None:
             self.current_experiment = experiment
+            self.video_name = experiment["name"] + ".avi"
+            self.set_video_path(manual=False)
             self.current_stimulus_profile = experiment["stimulus_profile"]
             self.stimulus_plotted_data = experiment["stimulus_profile"]["data"]
             self.current_stimulus_profile_name = self.current_stimulus_profile["name"]
@@ -239,6 +252,9 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
                 self.stim_profile_plot.plot(d["time"], d["value"])
 
             self.deleted_plot_items = []
+            self.line_edit_video_path .setText(self.line_edit_video_path.text() + self.video_name)
+            self.center_stimulus_plot()
+
 
     def view_stimulus_profile(self):
         selected = self.list_stim_profiles.selectedItems()[0].text()
@@ -256,11 +272,12 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
                 d = self.convert_to_duration(profile["data"][-1]["time"][1])
                 self.set_duration_display(d["h"], d["m"], d["s"])
             self.deleted_plot_items = []
+            self.center_stimulus_plot()
 
     def run_experiment(self):
         self.runner = ExperimentRunner(plot_data=self.stimulus_plotted_data, duration=self.get_total_duration(),
                                        serial_interface=self.serial_interface, camera=self.camera,
-                                       recording=self.checkbox_save_video.isChecked())
+                                       recording_experiment=self.checkbox_save_video.isChecked())
 
         if self.checkbox_view_live.isChecked():
             self.settings_dialog.show()
@@ -386,18 +403,27 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         return hours * 60 * 60 + mins * 60 + secs
 
     def add_to_stimulus_plot(self):
-        start = self.get_stimulus_start()
-        end = self.get_stimulus_end()
+        new_plot_item_start = self.get_stimulus_start()
+        new_plot_item_end = self.get_stimulus_end()
         led_val_start = self.spin_stim_led_start.value()
         led_val_end = self.spin_stim_led_end.value()
+        
+        if self.validate_plot(new_plot_item_start, new_plot_item_end, led_val_start, led_val_end):
+            if len(self.stimulus_plotted_data) > 0:
+                last_plot_item_end = self.stimulus_plotted_data[-1]["time"][1]
+                if new_plot_item_start > last_plot_item_end:
+                    print("starting ahead")
+                    blank_plot_item = {'time': [last_plot_item_end, new_plot_item_start], 'value': [0, 0]}
+                    self.stimulus_plotted_data.append(blank_plot_item)
+                    self.stim_profile_plot.plot(blank_plot_item["time"], blank_plot_item["value"])
 
-        if self.validate_plot(start, end, led_val_start, led_val_end):
-            data = {"time": [start, end], "value": [led_val_start, led_val_end]}
+            data = {"time": [new_plot_item_start, new_plot_item_end], "value": [led_val_start, led_val_end]}
             self.stimulus_plotted_data.append(data)
             self.stim_profile_plot.plot(data["time"], data["value"])
-            d = self.convert_to_duration(end)
-            if end > self.get_total_duration():
+            d = self.convert_to_duration(new_plot_item_end)
+            if new_plot_item_end > self.get_total_duration():
                 self.set_duration_display(d["h"], d["m"], d["s"])
+            self.center_stimulus_plot()
 
     def convert_to_duration(self, time_in_seconds):
         h = time_in_seconds // 60 // 60 % 60
@@ -409,7 +435,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
     def validate_plot(self, start, end, led_start, led_end):
         # if led_start <= 0 and led_end <= 0 or end < start:
-        if end < start:
+        if end <= start:
             return False
 
         interval = [start, end]
@@ -434,7 +460,12 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         print(mouse_click_event.pos().y())
 
     def center_stimulus_plot(self):
-        self.stim_profile_plot.enableAutoRange(enable=True)
+        # self.stim_profile_plot.enableAutoRange(enable=True)
+        self.stim_profile_plot.setYRange(0, 100)
+        if self.get_total_duration() > 0:
+            self.stim_profile_plot.setXRange(0, self.get_total_duration())
+        else:
+            self.stim_profile_plot.setXRange(0, 1)
 
     def closeEvent(self, event):
         self.camera.stop_cam()
