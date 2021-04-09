@@ -119,20 +119,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.label_status_value.setText("Not Connected")
             self.label_status_value.setStyleSheet("QLabel { color : red }")
 
-    def set_video_path(self, manual=True):
-        path = ""
-        if manual:
-            path = QFileDialog.getExistingDirectory(dir=self.video_path, caption="Set Path to Videos")
-        else:
-            path = self.video_path
-        if self.video_name is not None:
-            if self.camera.set_video_path(path, self.video_name):
-                self.video_path = path + "/"
-                self.line_edit_video_path.setText(path + "/" + self.video_name)
-        else:
-            if self.camera.set_video_path(path):
-                self.video_path = path + "/"
-                self.line_edit_video_path.setText(path + "/")
+
 
     def set_logs_path(self):
         path = QFileDialog.getExistingDirectory(dir=self.video_path, caption="Set Path to Logs")
@@ -233,13 +220,31 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.line_edit_drug_name.setText(settings["drug_name"])
         self.spin_crowdsize.setValue(settings["crowd_size"])
 
+    def set_video_path(self):
+        path = QFileDialog.getExistingDirectory(dir=self.video_path, caption="Set Path to Videos")
+        if self.video_name is not None:
+            if self.camera.set_video_path(path, self.video_name):
+                self.video_path = path + "/"
+                self.line_edit_video_path.setText(path + "/" + self.video_name)
+        else:
+            if self.camera.set_video_path(path):
+                self.video_path = path + "/"
+                self.line_edit_video_path.setText(path + "/")
+
+    def set_video_path_no_dialog(self, path):
+        if self.video_name is not None:
+            if self.camera.set_video_path(path, self.video_name):
+                self.video_path = path + "/"
+                self.line_edit_video_path.setText(path + "/" + self.video_name)
+
     def view_experiment_to_run(self):
         selected = self.list_experiments_to_run.selectedItems()[0].text()
         experiment = load_experiment_profile(file_name=selected, file_path=self.experiments_path)
         if experiment is not None:
             self.current_experiment = experiment
             self.video_name = experiment["name"] + ".avi"
-            self.set_video_path(manual=False)
+            self.set_video_path_no_dialog(self.video_path)
+            # self.set_video_path()
             self.current_stimulus_profile = experiment["stimulus_profile"]
             self.stimulus_plotted_data = experiment["stimulus_profile"]["data"]
             self.current_stimulus_profile_name = self.current_stimulus_profile["name"]
