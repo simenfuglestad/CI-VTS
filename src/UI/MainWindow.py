@@ -20,7 +20,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         """Init Camera and Video Settings"""
         self.video_path = video_path
-        self.video_name = None
+        self.video_name = ""
         self.line_edit_video_path.setText(video_path)
         self.btn_set_video_path.clicked.connect(self.set_video_path)
 
@@ -179,9 +179,12 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         experiment = QFileDialog.getSaveFileName(self, dir=self.experiments_path, filter="*.json",
                                                  caption="Save Experiment")
         ext = experiment[1]
+        print(experiment)
         file_name = experiment[0][experiment[0].rfind('/') + 1: len(experiment[0])].split('.')[0]
+        print(file_name)
         if file_name != '':
             path = experiment[1][0:experiment[1].rfind('/') + 1]
+            self.video_name = file_name + ".avi"
             save_experiment_profile(stimulus_profile=self.current_stimulus_profile, file_name=file_name,
                                     experiment_settings=self.get_current_experiment_settings())
             # save_stimulus_profile(self.current_stimulus_profile)
@@ -234,7 +237,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
     def set_video_path_no_dialog(self, path):
         if self.video_name is not None:
             if self.camera.set_video_path(path, self.video_name):
-                self.video_path = path + "/"
+                self.video_path = path
                 self.line_edit_video_path.setText(path + "/" + self.video_name)
 
     def view_experiment_to_run(self):
@@ -243,6 +246,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         if experiment is not None:
             self.current_experiment = experiment
             self.video_name = experiment["name"] + ".avi"
+            print(self.video_name)
             self.set_video_path_no_dialog(self.video_path)
             # self.set_video_path()
             self.current_stimulus_profile = experiment["stimulus_profile"]
@@ -257,7 +261,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
                 self.stim_profile_plot.plot(d["time"], d["value"])
 
             self.deleted_plot_items = []
-            self.line_edit_video_path .setText(self.line_edit_video_path.text() + self.video_name)
+            self.line_edit_video_path.setText(self.video_path + self.video_name)
             self.center_stimulus_plot()
 
 
@@ -316,7 +320,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         return [self.combo_hatching_time.itemText(i) for i in range(0, self.combo_hatching_time.count())]
 
     def get_current_experiment_settings(self):
-        return {"duration": self.get_duration_as_dict(), "video_path": self.line_edit_video_path.text(),
+        return {"duration": self.get_duration_as_dict(), "video_path": self.video_path + self.video_name,
                 "log_path": self.line_edit_logs_path.text(), "view_live": self.checkbox_view_live.isChecked(),
                 "view_infrared": self.checkbox_live_ir.isChecked(),
                 "dechorionated": self.checkbox_dechorionated.isChecked(),
