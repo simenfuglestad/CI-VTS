@@ -103,6 +103,3 @@ If you want to contribute to the code base directly then please feel free to mak
 2. Preface your branch name and/or commit message with a short prefix indicating the type of change made followed by what changes were made, i.e `hotfix_issue#nr`,`feature_save_video_as_mkv`, `documentation_main_window`, etc
 ## License and Ownership
 This project was commissioned by the [Sars International Centre for Marine Molecular Biology](https://www.uib.no/en/sarssenteret), Bergen. It is licensed under [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
-
-[1]: http://www.pyqtgraph.org/
-[2]: https://doc.qt.io/qtforpython/quickstart.html
