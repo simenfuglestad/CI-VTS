@@ -12,9 +12,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.setupUi(self)
 
         self.camera = camera
-        self.feed_stopped = True
-
-        # self.camera_index_map = [] #openCV sometimes uses arbitrary numbers for device numbers, fix with mapping
+        self.feed_stopped = False
 
         self.camera.finished.connect(self.restart_live_camera)
         self.available_cameras = self.get_available_cameras()
@@ -24,11 +22,8 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
         self.btn_disc_camera.clicked.connect(self.disconnect_camera)
         # self.combo_camera.currentIndexChanged.connect(self.set_live_camera)
-        #
-        # self.capture.set(cv2.CAP_PROP_FPS, int(60))
-        #
 
-        self.camera.img_changed.connect(lambda x: self.update_live_cam_view(x))
+        self.camera.img_changed_signal.connect(lambda x: self.update_live_cam_view(x))
 
         self.device_name = None
         self.serial_interface = serial_interface
@@ -54,9 +49,17 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
         self.hslider_LED_live.valueChanged.connect(self.slide_adjust_led_live)
 
+    def set_camera_fps(self, combo_fps_value):
+        set_fps = self.camera.set_fps(combo_fps_value)
+        # if set
+
     def disconnect_camera(self):
         self.feed_stopped = True
-        self.camera.running = False
+        # self.feed_reached_end = False
+        self.camera.set_running(False)
+        # time.sleep(1)
+        self.camera.disconnect()
+        # self.camera.running = False
         self.label_live_video_feed.clear()
 
     def restart_live_camera(self):
@@ -69,21 +72,23 @@ class SettingsDialog(QDialog, Ui_Dialog):
             self.camera.start()
 
     def set_live_camera(self, index=0):
+        print(self.camera.running)
         if len(self.available_cameras) > 0:
-            self.camera.set_capture_device(self.available_cameras[index])
-            self.feed_stopped = False
+            # self.disconnect_camera()
             if self.camera.running:
-                self.camera.running = False
+                self.camera.set_running(False)
+                self.camera.set_capture_device(self.available_cameras[index])
+                # self.feed_stopped = True
+                self.camera.set_running(True)
 
             else:
-                self.camera.running = True
-                self.camera.start()
+                self.camera.set_capture_device(self.available_cameras[index])
+                self.feed_stopped = False
+                self.camera.set_running(True)
 
     def get_available_cameras(self):
         """
-        Gets available cameras, adds them to combobox and finally returns a tuple list used for mapping device number to
-        item in combobox
-        :return: list of capture devices corresponding to index in combobox
+        :return: list of capture devices with indexes corresponding to indexes in combobox
         """
         indices = self.camera.capture_indices
         self.combo_camera.clear()
@@ -95,10 +100,11 @@ class SettingsDialog(QDialog, Ui_Dialog):
         return indices
 
     def showEvent(self, event):
-        self.set_live_camera()
+        pass
+        # self.set_live_camera()
 
     def closeEvent(self, event):
-        self.camera.running = False
+        pass
 
     def update_live_cam_view(self, img_data):
         if self.feed_stopped:
@@ -130,32 +136,32 @@ class SettingsDialog(QDialog, Ui_Dialog):
     def slide_adjust_ir_bottom(self):
         slide_val = self.hslider_IR_bottom.value()
         self.spin_IR_bottom.setValue(slide_val)
-        self.serial_interface.send_data(slide_val, "ir3")
+        self.serial_interface.send_data(slide_val, "ir5")
 
     def slide_adjust_ir_left(self):
         slide_val = self.hslider_IR_left.value()
         self.spin_IR_left.setValue(slide_val)
-        self.serial_interface.send_data(slide_val, "ir5")
+        self.serial_interface.send_data(slide_val, "ir6")
 
     def slide_adjust_ir_right(self):
         slide_val = self.hslider_IR_right.value()
         self.spin_IR_right.setValue(slide_val)
-        self.serial_interface.send_data(slide_val, "ir6")
+        self.serial_interface.send_data(slide_val, "ir3")
 
     def spin_adjust_ir_bottom(self):
         spin_val = self.spin_IR_bottom.value()
         self.hslider_IR_bottom.setValue(spin_val)
-        self.serial_interface.send_data(spin_val, "ir3")
+        self.serial_interface.send_data(spin_val, "ir5")
 
     def spin_adjust_ir_left(self):
         spin_val = self.spin_IR_left.value()
         self.hslider_IR_left.setValue(spin_val)
-        self.serial_interface.send_data(spin_val, "ir5")
+        self.serial_interface.send_data(spin_val, "ir6")
 
     def spin_adjust_ir_right(self):
         spin_val = self.spin_IR_right.value()
         self.hslider_IR_right.setValue(spin_val)
-        self.serial_interface.send_data(spin_val, "ir6")
+        self.serial_interface.send_data(spin_val, "ir3")
 
     def slide_release_adjust_ir(self):
         slider_val = self.hslider_IR_LED.value()

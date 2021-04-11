@@ -2,51 +2,89 @@ import json
 import os
 from datetime import datetime
 import math
-from PySide6.QtCore import QRunnable
+from PySide6.QtCore import *
 import time
 import timeit
 
 _ex_dir = "experiment/experiment_profiles/"
 
 
-class ExperimentRunner(QRunnable):
-    def __init__(self, plot_data, serial_interface, resolution=0.1, parent=None):
+class ExperimentRunner(QObject):
+    def __init__(self, plot_data, serial_interface, duration, camera, recording_experiment, resolution=100, parent=None):
         super().__init__(parent)
         self.plot_data = plot_data
         self.serial_interface = serial_interface
         self.resolution = resolution
+        self.recording_experiment = recording_experiment
+        self.start_time = 0
+        self.current_time = 0
+        self.duration = duration
+        self.timer = QTimer()
+        self.timer.setTimerType(Qt.PreciseTimer)
+        self.timer.setInterval(self.resolution/10)
+        self.timer.timeout.connect(self.update)
 
-    def send_interval(self, item):
+        self.stim_vals = self.make_stim_vals()
+
+        self.camera = camera
+
+    def make_stim_vals(self):
+        result = []
+        for item in self.plot_data:
+            r = self.make_stim_interval(item)
+            result = result + r
+        return result
+
+    def make_stim_interval(self, item):
         start_val = item["value"][0]
         end_val = item["value"][1]
 
         start_time = item["time"][0]
         end_time = item["time"][1]
-        run_time = end_time-start_time
+        run_time = end_time - start_time
 
-        step_val = ((end_val - start_val)/run_time) / (1/self.resolution)
-
-        time_passed = 0
+        step_val = ((end_val - start_val) / run_time) / self.resolution  #1ms resolution
         val = start_val
-        while time_passed <= run_time:
+        interval_vals = []
+        for i in range(0, int(run_time)*self.resolution):
+            interval_vals.append(val)
             val = val + step_val
-            if val > 100:
-                val = 100
-            elif val < 0.01:  # quick fix to appropriately set val to either 0 or 1, requires testing
-                print(val)
-                val = 0
 
-            self.serial_interface.send_data(val, "sl")
-            time.sleep(self.resolution)
-            time_passed = time_passed + self.resolution
-
-        # print(val)
+        return interval_vals
 
     def run(self):
-        for item in self.plot_data:
-            self.send_interval(item)
+        if self.camera.capture_device is not None:
+            if not self.camera.capture_device.isOpened():
+                print("Capture device is not opened")
+                return
+        else:
+            print("no capture device")
+            return
 
-        print("Experiment run completed")
+        if len(self.stim_vals) > 0:
+            self.start_time = time.perf_counter()
+            if self.recording_experiment:
+                self.camera.set_rec_mode()
+            self.timer.start()
+        else:
+            print("no values to plot")
+
+    def update(self):
+        if len(self.stim_vals) > 0:
+
+            stim_val = self.stim_vals.pop(0)
+            # self.timer.stop()
+            self.serial_interface.send_data(stim_val, "sl")
+            # self.timer.start()
+        self.current_time = time.perf_counter() - self.start_time
+        if self.current_time >= self.duration:
+            # self.camera.set_live_mode()
+            self.timer.stop()
+            if self.recording_experiment:
+                self.camera.set_live_mode()
+            print("timer stopped!")
+            # print(self.stim_vals)
+            # print(len(self.stim_vals))
 
 
 def get_ex_dir():

@@ -58,7 +58,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Status:</string>
+            <string>Camera Status:</string>
            </property>
           </widget>
          </item>
@@ -920,48 +920,6 @@
                     </property>
                     <property name="readOnly">
                      <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="spin_duration_hour">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="stepType">
-                     <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
-                    </property>
-                    <property name="displayIntegerBase">
-                     <number>10</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="spin_duration_min">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximum">
-                     <number>59</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="spin_duration_sec">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximum">
-                     <number>59</number>
                     </property>
                    </widget>
                   </item>
