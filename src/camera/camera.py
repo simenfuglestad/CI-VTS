@@ -14,9 +14,10 @@ class Camera(QThread):
                  parent=None):
         super().__init__(parent)
         self.is_alive = True
+        self.capture_device_nr = -1
         self.capture_indices = self.scan_capture_indices()
         self.capture_device = None
-        self.capture_device_nr = -1
+
 
         self.res_width = res_width
         self.res_height = res_height
@@ -67,8 +68,8 @@ class Camera(QThread):
                         self.set_running(False)
                         print(e)
 
-        if self.capture_device.isOpened():
-            self.capture_device.release()
+        # if self.capture_device.isOpened():
+        #     self.capture_device.release()
         print("cam thread reached end")
 
     def set_video_path(self, path, video_name=""):
@@ -104,7 +105,6 @@ class Camera(QThread):
             self.capture_device.set(cv2.CAP_PROP_FPS, fps)
             return True
 
-
     def set_running(self, is_running):
         # print(self.mutex.)
         self.mutex.lock()
@@ -116,14 +116,18 @@ class Camera(QThread):
         self.running = False
         self.cam_connected_signal.emit(True)
 
-    def scan_capture_indices(self, captures_to_try=3):
+    def scan_capture_indices(self, captures_to_try=5):
         indices = []
         for i in range(0, captures_to_try):
+            if i == self.capture_device_nr:
+                indices.append(i)
+                continue
             try:
                 c = cv2.VideoCapture(i)
                 if c.isOpened():
                     indices.append(i)
                 c.release()
+                print(c)
             except Exception as e:
                 print(e)
 
