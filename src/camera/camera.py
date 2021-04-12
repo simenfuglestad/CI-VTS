@@ -15,9 +15,9 @@ class Camera(QThread):
         super().__init__(parent)
         self.is_alive = True
         self.capture_device_nr = -1
-        self.capture_indices = self.scan_capture_indices()
         self.capture_device = None
-
+        self.capture_indices = self.scan_capture_indices()
+        self.camera_removed_flag = False
 
         self.res_width = res_width
         self.res_height = res_height
@@ -48,6 +48,7 @@ class Camera(QThread):
                     try:
                         ret, frame = self.capture_device.read()
                         if ret is True:
+                            self.camera_removed_flag = False
                             # print(self.recording)
                             h, w, ch = frame.shape
                             if self.out is not None:
@@ -63,6 +64,8 @@ class Camera(QThread):
                             scaled_img = qt_image.scaled(self.width, self.height, Qt.KeepAspectRatio)
                             pix_map = QPixmap.fromImage(scaled_img)
                             self.img_changed_signal.emit(pix_map)
+                        else:
+                            self.camera_removed_flag = True
 
                     except Exception as e:
                         self.set_running(False)
@@ -75,7 +78,7 @@ class Camera(QThread):
     def set_video_path(self, path, video_name=""):
         try:
             if os.path.exists(path):
-                self.video_path = path + "/" + video_name
+                self.video_path = path + video_name
                 return True
             else:
                 return False
@@ -92,6 +95,7 @@ class Camera(QThread):
         if self.out is not None:
             self.out.release()
         self.emit_cam_status()
+        self.capture_device_nr = -1
 
     def set_fps(self, fps):
         if self.recording:
@@ -119,18 +123,17 @@ class Camera(QThread):
     def scan_capture_indices(self, captures_to_try=5):
         indices = []
         for i in range(0, captures_to_try):
-            if i == self.capture_device_nr:
-                indices.append(i)
-                continue
+            if self.capture_device is not None:
+                if i == self.capture_device_nr and not self.camera_removed_flag:
+                    indices.append(i)
+                    continue
             try:
                 c = cv2.VideoCapture(i)
                 if c.isOpened():
                     indices.append(i)
                 c.release()
-                print(c)
             except Exception as e:
                 print(e)
-
         return indices
 
     def emit_cam_status(self):
@@ -157,6 +160,20 @@ class Camera(QThread):
         print(self.capture_device.get(4))
         print(self.capture_device.get(5))
         fourcc = cv2.VideoWriter_fourcc('X', 'V', 'I', 'D')
+        if os.path.isfile(self.video_path):
+            print("recording with same name already exists")
+            done = False
+            index = 1
+            [name, ext] = self.video_path.split('.')
+            print(name)
+            while not done:
+                new_video_path = name + "(" + str(index) + ")." + ext
+                if not os.path.isfile(new_video_path):
+                    done = True
+                    self.video_path = new_video_path
+                else:
+                    index = index + 1
+        print(self.video_path)
         if self.video_path[-4:len(self.video_path)] == ".avi":
             self.out = cv2.VideoWriter(self.video_path, fourcc, self.fps, (int(self.res_width), int(self.res_height)), isColor=True)
             self.recording = True
