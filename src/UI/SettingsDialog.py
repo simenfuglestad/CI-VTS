@@ -10,12 +10,13 @@ class SettingsDialog(QDialog, Ui_Dialog):
     def __init__(self, serial_interface, camera, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-
+        s = time.perf_counter()
         self.camera = camera
         self.feed_stopped = False
 
         self.camera.finished.connect(self.restart_live_camera)
-        self.available_cameras = self.get_available_cameras()
+        self.available_cameras = []
+        self.get_available_cameras()
         self.btn_connect_camera.clicked.connect(self.set_live_camera)
         self.btn_scan_camera.clicked.connect(self.get_available_cameras)
         self.combo_camera.activated.connect(lambda x: self.set_live_camera(x))
@@ -28,6 +29,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.device_name = None
         self.serial_interface = serial_interface
         self.scan_serial()
+
         self.connect_current_device()
 
         self.combo_serial.currentIndexChanged.connect(self.connect_current_device)
@@ -72,31 +74,40 @@ class SettingsDialog(QDialog, Ui_Dialog):
             self.camera.start()
 
     def set_live_camera(self, index=0):
-        print(self.camera.running)
+        index = self.combo_camera.currentIndex()
+        print("setting camera")
         if len(self.available_cameras) > 0:
             # self.disconnect_camera()
             if self.camera.running:
+                print("cam running when connect")
                 self.camera.set_running(False)
+                print(index)
                 self.camera.set_capture_device(self.available_cameras[index])
                 # self.feed_stopped = True
                 self.camera.set_running(True)
 
             else:
+                print("cam not running when connect")
                 self.camera.set_capture_device(self.available_cameras[index])
                 self.feed_stopped = False
                 self.camera.set_running(True)
+        else:
+            print("no cameras")
 
     def get_available_cameras(self):
         """
         :return: list of capture devices with indexes corresponding to indexes in combobox
         """
-        indices = self.camera.capture_indices
+        indices = self.camera.scan_capture_indices()
+        current_cam_index = self.combo_camera.currentIndex()
         self.combo_camera.clear()
         if len(indices) == 0:
             self.combo_camera.addItem("No cameras available")
         else:
             for i in indices:
                 self.combo_camera.addItem("Camera " + str(i + 1))
+            self.combo_camera.setCurrentIndex(current_cam_index)
+        self.available_cameras = indices
         return indices
 
     def showEvent(self, event):
@@ -123,7 +134,9 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.serial_interface.send_data(spin_val, "sl")
 
     def scan_serial(self):
+        s = time.perf_counter()
         ports = self.serial_interface.scan_serial()
+        print(time.perf_counter() - s)
         self.combo_serial.clear()
         for p in ports:
             self.combo_serial.addItem(p)

@@ -179,9 +179,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         experiment = QFileDialog.getSaveFileName(self, dir=self.experiments_path, filter="*.json",
                                                  caption="Save Experiment")
         ext = experiment[1]
-        print(experiment)
         file_name = experiment[0][experiment[0].rfind('/') + 1: len(experiment[0])].split('.')[0]
-        print(file_name)
         if file_name != '':
             path = experiment[1][0:experiment[1].rfind('/') + 1]
             self.video_name = file_name + ".avi"
@@ -246,7 +244,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         if experiment is not None:
             self.current_experiment = experiment
             self.video_name = experiment["name"] + ".avi"
-            print(self.video_name)
             self.set_video_path_no_dialog(self.video_path)
             # self.set_video_path()
             self.current_stimulus_profile = experiment["stimulus_profile"]
@@ -263,7 +260,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.deleted_plot_items = []
             self.line_edit_video_path.setText(self.video_path + self.video_name)
             self.center_stimulus_plot()
-
 
     def view_stimulus_profile(self):
         selected = self.list_stim_profiles.selectedItems()[0].text()
