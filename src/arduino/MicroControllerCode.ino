@@ -1,6 +1,7 @@
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
 int ir_led3 = 3;
+int ir_led6 = 6;
 int ir_led5 = 5;
 int ir_led9 = 9;
 
@@ -9,35 +10,56 @@ void setup() {
 //  setPwmFrequency(ir_leds, 1);
 
   Serial.begin(115200);
-  Serial.setTimeout(10);
+  Serial.setTimeout(5);
 
   pinMode(ir_led3, OUTPUT);
+  pinMode(ir_led6, OUTPUT);
   pinMode(ir_led5, OUTPUT);
   pinMode(ir_led9, OUTPUT);
 }
 
 void loop() {
   // print the string when a newline arrives:
- if(Serial.available()){
-    Serial.println("doing the thing");
+ if(Serial.available()) {
     inputString = Serial.readString();
     Serial.flush();
    }
-   if(inputString.startsWith("irPWM")){
+   if(inputString.startsWith("irPWM")) {
     int val = inputString.substring(5,inputString.length()).toInt();
     setPwmFrequency(ir_led3, val);
     //clear the string:
     inputString = "";
    }
-   else if(inputString.startsWith("ir")){
-    int val = inputString.substring(2,inputString.length()).toInt();
+
+    else if (inputString.startsWith("sl")) {
+      int val = inputString.substring(2,inputString.length()).toInt();
+      Serial.println(val);
+      val = map(val, 0, 100, 0, 255);
+      analogWrite(ir_led9, val);
+      inputString = "";
+   }
+
+  else if (inputString.startsWith("ir3")){
+    int val = inputString.substring(3,inputString.length()).toInt();
+    val = map(val, 0, 100, 0, 255);
     analogWrite(ir_led3, val);
-    analogWrite(ir_led5, val);
-    analogWrite(ir_led9, val);
      //clear the string:
     inputString = "";
    }
-
+  else if (inputString.startsWith("ir5")){
+    int val = inputString.substring(3,inputString.length()).toInt();
+    val = map(val, 0, 100, 0, 255);
+    analogWrite(ir_led5, val);
+     //clear the string:
+    inputString = "";
+   }
+  else if (inputString.startsWith("ir6")){
+    int val = inputString.substring(3,inputString.length()).toInt();
+    val = map(val, 0, 100, 0, 255);
+    analogWrite(ir_led6, val);
+     //clear the string:
+    inputString = "";
+   }
  }
 
 void setPwmFrequency(int pin, int divisor) {

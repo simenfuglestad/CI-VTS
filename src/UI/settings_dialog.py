@@ -161,6 +161,7 @@ class Ui_Dialog(object):
 
         self.hslider_IR_left = QSlider(self.groupBox)
         self.hslider_IR_left.setObjectName(u"hslider_IR_left")
+        self.hslider_IR_left.setMaximum(100)
         self.hslider_IR_left.setOrientation(Qt.Horizontal)
 
         self.gridLayout_2.addWidget(self.hslider_IR_left, 7, 2, 1, 1)
@@ -242,6 +243,7 @@ class Ui_Dialog(object):
 
         self.hslider_IR_right = QSlider(self.groupBox)
         self.hslider_IR_right.setObjectName(u"hslider_IR_right")
+        self.hslider_IR_right.setMaximum(100)
         self.hslider_IR_right.setOrientation(Qt.Horizontal)
 
         self.gridLayout_2.addWidget(self.hslider_IR_right, 8, 2, 1, 1)
@@ -261,11 +263,15 @@ class Ui_Dialog(object):
 
         self.gridLayout_2.addWidget(self.label_18, 0, 0, 1, 1)
 
-        self.hslider_framerate = QSlider(self.groupBox)
-        self.hslider_framerate.setObjectName(u"hslider_framerate")
-        self.hslider_framerate.setOrientation(Qt.Horizontal)
+        self.combo_framerate = QComboBox(self.groupBox)
+        self.combo_framerate.addItem("")
+        self.combo_framerate.addItem("")
+        self.combo_framerate.addItem("")
+        self.combo_framerate.addItem("")
+        self.combo_framerate.setObjectName(u"combo_framerate")
+        self.combo_framerate.setLayoutDirection(Qt.LeftToRight)
 
-        self.gridLayout_2.addWidget(self.hslider_framerate, 1, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.combo_framerate, 1, 2, 1, 1)
 
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
@@ -468,6 +474,11 @@ class Ui_Dialog(object):
         self.label_12.setText(QCoreApplication.translate("Dialog", u"IR Right", None))
         self.label_10.setText(QCoreApplication.translate("Dialog", u"IR Left", None))
         self.label_18.setText(QCoreApplication.translate("Dialog", u"Camera Settings", None))
+        self.combo_framerate.setItemText(0, QCoreApplication.translate("Dialog", u"20", None))
+        self.combo_framerate.setItemText(1, QCoreApplication.translate("Dialog", u"30", None))
+        self.combo_framerate.setItemText(2, QCoreApplication.translate("Dialog", u"60", None))
+        self.combo_framerate.setItemText(3, QCoreApplication.translate("Dialog", u"90", None))
+
         self.label_9.setText(QCoreApplication.translate("Dialog", u"Serial Interface", None))
         self.label_serial_status.setText(QCoreApplication.translate("Dialog", u"CONNECTED_STATUS", None))
         self.combo_serial.setItemText(0, QCoreApplication.translate("Dialog", u"(no serial device selected)", None))

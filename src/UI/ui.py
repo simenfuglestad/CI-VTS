@@ -324,15 +324,15 @@ class Ui_MainWindow(object):
 
         self.gridLayout_9.addWidget(self.list_experiments_to_run, 1, 0, 1, 2)
 
-        self.pushButton_5 = QPushButton(self.groupBox_4)
-        self.pushButton_5.setObjectName(u"pushButton_5")
-
-        self.gridLayout_9.addWidget(self.pushButton_5, 3, 0, 1, 1)
-
         self.pushButton_6 = QPushButton(self.groupBox_4)
         self.pushButton_6.setObjectName(u"pushButton_6")
 
         self.gridLayout_9.addWidget(self.pushButton_6, 3, 1, 1, 1)
+
+        self.pushButton_5 = QPushButton(self.groupBox_4)
+        self.pushButton_5.setObjectName(u"pushButton_5")
+
+        self.gridLayout_9.addWidget(self.pushButton_5, 3, 0, 1, 1)
 
 
         self.gridLayout_3.addWidget(self.groupBox_4, 2, 1, 3, 1)
@@ -1068,8 +1068,8 @@ class Ui_MainWindow(object):
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Experiments", None))
         self.groupBox_4.setTitle("")
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Experiements to Run", None))
-        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"+", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"-", None))
+        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"+", None))
         self.groupBox_5.setTitle("")
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Full Duration", None))
         self.line_edit_duration.setText(QCoreApplication.translate("MainWindow", u"HH:MM:SS", None))

@@ -13,14 +13,14 @@ class SettingsDialog(QDialog, Ui_Dialog):
         s = time.perf_counter()
         self.camera = camera
         self.feed_stopped = False
-
+        self.camera.cam_connected_signal.connect(self.show_camera_status)
         self.camera.finished.connect(self.restart_live_camera)
         self.available_cameras = []
         self.get_available_cameras()
         self.btn_connect_camera.clicked.connect(self.set_live_camera)
         self.btn_scan_camera.clicked.connect(self.get_available_cameras)
         self.combo_camera.activated.connect(lambda x: self.set_live_camera(x))
-
+        self.combo_framerate.activated.connect(lambda x: self.set_camera_fps(x))
         self.btn_disc_camera.clicked.connect(self.disconnect_camera)
         # self.combo_camera.currentIndexChanged.connect(self.set_live_camera)
 
@@ -51,9 +51,17 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
         self.hslider_LED_live.valueChanged.connect(self.slide_adjust_led_live)
 
+    def show_camera_status(self, status):
+        if status is True:
+            self.label_camera_status.setText("Connected")
+            self.label_camera_status.setStyleSheet("QLabel { color : green }")
+        else:
+            self.label_camera_status.setText("Not Connected")
+            self.label_camera_status.setStyleSheet("QLabel { color : red }")
+
     def set_camera_fps(self, combo_fps_value):
-        set_fps = self.camera.set_fps(combo_fps_value)
-        # if set
+        fps = int(self.combo_framerate.itemText(combo_fps_value))
+        self.camera.set_fps(fps)
 
     def disconnect_camera(self):
         self.feed_stopped = True
@@ -75,11 +83,10 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
     def set_live_camera(self, index=0):
         index = self.combo_camera.currentIndex()
-        print("setting camera")
         if len(self.available_cameras) > 0:
             # self.disconnect_camera()
             if self.camera.running:
-                print("cam running when connect")
+                print("cam running")
                 self.camera.set_running(False)
                 print(index)
                 self.camera.set_capture_device(self.available_cameras[index])
@@ -87,7 +94,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
                 self.camera.set_running(True)
 
             else:
-                print("cam not running when connect")
+                print("cam not running")
                 self.camera.set_capture_device(self.available_cameras[index])
                 self.feed_stopped = False
                 self.camera.set_running(True)
@@ -112,7 +119,6 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
     def showEvent(self, event):
         pass
-        # self.set_live_camera()
 
     def closeEvent(self, event):
         pass
