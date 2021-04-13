@@ -44,7 +44,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.logs_path = logs_path
         self.line_edit_logs_path.setText(logs_path)
         self.btn_set_logs_path.clicked.connect(self.set_logs_path)
-
         # self.format_duration_text()
         self.set_duration_display(self.spin_duration_hour.value(), self.spin_duration_min.value(), self.spin_duration_sec.value())
 
@@ -118,8 +117,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         else:
             self.label_status_value.setText("Not Connected")
             self.label_status_value.setStyleSheet("QLabel { color : red }")
-
-
 
     def set_logs_path(self):
         path = QFileDialog.getExistingDirectory(dir=self.video_path, caption="Set Path to Logs")

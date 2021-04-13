@@ -214,6 +214,9 @@
           </item>
           <item row="7" column="2">
            <widget class="QSlider" name="hslider_IR_left">
+            <property name="maximum">
+             <number>100</number>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -332,6 +335,9 @@
           </item>
           <item row="8" column="2">
            <widget class="QSlider" name="hslider_IR_right">
+            <property name="maximum">
+             <number>100</number>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -366,10 +372,30 @@
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QSlider" name="hslider_framerate">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+           <widget class="QComboBox" name="combo_framerate">
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
             </property>
+            <item>
+             <property name="text">
+              <string>20</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>30</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>60</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>90</string>
+             </property>
+            </item>
            </widget>
           </item>
          </layout>

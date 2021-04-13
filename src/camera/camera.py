@@ -69,6 +69,7 @@ class Camera(QThread):
 
                     except Exception as e:
                         self.set_running(False)
+                        print("Excepting")
                         print(e)
 
         # if self.capture_device.isOpened():
@@ -98,15 +99,26 @@ class Camera(QThread):
         self.capture_device_nr = -1
 
     def set_fps(self, fps):
+        print("attempt to set fps")
+        print(fps)
         if self.recording:
-            print("Camnot set fps while recording")
+            print("Cannot set fps while recording")
             return False
         elif self.capture_device is None:
             print("Camera is not connected")
             return False
+        elif not self.capture_device.isOpened():
+            print("Camera is not open")
         else:
+            print("setting fps")
+            print(self.capture_device.get(cv2.CAP_PROP_FPS))
             self.fps = fps
-            self.capture_device.set(cv2.CAP_PROP_FPS, fps)
+            self.set_running(False)
+            time.sleep(1)
+            self.set_capture_device(self.capture_device_nr)
+            self.set_running(True)
+            # status = self.capture_device.set(cv2.CAP_PROP_FPS, float(fps))
+            # print(status)
             return True
 
     def set_running(self, is_running):
@@ -184,7 +196,7 @@ class Camera(QThread):
             self.capture_device.release()
         self.capture_device = cv2.VideoCapture(cap_index)
         self.capture_device_nr = cap_index
-        self.capture_device.set(cv2.CAP_PROP_FPS, 60)
+        self.capture_device.set(cv2.CAP_PROP_FPS, self.fps)
         self.capture_device.set(cv2.CAP_PROP_FRAME_WIDTH, int(self.res_width))
         self.capture_device.set(cv2.CAP_PROP_FRAME_HEIGHT, int(self.res_height))
         self.emit_cam_status()
