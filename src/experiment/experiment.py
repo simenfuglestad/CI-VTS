@@ -10,6 +10,8 @@ _ex_dir = "experiment/experiment_profiles/"
 
 
 class ExperimentRunner(QObject):
+    signal_experiment_in_progress = Signal(bytes)
+
     def __init__(self, plot_data, serial_interface, duration, camera, recording_experiment, resolution=100, parent=None):
         super().__init__(parent)
         self.plot_data = plot_data
@@ -71,7 +73,6 @@ class ExperimentRunner(QObject):
 
     def update(self):
         if len(self.stim_vals) > 0:
-
             stim_val = self.stim_vals.pop(0)
             # self.timer.stop()
             self.serial_interface.send_data(stim_val, "sl")
@@ -83,8 +84,7 @@ class ExperimentRunner(QObject):
             if self.recording_experiment:
                 self.camera.set_live_mode()
             print("timer stopped!")
-            # print(self.stim_vals)
-            # print(len(self.stim_vals))
+            self.signal_experiment_in_progress.emit(False)
 
 
 def get_ex_dir():

@@ -41,6 +41,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         self.list_experiments_to_run.itemClicked.connect(self.view_experiment_to_run)
 
+        self.experiment_in_progress = False
+
         self.logs_path = logs_path
         self.line_edit_logs_path.setText(logs_path)
         self.btn_set_logs_path.clicked.connect(self.set_logs_path)
@@ -276,14 +278,22 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.deleted_plot_items = []
             self.center_stimulus_plot()
 
+    def grab_experiment_done_signal(self, done_signal):
+        self.experiment_in_progress = done_signal
+
     def run_experiment(self):
-        self.runner = ExperimentRunner(plot_data=self.stimulus_plotted_data, duration=self.get_total_duration(),
+        if not self.experiment_in_progress:
+            self.experiment_in_progress = True
+            self.runner = ExperimentRunner(plot_data=self.stimulus_plotted_data, duration=self.get_total_duration(),
                                        serial_interface=self.serial_interface, camera=self.camera,
                                        recording_experiment=self.checkbox_save_video.isChecked())
 
-        if self.checkbox_view_live.isChecked():
-            self.settings_dialog.show()
-        self.runner.run()
+            self.runner.signal_experiment_in_progress.connect(lambda x: self.grab_experiment_done_signal(x))
+            if self.checkbox_view_live.isChecked():
+                self.settings_dialog.show()
+            self.runner.run()
+        else:
+            print("Experiment already in progress")
 
     def show_stimulus_profile_names(self):
         self.list_stim_profiles.clear()
@@ -433,7 +443,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         s = time_in_seconds % 60
 
         return {"h": h, "m": m, "s" : s}
-
 
     def validate_plot(self, start, end, led_start, led_end):
         # if led_start <= 0 and led_end <= 0 or end < start:

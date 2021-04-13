@@ -21,6 +21,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.btn_scan_camera.clicked.connect(self.get_available_cameras)
         self.combo_camera.activated.connect(lambda x: self.set_live_camera(x))
         self.combo_framerate.activated.connect(lambda x: self.set_camera_fps(x))
+        self.combo_framerate.setCurrentText((str(self.camera.fps)))
         self.btn_disc_camera.clicked.connect(self.disconnect_camera)
         # self.combo_camera.currentIndexChanged.connect(self.set_live_camera)
 
