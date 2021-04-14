@@ -99,8 +99,6 @@ class Camera(QThread):
         self.capture_device_nr = -1
 
     def set_fps(self, fps):
-        print("attempt to set fps")
-        print(fps)
         if self.recording:
             print("Cannot set fps while recording")
             return False
@@ -110,11 +108,10 @@ class Camera(QThread):
         elif not self.capture_device.isOpened():
             print("Camera is not open")
         else:
-            print("setting fps")
             print(self.capture_device.get(cv2.CAP_PROP_FPS))
             self.fps = fps
             self.set_running(False)
-            time.sleep(1)
+            # time.sleep(1)
             self.set_capture_device(self.capture_device_nr)
             self.set_running(True)
             # status = self.capture_device.set(cv2.CAP_PROP_FPS, float(fps))
@@ -166,12 +163,13 @@ class Camera(QThread):
         self.live = True
         print("wrote " + str(self.frames_written) + " frames")
 
-    def set_rec_mode(self):
+    def set_rec_mode(self, frames_to_write=0):
         self.frames_written = 0
         print(self.capture_device.get(3))
         print(self.capture_device.get(4))
         print(self.capture_device.get(5))
         fourcc = cv2.VideoWriter_fourcc('X', 'V', 'I', 'D')
+        vid_path = ""
         if os.path.isfile(self.video_path):
             print("recording with same name already exists")
             done = False
@@ -182,12 +180,16 @@ class Camera(QThread):
                 new_video_path = name + "(" + str(index) + ")." + ext
                 if not os.path.isfile(new_video_path):
                     done = True
-                    self.video_path = new_video_path
+                    vid_path = new_video_path
+                    # self.video_path = new_video_path
                 else:
                     index = index + 1
+        else:
+            vid_path = self.video_path
+
         print(self.video_path)
-        if self.video_path[-4:len(self.video_path)] == ".avi":
-            self.out = cv2.VideoWriter(self.video_path, fourcc, self.fps, (int(self.res_width), int(self.res_height)), isColor=True)
+        if self.video_path[-4:len(vid_path)] == ".avi":
+            self.out = cv2.VideoWriter(vid_path, fourcc, self.fps, (int(self.res_width), int(self.res_height)), isColor=True)
             self.recording = True
             self.live = False
 
