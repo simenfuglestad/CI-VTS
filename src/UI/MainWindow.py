@@ -106,7 +106,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.shortcut_redo.activated.connect(self.redo)
         self.shortcut_save.activated.connect(self.save_experiment)
         self.shortcut_save_stimulus_profile.activated.connect(self.save_stimulus_profile)
-        self.shortcut_delete.activated.connect(self.delete_stimulus)
         self.shortcut_refresh.activated.connect(self.refresh_items)
 
         self.resize(size.width(), size.height())
