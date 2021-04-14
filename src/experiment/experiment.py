@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 import math
 # from PySide6.QtCore import *
-from PyQt5.QtCore import *
+from PySide2.QtCore import *
 import time
 import timeit
 
@@ -11,7 +11,7 @@ _ex_dir = "experiment/experiment_profiles/"
 
 
 class ExperimentRunner(QObject):
-    signal_experiment_in_progress = pyqtSignal(bool)
+    signal_experiment_in_progress = Signal(bool)
 
     def __init__(self, plot_data, serial_interface, duration, camera, recording_experiment, resolution=100, parent=None):
         super().__init__(parent)

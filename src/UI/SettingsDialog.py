@@ -1,5 +1,8 @@
 from UI.settings_dialog import Ui_Dialog
 from camera.camera import *
+from PySide2.QtWidgets import *
+from PySide2.QtGui import *
+from PySide2.QtCore import *
 import time
 
 

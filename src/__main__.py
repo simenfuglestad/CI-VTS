@@ -6,6 +6,7 @@ from arduino.arduino import Arduino
 from UI.AnalysisDialog import AnalysisDialog
 from UI.SettingsDialog import SettingsDialog
 from camera.camera import *
+from PySide2.QtWidgets import QApplication
 
 
 class Main(QApplication):

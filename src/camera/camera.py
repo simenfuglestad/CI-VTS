@@ -1,17 +1,13 @@
 import cv2
 import os
-from PySide6.QtWidgets import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-# from PySide6.QtCore import *
-# from PySide6.QtGui import *
+from PySide2.QtCore import *
+from PySide2.QtGui import *
 import time
 
 
 class Camera(QThread):
-    img_changed_signal = pyqtSignal(bytes)
-    cam_connected_signal = pyqtSignal(bool)
+    img_changed_signal = Signal(bytes)
+    cam_connected_signal = Signal(bool)
 
     def __init__(self, video_path, fps=60, width=420, height=640, res_width=1280.0, res_height=1024.0, running=True,
                  parent=None):

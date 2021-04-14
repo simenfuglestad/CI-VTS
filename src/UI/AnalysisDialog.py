@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import *
+from PySide2.QtWidgets import *
 from UI.analysis_dialog import Ui_Dialog
 
 
