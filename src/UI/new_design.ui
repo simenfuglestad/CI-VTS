@@ -177,6 +177,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QLabel" name="label_working_dir">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>C:/PATH_TO_EXP_FILES</string>
            </property>
@@ -188,6 +191,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QLabel" name="label_2">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -201,6 +207,9 @@
          </item>
          <item>
           <widget class="QLabel" name="label_temp_val">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -791,6 +800,9 @@
          </item>
          <item>
           <widget class="QLabel" name="label_4">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>°C</string>
            </property>
@@ -859,6 +871,9 @@
           </item>
           <item row="3" column="1">
            <widget class="QPushButton" name="pushButton_6">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>-</string>
             </property>
@@ -866,6 +881,9 @@
           </item>
           <item row="3" column="0">
            <widget class="QPushButton" name="pushButton_5">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>+</string>
             </property>
@@ -982,6 +1000,9 @@
                 </item>
                 <item row="4" column="0">
                  <widget class="QCheckBox" name="checkbox_save_log">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="layoutDirection">
                    <enum>Qt::RightToLeft</enum>
                   </property>
@@ -1037,6 +1058,9 @@
                 </item>
                 <item row="4" column="2">
                  <widget class="QPushButton" name="btn_set_logs_path">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="text">
                    <string>Set Logs Path</string>
                   </property>
@@ -1053,6 +1077,9 @@
                  <layout class="QHBoxLayout" name="horizontalLayout_20">
                   <item>
                    <widget class="QCheckBox" name="checkbox_live_ir">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -1672,6 +1699,9 @@
                 </item>
                 <item row="4" column="1">
                  <widget class="QLineEdit" name="line_edit_logs_path">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1712,6 +1742,9 @@
                 </item>
                 <item>
                  <widget class="QCheckBox" name="check_box_draw_mode">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="text">
                    <string>Draw Mode</string>
                   </property>
@@ -2155,6 +2188,9 @@
              </item>
              <item row="6" column="3">
               <widget class="QSpinBox" name="spin_crowdsize">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -2207,6 +2243,9 @@
              </item>
              <item row="4" column="1">
               <widget class="QCheckBox" name="checkbox_drugs">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="layoutDirection">
                 <enum>Qt::RightToLeft</enum>
                </property>
@@ -2217,6 +2256,9 @@
              </item>
              <item row="4" column="3">
               <widget class="QLineEdit" name="line_edit_drug_name">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -2227,6 +2269,9 @@
              </item>
              <item row="2" column="3">
               <widget class="QLineEdit" name="line_edit_geno_type">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -2250,6 +2295,9 @@
              </item>
              <item row="2" column="1">
               <widget class="QCheckBox" name="checkbox_genetics">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="layoutDirection">
                 <enum>Qt::RightToLeft</enum>
                </property>
@@ -2260,6 +2308,9 @@
              </item>
              <item row="0" column="3">
               <widget class="QComboBox" name="combo_hatching_time">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2283,6 +2334,9 @@
              </item>
              <item row="0" column="1">
               <widget class="QCheckBox" name="checkbox_dechorionated">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                  <horstretch>0</horstretch>
@@ -2324,6 +2378,9 @@
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_path_stim">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>C:/PATH_TO_STIM_FILES</string>
          </property>
@@ -2340,7 +2397,7 @@
      <x>0</x>
      <y>0</y>
      <width>1219</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -2374,6 +2431,9 @@
     <addaction name="actionGeneral"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="title">
      <string>Help</string>
     </property>
@@ -2386,6 +2446,9 @@
     <addaction name="actionAll_Experiments_2"/>
    </widget>
    <widget class="QMenu" name="menuAnalysis">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="title">
      <string>Analysis</string>
     </property>
@@ -2432,6 +2495,9 @@
    </property>
   </action>
   <action name="actionGeneral">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>General</string>
    </property>
@@ -2479,6 +2545,11 @@
   <action name="actionStimulus_Profile_save">
    <property name="text">
     <string>Stimulus Profile</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
    </property>
   </action>
  </widget>

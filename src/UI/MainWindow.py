@@ -25,7 +25,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.btn_set_video_path.clicked.connect(self.set_video_path)
 
         self.camera = camera
-        # self.camera.set_video_path(self.video_path)
         self.camera.cam_connected_signal.connect(self.show_camera_status)
         self.camera.emit_cam_status()
 
@@ -133,11 +132,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
     def set_stimulus_profile_name(self):
         self.current_stimulus_profile_name = self.line_edit_stimulus_name.text()
 
-    def delete_stimulus(self):
-        print("delete")
-        # delete_stimulus_profile(self.list_stim_profiles.currentItem().text())
-        # self.list_stim_profiles.takeItem(self.list_stim_profiles.currentRow())
-
     def undo(self):
         deleted = self.stimulus_plotted_data.pop()
         self.deleted_plot_items.append(deleted)
@@ -152,7 +146,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         undeleted = self.deleted_plot_items.pop()
         self.stimulus_plotted_data.append(undeleted)
         self.plot_stimulus_data()
-        print(undeleted)
         d = self.convert_to_duration(undeleted["time"][1])
         self.set_duration_display(d["h"], d["m"], d["s"])
 
@@ -425,7 +418,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             if len(self.stimulus_plotted_data) > 0:
                 last_plot_item_end = self.stimulus_plotted_data[-1]["time"][1]
                 if new_plot_item_start > last_plot_item_end:
-                    print("starting ahead")
                     blank_plot_item = {'time': [last_plot_item_end, new_plot_item_start], 'value': [0, 0]}
                     self.stimulus_plotted_data.append(blank_plot_item)
                     self.stim_profile_plot.plot(blank_plot_item["time"], blank_plot_item["value"])
@@ -472,11 +464,11 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.stimulus_plotted_data = []
 
     def stimulus_plot_clicked(self, mouse_click_event):
-        print(mouse_click_event.pos().x())
-        print(mouse_click_event.pos().y())
+        pass
+        # print(mouse_click_event.pos().x())
+        # print(mouse_click_event.pos().y())
 
     def center_stimulus_plot(self):
-        # self.stim_profile_plot.enableAutoRange(enable=True)
         self.stim_profile_plot.setYRange(0, 100)
         if self.get_total_duration() > 0:
             self.stim_profile_plot.setXRange(0, self.get_total_duration())
@@ -486,7 +478,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
     def closeEvent(self, event):
         self.camera.stop_cam()
         self.camera.shutdown()
-        # self.camera.exit(0)
         time.sleep(1)
         if self.camera.out is not None:
             self.camera.out.release()
