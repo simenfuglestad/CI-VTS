@@ -17,7 +17,7 @@ class SerialInterface(object):
         devices = []
         try:
             for p in list(serial.tools.list_ports.comports()):
-                if "USB2.0" in p.description.upper():
+                if "USB2.0" or "COM" in p.description.upper():
                     devices.append(p.device)
 
 
