@@ -1,7 +1,4 @@
-
 import sys
-import cv2
-from PySide6.QtWidgets import *
 
 from UI.MainWindow import MainWindow
 from serial_interface.serial_interface import *
@@ -17,16 +14,19 @@ class Main(QApplication):
     logs_path = "experiment/logs/"
     experiment_profiles_path = "experiment/experiment_profiles/"
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super().__init__(sys.argv)
         # init serial_interface interface
+        print("init serial")
         self.serial_interface = SerialInterface()
 
         # Init Camera
+        print("init camera")
         self.camera = Camera(video_path=self.video_path)
         self.camera.start()
 
         # init Arduino
+        print("init arduino")
         self.arduino = Arduino()
 
         # init UI

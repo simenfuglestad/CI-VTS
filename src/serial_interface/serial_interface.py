@@ -1,8 +1,6 @@
 import serial
 import serial.tools.list_ports
 
-baudrate = 115200
-
 
 class SerialInterface(object):
     def __init__(self):
@@ -10,14 +8,14 @@ class SerialInterface(object):
         self.connected = False
         self.serial_connection = None
         self.connected_device = None
-        self.baudrate = baudrate
+        self.baudrate = 115200
         self.timeout = 0
 
     def scan_serial(self):
         devices = []
         try:
             for p in list(serial.tools.list_ports.comports()):
-                if "USB2.0" in p.description.upper():
+                if "USB2.0" or "Arduino Uno" in p.description.upper():
                     devices.append(p.device)
 
 
@@ -35,7 +33,7 @@ class SerialInterface(object):
             print(e)
             raise Exception("An error occurred when getting device list.")
 
-    def connect_serial(self, device, baudrate=baudrate, timeout=0):
+    def connect_serial(self, device, baudrate=115200, timeout=0):
         if self.serial_connection is not None:
             self.serial_connection.close()
         try:
@@ -57,6 +55,7 @@ class SerialInterface(object):
             self.serial_connection.write(data)
             # self.serial_connection.flush()
         except Exception as e:
+            print("An error occurred when send a stimulus value")
             print(e)
 
     def close_serial(self):
@@ -76,9 +75,6 @@ class SerialInterface(object):
             print(e)
             return False
 
-    def run_experiment(self, experiment):
-        print("running")
-
     def verify_serial_connection(f):
         def inner_verify(self, data):
             if self.connected:
@@ -88,14 +84,3 @@ class SerialInterface(object):
                 print("Cannot verify connection, aborting operation...")
 
         return inner_verify
-
-    @verify_serial_connection
-    def send_to_serial(data):
-        pass
-        # self.serial_connection.write(b'hello')
-
-    @verify_serial_connection
-    def read_from_serial(self, data=None):
-        s = self.serial_connection.read(10)
-        print(s)
-

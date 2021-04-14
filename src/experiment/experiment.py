@@ -2,7 +2,8 @@ import json
 import os
 from datetime import datetime
 import math
-from PySide6.QtCore import *
+# from PySide6.QtCore import *
+from PyQt5.QtCore import *
 import time
 import timeit
 
@@ -10,7 +11,7 @@ _ex_dir = "experiment/experiment_profiles/"
 
 
 class ExperimentRunner(QObject):
-    signal_experiment_in_progress = Signal(bytes)
+    signal_experiment_in_progress = pyqtSignal(bool)
 
     def __init__(self, plot_data, serial_interface, duration, camera, recording_experiment, resolution=100, parent=None):
         super().__init__(parent)
@@ -77,11 +78,16 @@ class ExperimentRunner(QObject):
     def update(self):
         if len(self.stim_vals) > 0 and not self.flag_done_plotting:
             stim_val = self.stim_vals.pop(0)
-            print(stim_val)
+            # print(stim_val)
             self.serial_interface.send_data(stim_val, "sl")
             if len(self.stim_vals) == 0:
+                print("no more vals to plot")
                 self.flag_done_plotting = True
-                self.serial_interface.send_data("sl", 0)
+                # time.sleep(0.1)
+                self.serial_interface.serial_connection.flush()
+                self.serial_interface.send_data(0, "sl")
+
+                # self.serial_interface.send_data(0, "sl")
 
         self.current_time = time.perf_counter() - self.start_time
         if self.current_time >= self.duration:

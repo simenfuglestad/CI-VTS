@@ -1,7 +1,9 @@
 import os
 from PySide6.QtCore import *
-from PySide6.QtGui import *
-from PySide6.QtWidgets import *
+# from PySide6.QtGui import *
+# from PySide6.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 from UI.ui import Ui_MainWindow
 from stimulus.stimulus import *
 from experiment.experiment import *

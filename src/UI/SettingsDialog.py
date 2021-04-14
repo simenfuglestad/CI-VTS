@@ -1,10 +1,7 @@
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
-from PySide6.QtCore import *
 from UI.settings_dialog import Ui_Dialog
-import cv2
 from camera.camera import *
 import time
+
 
 class SettingsDialog(QDialog, Ui_Dialog):
     def __init__(self, serial_interface, camera, parent=None):
