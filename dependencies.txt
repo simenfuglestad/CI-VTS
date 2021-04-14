@@ -1,0 +1,4 @@
+git+https://github.com/pyqtgraph/pyqtgraph@master
+opencv-python
+pyside6
+pyserial

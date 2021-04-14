@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pyside6-uic new_design.ui > ui.py
+pyside6-uic settings_dialog.ui > settings_dialog.py
+pyside6-uic analysis_dialog.ui > analysis_dialog.py
