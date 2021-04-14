@@ -267,14 +267,15 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.label_stim_profile_name.setText(selected)
             self.stim_profile_plot.clear()
             self.current_stimulus_profile = profile
+
             data = profile["data"]
             for d in data:
                 self.stim_profile_plot.plot(d["time"], d["value"])
 
             self.stimulus_plotted_data = profile["data"]
-            if self.get_total_duration() < profile["data"][-1]["time"][1]:
-                d = self.convert_to_duration(profile["data"][-1]["time"][1])
-                self.set_duration_display(d["h"], d["m"], d["s"])
+            # if self.get_total_duration() < profile["data"][-1]["time"][1]:
+            d = self.convert_to_duration(profile["data"][-1]["time"][1])
+            self.set_duration_display(d["h"], d["m"], d["s"])
             self.deleted_plot_items = []
             self.center_stimulus_plot()
 
@@ -428,6 +429,10 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
                     blank_plot_item = {'time': [last_plot_item_end, new_plot_item_start], 'value': [0, 0]}
                     self.stimulus_plotted_data.append(blank_plot_item)
                     self.stim_profile_plot.plot(blank_plot_item["time"], blank_plot_item["value"])
+            elif len(self.stimulus_plotted_data) == 0 and new_plot_item_start != 0:
+                blank_plot_item = {'time': [0, new_plot_item_start], 'value': [0, 0]}
+                self.stim_profile_plot.plot(blank_plot_item['time'], blank_plot_item['value'])
+                self.stimulus_plotted_data.append(blank_plot_item)
 
             data = {"time": [new_plot_item_start, new_plot_item_end], "value": [led_val_start, led_val_end]}
             self.stimulus_plotted_data.append(data)

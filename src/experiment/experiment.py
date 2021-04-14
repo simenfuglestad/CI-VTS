@@ -28,6 +28,8 @@ class ExperimentRunner(QObject):
 
         self.stim_vals = self.make_stim_vals()
 
+        self.flag_done_plotting = True #use to signal turning stim led when all values are sent
+
         self.camera = camera
 
     def make_stim_vals(self):
@@ -55,6 +57,7 @@ class ExperimentRunner(QObject):
         return interval_vals
 
     def run(self):
+        self.flag_done_plotting = False
         if self.camera.capture_device is not None:
             if not self.camera.capture_device.isOpened():
                 print("Capture device is not opened")
@@ -72,11 +75,14 @@ class ExperimentRunner(QObject):
             print("no values to plot")
 
     def update(self):
-        if len(self.stim_vals) > 0:
+        if len(self.stim_vals) > 0 and not self.flag_done_plotting:
             stim_val = self.stim_vals.pop(0)
-            # self.timer.stop()
+            print(stim_val)
             self.serial_interface.send_data(stim_val, "sl")
-            # self.timer.start()
+            if len(self.stim_vals) == 0:
+                self.flag_done_plotting = True
+                self.serial_interface.send_data("sl", 0)
+
         self.current_time = time.perf_counter() - self.start_time
         if self.current_time >= self.duration:
             # self.camera.set_live_mode()
@@ -84,8 +90,11 @@ class ExperimentRunner(QObject):
             if self.recording_experiment:
                 self.camera.set_live_mode()
             print("timer stopped!")
+
             self.signal_experiment_in_progress.emit(False)
 
+            self.serial_interface.send_data(0, "sl")
+            
 
 def get_ex_dir():
     return _ex_dir
