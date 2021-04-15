@@ -47,13 +47,17 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.line_edit_logs_path.setText(logs_path)
         self.btn_set_logs_path.clicked.connect(self.set_logs_path)
         # self.format_duration_text()
-        self.set_duration_display(self.spin_duration_hour.value(), self.spin_duration_min.value(), self.spin_duration_sec.value())
+        self.set_duration_display(self.spin_duration_hour.value(), self.spin_duration_min.value(),
+                                  self.spin_duration_sec.value())
 
         self.spin_duration_hour.valueChanged.connect(self.format_duration_text)
         self.spin_duration_min.valueChanged.connect(self.format_duration_text)
         self.spin_duration_sec.valueChanged.connect(self.format_duration_text)
 
         self.btn_run.clicked.connect(self.run_experiment)
+
+        # Init Additional Settings
+        self.date_time_hatching.setDateTime(QDateTime.currentDateTime())
 
         """Initialize Stimulus Settings"""
         # Bind menu actions
@@ -110,8 +114,9 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.shortcut_delete.activated.connect(self.delete_stimulus)
         self.shortcut_refresh.activated.connect(self.refresh_items)
 
-        self.resize(size.width(), size.height())
-
+        # self.resize(size.width(), size.height())
+        # self.showFullScreen()
+        self.showMaximized()
     def show_camera_status(self, status):
         if status is True:
             self.label_status_value.setText("Connected")
@@ -123,8 +128,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
     def set_logs_path(self):
         path = QFileDialog.getExistingDirectory(dir=self.video_path, caption="Set Path to Logs")
         # if os.path.exists(path):
-            # self.logs_path = path
-            # self.line_edit_logs_path.setText(path)
+        # self.logs_path = path
+        # self.line_edit_logs_path.setText(path)
 
     def refresh_items(self):
         self.show_experiment_profile_names()
@@ -211,8 +216,9 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.checkbox_live_ir.setChecked(settings["view_infrared"])
         self.checkbox_dechorionated.setChecked(settings["dechorionated"])
 
-        self.combo_hatching_time.clear()
-        self.combo_hatching_time.insertItems(0, settings["hatching_times"])
+        self.date_time_hatching.clear()
+        self.date_time_hatching.setDateTime(QDateTime.fromString(settings["hatching_date_time"]))
+        self.date_time_hatching.update()
 
         self.checkbox_genetics.setChecked(settings["genetics"])
         self.line_edit_geno_type.setText(settings["geno_type"])
@@ -286,8 +292,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         if not self.experiment_in_progress:
             self.experiment_in_progress = True
             self.runner = ExperimentRunner(plot_data=self.stimulus_plotted_data, duration=self.get_total_duration(),
-                                       serial_interface=self.serial_interface, camera=self.camera,
-                                       recording_experiment=self.checkbox_save_video.isChecked())
+                                           serial_interface=self.serial_interface, camera=self.camera,
+                                           recording_experiment=self.checkbox_save_video.isChecked())
 
             self.runner.signal_experiment_in_progress.connect(lambda x: self.grab_experiment_done_signal(x))
             if self.checkbox_view_live.isChecked():
@@ -320,15 +326,15 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         for p in self.stimulus_plotted_data:
             self.stim_profile_plot.plot(p["time"], p["value"])
 
-    def get_all_hatching_times(self):
-        return [self.combo_hatching_time.itemText(i) for i in range(0, self.combo_hatching_time.count())]
+    def get_hatching_date_time(self):
+        return self.date_time_hatching.dateTime().toString()
 
     def get_current_experiment_settings(self):
         return {"duration": self.get_duration_as_dict(), "video_path": self.video_path + self.video_name,
                 "log_path": self.line_edit_logs_path.text(), "view_live": self.checkbox_view_live.isChecked(),
                 "view_infrared": self.checkbox_live_ir.isChecked(),
                 "dechorionated": self.checkbox_dechorionated.isChecked(),
-                "hatching_times": self.get_all_hatching_times(), "genetics": self.checkbox_genetics.isChecked(),
+                "hatching_date_time": self.get_hatching_date_time(), "genetics": self.checkbox_genetics.isChecked(),
                 "geno_type": self.line_edit_geno_type.text(), "drugs": self.checkbox_drugs.isChecked(),
                 "drug_name": self.line_edit_drug_name.text(), "crowd_size": self.spin_crowdsize.value()}
 
@@ -420,7 +426,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         new_plot_item_end = self.get_stimulus_end()
         led_val_start = self.spin_stim_led_start.value()
         led_val_end = self.spin_stim_led_end.value()
-        
+
         if self.validate_plot(new_plot_item_start, new_plot_item_end, led_val_start, led_val_end):
             if len(self.stimulus_plotted_data) > 0:
                 last_plot_item_end = self.stimulus_plotted_data[-1]["time"][1]
@@ -447,7 +453,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         m = time_in_seconds // 60 % 60
         s = time_in_seconds % 60
 
-        return {"h": h, "m": m, "s" : s}
+        return {"h": h, "m": m, "s": s}
 
     def validate_plot(self, start, end, led_start, led_end):
         # if led_start <= 0 and led_end <= 0 or end < start:

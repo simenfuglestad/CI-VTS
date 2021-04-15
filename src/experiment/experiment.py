@@ -118,7 +118,6 @@ def save_experiment_profile(stimulus_profile=None, experiment_settings=None, fil
             file_path = _ex_dir
 
         if file_name is None:
-            print("kjbfsgsfgnkjbfgkdkfg")
             done = False
             index = 1
             file_name = "experiment_profile"
