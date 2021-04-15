@@ -1,6 +1,5 @@
 import cv2
 import os
-from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 import time
@@ -43,21 +42,16 @@ class Camera(QThread):
     def run(self):
         while self.is_alive:
             if self.running and self.capture_device is not None:
-                # print("camera is running")
                 if self.capture_device.isOpened():
                     try:
                         ret, frame = self.capture_device.read()
                         if ret is True:
                             self.camera_removed_flag = False
-                            # print(self.recording)
                             h, w, ch = frame.shape
                             if self.out is not None:
                                 if self.recording:
-                                    # print("writing frame")
-                                    # self.mutex.lock()
                                     self.out.write(frame)
                                     self.frames_written = self.frames_written + 1
-                                    # self.mutex.unlock()
 
                             bytes_per_line = ch * w
                             qt_image = QImage(frame.data, w, h, bytes_per_line, QImage.Format_RGB888)
@@ -71,10 +65,6 @@ class Camera(QThread):
                         self.set_running(False)
                         print("Excepting")
                         print(e)
-
-        # if self.capture_device.isOpened():
-        #     self.capture_device.release()
-        print("cam thread reached end")
 
     def set_video_path(self, path, video_name=""):
         try:
@@ -108,22 +98,16 @@ class Camera(QThread):
         elif not self.capture_device.isOpened():
             print("Camera is not open")
         else:
-            print(self.capture_device.get(cv2.CAP_PROP_FPS))
             self.fps = fps
             self.set_running(False)
-            # time.sleep(1)
             self.set_capture_device(self.capture_device_nr)
             self.set_running(True)
-            # status = self.capture_device.set(cv2.CAP_PROP_FPS, float(fps))
-            # print(status)
             return True
 
     def set_running(self, is_running):
-        # print(self.mutex.)
         self.mutex.lock()
         self.running = is_running
         self.mutex.unlock()
-        # time.sleep(0.5)
 
     def stop_cam(self):
         self.running = False
@@ -157,9 +141,7 @@ class Camera(QThread):
         if self.out is not None:
             if self.out.isOpened():
                 print("releasing writer")
-                # self.mutex.lock()
                 self.out.release()
-                # self.mutex.unlock()
         self.live = True
         print("wrote " + str(self.frames_written) + " frames")
 

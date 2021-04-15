@@ -21,7 +21,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.btn_scan_camera.clicked.connect(self.get_available_cameras)
         self.combo_camera.activated.connect(lambda x: self.set_live_camera(x))
         self.combo_framerate.activated.connect(lambda x: self.set_camera_fps(x))
-        self.combo_framerate.setCurrentText((str(self.camera.fps)))
+        # self.combo_framerate.setCurrentText((str(self.camera.fps)))
         self.btn_disc_camera.clicked.connect(self.disconnect_camera)
         # self.combo_camera.currentIndexChanged.connect(self.set_live_camera)
 
@@ -50,7 +50,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
 
         self.btn_connect_serial.clicked.connect(self.connect_current_device)
 
-        self.hslider_LED_live.valueChanged.connect(self.slide_adjust_led_live)
+        self.buttonBox.accepted.connect(self.close)
 
     def show_camera_status(self, status):
         if status is True:
@@ -129,16 +129,6 @@ class SettingsDialog(QDialog, Ui_Dialog):
             self.label_live_video_feed.clear()
         else:
             self.label_live_video_feed.setPixmap(img_data)
-
-    def slide_adjust_led_live(self):
-        slide_val = self.hslider_LED_live.value()
-        self.spin_LED_live.setValue(slide_val)
-        self.serial_interface.send_data(slide_val, "sl")
-
-    def spin_adjust_led_live(self):
-        spin_val = self.spin_LED_live.value()
-        self.hslider_LED_live.setValue(spin_val)
-        self.serial_interface.send_data(spin_val, "sl")
 
     def scan_serial(self):
         s = time.perf_counter()

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'settings_dialog.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.0.1
+## Created by: Qt User Interface Compiler version 6.0.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -122,143 +122,15 @@ class Ui_Dialog(object):
 
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.spin_gamma = QSpinBox(self.groupBox)
-        self.spin_gamma.setObjectName(u"spin_gamma")
-        self.spin_gamma.setMaximum(100)
-
-        self.gridLayout_2.addWidget(self.spin_gamma, 3, 1, 1, 1)
-
-        self.spin_brightness = QSpinBox(self.groupBox)
-        self.spin_brightness.setObjectName(u"spin_brightness")
-        self.spin_brightness.setMaximum(100)
-
-        self.gridLayout_2.addWidget(self.spin_brightness, 2, 1, 1, 1)
-
-        self.label_4 = QLabel(self.groupBox)
-        self.label_4.setObjectName(u"label_4")
-        sizePolicy.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
-        self.label_4.setSizePolicy(sizePolicy)
-
-        self.gridLayout_2.addWidget(self.label_4, 2, 0, 1, 1)
-
-        self.spin_IR_right = QSpinBox(self.groupBox)
-        self.spin_IR_right.setObjectName(u"spin_IR_right")
-
-        self.gridLayout_2.addWidget(self.spin_IR_right, 8, 1, 1, 1)
-
-        self.spin_IR_left = QSpinBox(self.groupBox)
-        self.spin_IR_left.setObjectName(u"spin_IR_left")
-
-        self.gridLayout_2.addWidget(self.spin_IR_left, 7, 1, 1, 1)
-
-        self.hslider_IR_bottom = QSlider(self.groupBox)
-        self.hslider_IR_bottom.setObjectName(u"hslider_IR_bottom")
-        self.hslider_IR_bottom.setMaximum(100)
-        self.hslider_IR_bottom.setTracking(True)
-        self.hslider_IR_bottom.setOrientation(Qt.Horizontal)
-
-        self.gridLayout_2.addWidget(self.hslider_IR_bottom, 6, 2, 1, 1)
-
-        self.hslider_IR_left = QSlider(self.groupBox)
-        self.hslider_IR_left.setObjectName(u"hslider_IR_left")
-        self.hslider_IR_left.setMaximum(100)
-        self.hslider_IR_left.setOrientation(Qt.Horizontal)
-
-        self.gridLayout_2.addWidget(self.hslider_IR_left, 7, 2, 1, 1)
-
-        self.label_3 = QLabel(self.groupBox)
-        self.label_3.setObjectName(u"label_3")
-        sizePolicy.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
-        self.label_3.setSizePolicy(sizePolicy)
-
-        self.gridLayout_2.addWidget(self.label_3, 3, 0, 1, 1)
-
-        self.spin_IR_bottom = QSpinBox(self.groupBox)
-        self.spin_IR_bottom.setObjectName(u"spin_IR_bottom")
-        self.spin_IR_bottom.setMaximum(100)
-
-        self.gridLayout_2.addWidget(self.spin_IR_bottom, 6, 1, 1, 1)
-
-        self.label_7 = QLabel(self.groupBox)
-        self.label_7.setObjectName(u"label_7")
-        sizePolicy.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
-        self.label_7.setSizePolicy(sizePolicy)
-
-        self.gridLayout_2.addWidget(self.label_7, 4, 0, 1, 1)
-
-        self.label_5 = QLabel(self.groupBox)
-        self.label_5.setObjectName(u"label_5")
-        sizePolicy.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
-        self.label_5.setSizePolicy(sizePolicy)
-
-        self.gridLayout_2.addWidget(self.label_5, 1, 0, 1, 1)
-
-        self.label_6 = QLabel(self.groupBox)
-        self.label_6.setObjectName(u"label_6")
-        sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
-        self.label_6.setSizePolicy(sizePolicy)
-
-        self.gridLayout_2.addWidget(self.label_6, 6, 0, 1, 1)
-
-        self.spin_framerate = QSpinBox(self.groupBox)
-        self.spin_framerate.setObjectName(u"spin_framerate")
-        self.spin_framerate.setMaximum(100)
-
-        self.gridLayout_2.addWidget(self.spin_framerate, 1, 1, 1, 1)
-
-        self.label_17 = QLabel(self.groupBox)
-        self.label_17.setObjectName(u"label_17")
+        self.label_18 = QLabel(self.groupBox)
+        self.label_18.setObjectName(u"label_18")
         sizePolicy4 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.label_17.sizePolicy().hasHeightForWidth())
-        self.label_17.setSizePolicy(sizePolicy4)
-        font2 = QFont()
-        font2.setPointSize(14)
-        self.label_17.setFont(font2)
-
-        self.gridLayout_2.addWidget(self.label_17, 5, 0, 1, 1)
-
-        self.hslider_brightness = QSlider(self.groupBox)
-        self.hslider_brightness.setObjectName(u"hslider_brightness")
-        self.hslider_brightness.setMaximum(100)
-        self.hslider_brightness.setOrientation(Qt.Horizontal)
-
-        self.gridLayout_2.addWidget(self.hslider_brightness, 2, 2, 1, 1)
-
-        self.combo_exposure = QComboBox(self.groupBox)
-        self.combo_exposure.setObjectName(u"combo_exposure")
-
-        self.gridLayout_2.addWidget(self.combo_exposure, 4, 2, 1, 1)
-
-        self.label_12 = QLabel(self.groupBox)
-        self.label_12.setObjectName(u"label_12")
-
-        self.gridLayout_2.addWidget(self.label_12, 8, 0, 1, 1)
-
-        self.label_10 = QLabel(self.groupBox)
-        self.label_10.setObjectName(u"label_10")
-
-        self.gridLayout_2.addWidget(self.label_10, 7, 0, 1, 1)
-
-        self.hslider_IR_right = QSlider(self.groupBox)
-        self.hslider_IR_right.setObjectName(u"hslider_IR_right")
-        self.hslider_IR_right.setMaximum(100)
-        self.hslider_IR_right.setOrientation(Qt.Horizontal)
-
-        self.gridLayout_2.addWidget(self.hslider_IR_right, 8, 2, 1, 1)
-
-        self.hslider_gamma = QSlider(self.groupBox)
-        self.hslider_gamma.setObjectName(u"hslider_gamma")
-        self.hslider_gamma.setMaximum(100)
-        self.hslider_gamma.setOrientation(Qt.Horizontal)
-
-        self.gridLayout_2.addWidget(self.hslider_gamma, 3, 2, 1, 1)
-
-        self.label_18 = QLabel(self.groupBox)
-        self.label_18.setObjectName(u"label_18")
         sizePolicy4.setHeightForWidth(self.label_18.sizePolicy().hasHeightForWidth())
         self.label_18.setSizePolicy(sizePolicy4)
+        font2 = QFont()
+        font2.setPointSize(14)
         self.label_18.setFont(font2)
 
         self.gridLayout_2.addWidget(self.label_18, 0, 0, 1, 1)
@@ -272,6 +144,139 @@ class Ui_Dialog(object):
         self.combo_framerate.setLayoutDirection(Qt.LeftToRight)
 
         self.gridLayout_2.addWidget(self.combo_framerate, 1, 2, 1, 1)
+
+        self.spin_IR_left = QSpinBox(self.groupBox)
+        self.spin_IR_left.setObjectName(u"spin_IR_left")
+
+        self.gridLayout_2.addWidget(self.spin_IR_left, 7, 1, 1, 1)
+
+        self.hslider_IR_right = QSlider(self.groupBox)
+        self.hslider_IR_right.setObjectName(u"hslider_IR_right")
+        self.hslider_IR_right.setMaximum(100)
+        self.hslider_IR_right.setOrientation(Qt.Horizontal)
+
+        self.gridLayout_2.addWidget(self.hslider_IR_right, 8, 2, 1, 1)
+
+        self.label_10 = QLabel(self.groupBox)
+        self.label_10.setObjectName(u"label_10")
+
+        self.gridLayout_2.addWidget(self.label_10, 7, 0, 1, 1)
+
+        self.spin_framerate = QSpinBox(self.groupBox)
+        self.spin_framerate.setObjectName(u"spin_framerate")
+        self.spin_framerate.setMaximum(100)
+
+        self.gridLayout_2.addWidget(self.spin_framerate, 1, 1, 1, 1)
+
+        self.hslider_gamma = QSlider(self.groupBox)
+        self.hslider_gamma.setObjectName(u"hslider_gamma")
+        self.hslider_gamma.setEnabled(False)
+        self.hslider_gamma.setMaximum(100)
+        self.hslider_gamma.setOrientation(Qt.Horizontal)
+
+        self.gridLayout_2.addWidget(self.hslider_gamma, 3, 2, 1, 1)
+
+        self.spin_IR_bottom = QSpinBox(self.groupBox)
+        self.spin_IR_bottom.setObjectName(u"spin_IR_bottom")
+        self.spin_IR_bottom.setMaximum(100)
+
+        self.gridLayout_2.addWidget(self.spin_IR_bottom, 6, 1, 1, 1)
+
+        self.label_6 = QLabel(self.groupBox)
+        self.label_6.setObjectName(u"label_6")
+        sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
+        self.label_6.setSizePolicy(sizePolicy)
+
+        self.gridLayout_2.addWidget(self.label_6, 6, 0, 1, 1)
+
+        self.spin_gamma = QSpinBox(self.groupBox)
+        self.spin_gamma.setObjectName(u"spin_gamma")
+        self.spin_gamma.setEnabled(False)
+        self.spin_gamma.setMaximum(100)
+
+        self.gridLayout_2.addWidget(self.spin_gamma, 3, 1, 1, 1)
+
+        self.hslider_IR_left = QSlider(self.groupBox)
+        self.hslider_IR_left.setObjectName(u"hslider_IR_left")
+        self.hslider_IR_left.setMaximum(100)
+        self.hslider_IR_left.setOrientation(Qt.Horizontal)
+
+        self.gridLayout_2.addWidget(self.hslider_IR_left, 7, 2, 1, 1)
+
+        self.hslider_brightness = QSlider(self.groupBox)
+        self.hslider_brightness.setObjectName(u"hslider_brightness")
+        self.hslider_brightness.setEnabled(False)
+        self.hslider_brightness.setMaximum(100)
+        self.hslider_brightness.setOrientation(Qt.Horizontal)
+
+        self.gridLayout_2.addWidget(self.hslider_brightness, 2, 2, 1, 1)
+
+        self.label_17 = QLabel(self.groupBox)
+        self.label_17.setObjectName(u"label_17")
+        sizePolicy4.setHeightForWidth(self.label_17.sizePolicy().hasHeightForWidth())
+        self.label_17.setSizePolicy(sizePolicy4)
+        self.label_17.setFont(font2)
+
+        self.gridLayout_2.addWidget(self.label_17, 5, 0, 1, 1)
+
+        self.label_12 = QLabel(self.groupBox)
+        self.label_12.setObjectName(u"label_12")
+
+        self.gridLayout_2.addWidget(self.label_12, 8, 0, 1, 1)
+
+        self.hslider_IR_bottom = QSlider(self.groupBox)
+        self.hslider_IR_bottom.setObjectName(u"hslider_IR_bottom")
+        self.hslider_IR_bottom.setMaximum(100)
+        self.hslider_IR_bottom.setTracking(True)
+        self.hslider_IR_bottom.setOrientation(Qt.Horizontal)
+
+        self.gridLayout_2.addWidget(self.hslider_IR_bottom, 6, 2, 1, 1)
+
+        self.label_5 = QLabel(self.groupBox)
+        self.label_5.setObjectName(u"label_5")
+        sizePolicy.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
+        self.label_5.setSizePolicy(sizePolicy)
+
+        self.gridLayout_2.addWidget(self.label_5, 1, 0, 1, 1)
+
+        self.spin_brightness = QSpinBox(self.groupBox)
+        self.spin_brightness.setObjectName(u"spin_brightness")
+        self.spin_brightness.setEnabled(False)
+        self.spin_brightness.setMaximum(100)
+
+        self.gridLayout_2.addWidget(self.spin_brightness, 2, 1, 1, 1)
+
+        self.spin_IR_right = QSpinBox(self.groupBox)
+        self.spin_IR_right.setObjectName(u"spin_IR_right")
+
+        self.gridLayout_2.addWidget(self.spin_IR_right, 8, 1, 1, 1)
+
+        self.combo_exposure = QComboBox(self.groupBox)
+        self.combo_exposure.setObjectName(u"combo_exposure")
+        self.combo_exposure.setEnabled(False)
+
+        self.gridLayout_2.addWidget(self.combo_exposure, 4, 2, 1, 1)
+
+        self.label_7 = QLabel(self.groupBox)
+        self.label_7.setObjectName(u"label_7")
+        sizePolicy.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
+        self.label_7.setSizePolicy(sizePolicy)
+
+        self.gridLayout_2.addWidget(self.label_7, 4, 0, 1, 1)
+
+        self.label_3 = QLabel(self.groupBox)
+        self.label_3.setObjectName(u"label_3")
+        sizePolicy.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
+        self.label_3.setSizePolicy(sizePolicy)
+
+        self.gridLayout_2.addWidget(self.label_3, 3, 0, 1, 1)
+
+        self.label_4 = QLabel(self.groupBox)
+        self.label_4.setObjectName(u"label_4")
+        sizePolicy.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
+        self.label_4.setSizePolicy(sizePolicy)
+
+        self.gridLayout_2.addWidget(self.label_4, 2, 0, 1, 1)
 
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
@@ -375,64 +380,42 @@ class Ui_Dialog(object):
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.gridLayout_4 = QGridLayout()
         self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.hslider_LED_live = QSlider(self.groupBox_2)
-        self.hslider_LED_live.setObjectName(u"hslider_LED_live")
-        self.hslider_LED_live.setMaximum(100)
-        self.hslider_LED_live.setOrientation(Qt.Horizontal)
+        self.checkbox_infrared_live = QCheckBox(self.groupBox_2)
+        self.checkbox_infrared_live.setObjectName(u"checkbox_infrared_live")
+        self.checkbox_infrared_live.setEnabled(False)
+        sizePolicy2.setHeightForWidth(self.checkbox_infrared_live.sizePolicy().hasHeightForWidth())
+        self.checkbox_infrared_live.setSizePolicy(sizePolicy2)
 
-        self.gridLayout_4.addWidget(self.hslider_LED_live, 0, 2, 1, 1)
-
-        self.label_14 = QLabel(self.groupBox_2)
-        self.label_14.setObjectName(u"label_14")
-
-        self.gridLayout_4.addWidget(self.label_14, 0, 0, 1, 1)
-
-        self.label_15 = QLabel(self.groupBox_2)
-        self.label_15.setObjectName(u"label_15")
-
-        self.gridLayout_4.addWidget(self.label_15, 1, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.checkbox_infrared_live, 0, 1, 1, 1)
 
         self.label_16 = QLabel(self.groupBox_2)
         self.label_16.setObjectName(u"label_16")
 
-        self.gridLayout_4.addWidget(self.label_16, 1, 2, 1, 1)
+        self.gridLayout_4.addWidget(self.label_16, 0, 2, 1, 1)
 
-        self.checkbox_infrared_live = QCheckBox(self.groupBox_2)
-        self.checkbox_infrared_live.setObjectName(u"checkbox_infrared_live")
-        sizePolicy2.setHeightForWidth(self.checkbox_infrared_live.sizePolicy().hasHeightForWidth())
-        self.checkbox_infrared_live.setSizePolicy(sizePolicy2)
+        self.label_15 = QLabel(self.groupBox_2)
+        self.label_15.setObjectName(u"label_15")
+        self.label_15.setEnabled(False)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
+        self.label_15.setSizePolicy(sizePolicy6)
 
-        self.gridLayout_4.addWidget(self.checkbox_infrared_live, 1, 1, 1, 1)
-
-        self.spin_LED_live = QSpinBox(self.groupBox_2)
-        self.spin_LED_live.setObjectName(u"spin_LED_live")
-        self.spin_LED_live.setMaximum(100)
-
-        self.gridLayout_4.addWidget(self.spin_LED_live, 0, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.label_15, 0, 0, 1, 1)
 
 
         self.verticalLayout_5.addLayout(self.gridLayout_4)
 
         self.label_live_video_feed = QLabel(self.groupBox_2)
         self.label_live_video_feed.setObjectName(u"label_live_video_feed")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.label_live_video_feed.sizePolicy().hasHeightForWidth())
-        self.label_live_video_feed.setSizePolicy(sizePolicy6)
-
-        self.verticalLayout_5.addWidget(self.label_live_video_feed)
-
-        self.label_2 = QLabel(self.groupBox_2)
-        self.label_2.setObjectName(u"label_2")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy7.setHorizontalStretch(0)
         sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy7)
-        self.label_2.setWordWrap(True)
+        sizePolicy7.setHeightForWidth(self.label_live_video_feed.sizePolicy().hasHeightForWidth())
+        self.label_live_video_feed.setSizePolicy(sizePolicy7)
 
-        self.verticalLayout_5.addWidget(self.label_2)
+        self.verticalLayout_5.addWidget(self.label_live_video_feed)
 
 
         self.verticalLayout_3.addWidget(self.groupBox_2)
@@ -450,6 +433,9 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
 
+        self.combo_framerate.setCurrentIndex(2)
+
+
         QMetaObject.connectSlotsByName(Dialog)
     # setupUi
 
@@ -465,20 +451,20 @@ class Ui_Dialog(object):
         self.btn_scan_camera.setText(QCoreApplication.translate("Dialog", u"Scan", None))
         self.btn_connect_camera.setText(QCoreApplication.translate("Dialog", u"Connect", None))
         self.btn_disc_camera.setText(QCoreApplication.translate("Dialog", u"Disconnect", None))
-        self.label_4.setText(QCoreApplication.translate("Dialog", u"Brightness", None))
-        self.label_3.setText(QCoreApplication.translate("Dialog", u"Gamma", None))
-        self.label_7.setText(QCoreApplication.translate("Dialog", u"Exposure", None))
-        self.label_5.setText(QCoreApplication.translate("Dialog", u"Framerate", None))
-        self.label_6.setText(QCoreApplication.translate("Dialog", u"IR Bottom", None))
-        self.label_17.setText(QCoreApplication.translate("Dialog", u"Infrared Lights", None))
-        self.label_12.setText(QCoreApplication.translate("Dialog", u"IR Right", None))
-        self.label_10.setText(QCoreApplication.translate("Dialog", u"IR Left", None))
         self.label_18.setText(QCoreApplication.translate("Dialog", u"Camera Settings", None))
         self.combo_framerate.setItemText(0, QCoreApplication.translate("Dialog", u"20", None))
         self.combo_framerate.setItemText(1, QCoreApplication.translate("Dialog", u"30", None))
         self.combo_framerate.setItemText(2, QCoreApplication.translate("Dialog", u"60", None))
         self.combo_framerate.setItemText(3, QCoreApplication.translate("Dialog", u"90", None))
 
+        self.label_10.setText(QCoreApplication.translate("Dialog", u"IR Left", None))
+        self.label_6.setText(QCoreApplication.translate("Dialog", u"IR Bottom", None))
+        self.label_17.setText(QCoreApplication.translate("Dialog", u"Infrared Lights", None))
+        self.label_12.setText(QCoreApplication.translate("Dialog", u"IR Right", None))
+        self.label_5.setText(QCoreApplication.translate("Dialog", u"Framerate", None))
+        self.label_7.setText(QCoreApplication.translate("Dialog", u"Exposure", None))
+        self.label_3.setText(QCoreApplication.translate("Dialog", u"Gamma", None))
+        self.label_4.setText(QCoreApplication.translate("Dialog", u"Brightness", None))
         self.label_9.setText(QCoreApplication.translate("Dialog", u"Serial Interface", None))
         self.label_serial_status.setText(QCoreApplication.translate("Dialog", u"CONNECTED_STATUS", None))
         self.combo_serial.setItemText(0, QCoreApplication.translate("Dialog", u"(no serial device selected)", None))
@@ -489,11 +475,9 @@ class Ui_Dialog(object):
         self.label_8.setText(QCoreApplication.translate("Dialog", u"Serial Info:", None))
         self.label_serial_info.setText(QCoreApplication.translate("Dialog", u"DEVICE_NAME_AND_TYPE", None))
         self.groupBox_2.setTitle("")
-        self.label_14.setText(QCoreApplication.translate("Dialog", u"LED Intesity", None))
-        self.label_15.setText(QCoreApplication.translate("Dialog", u"Infrared", None))
-        self.label_16.setText("")
         self.checkbox_infrared_live.setText(QCoreApplication.translate("Dialog", u"Enabled", None))
+        self.label_16.setText("")
+        self.label_15.setText(QCoreApplication.translate("Dialog", u"Infrared", None))
         self.label_live_video_feed.setText("")
-        self.label_2.setText(QCoreApplication.translate("Dialog", u"NOTE: Any adjustmens made in this window will not be carried over in an experiment   ", None))
     # retranslateUi
 
