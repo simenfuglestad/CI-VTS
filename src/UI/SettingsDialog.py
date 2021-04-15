@@ -51,6 +51,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.btn_connect_serial.clicked.connect(self.connect_current_device)
 
         self.buttonBox.accepted.connect(self.close)
+        self.buttonBox.rejected.connect(self.close)
 
     def show_camera_status(self, status):
         if status is True:

@@ -114,6 +114,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         # self.resize(size.width(), size.height())
         # self.showFullScreen()
+        self.tabWidget.setCurrentIndex(0)
         self.showMaximized()
     def show_camera_status(self, status):
         if status is True:
