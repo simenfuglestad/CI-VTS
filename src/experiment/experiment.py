@@ -102,7 +102,7 @@ class ExperimentRunner(QObject):
             self.timer.stop()
             if self.recording_experiment:
                 self.camera.set_live_mode()
-            print("timer stopped!")
+
             self.signal_experiment_in_progress.emit(False)
             self.signal_experiment_done.emit(True)
 

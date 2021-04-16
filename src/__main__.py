@@ -1,8 +1,5 @@
-
 import sys
-import cv2
 from PySide6.QtWidgets import *
-
 from UI.MainWindow import MainWindow
 from serial_interface.serial_interface import *
 from arduino.arduino import Arduino
@@ -56,6 +53,5 @@ class Main(QApplication):
 
 
 if __name__ == '__main__':
-    # app = QApplication(sys.argv)
     app = Main()
     sys.exit(app.exec_())

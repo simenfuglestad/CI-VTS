@@ -20,15 +20,6 @@ class SerialInterface(object):
                 if "USB2.0" or "COM" in p.description.upper():
                     devices.append(p.device)
 
-
-                # print(p.device)
-                # print(p.name)
-                # print(p.hwid)
-                # print(p.description)
-                # print(p.manufacturer)
-                # print(p.product)
-            #
-            # print("------------------------------")
             return devices
 
         except Exception as e:
@@ -76,9 +67,6 @@ class SerialInterface(object):
             print(e)
             return False
 
-    def run_experiment(self, experiment):
-        print("running")
-
     def verify_serial_connection(f):
         def inner_verify(self, data):
             if self.connected:
@@ -88,14 +76,3 @@ class SerialInterface(object):
                 print("Cannot verify connection, aborting operation...")
 
         return inner_verify
-
-    @verify_serial_connection
-    def send_to_serial(data):
-        pass
-        # self.serial_connection.write(b'hello')
-
-    @verify_serial_connection
-    def read_from_serial(self, data=None):
-        s = self.serial_connection.read(10)
-        print(s)
-
