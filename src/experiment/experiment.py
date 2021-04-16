@@ -11,8 +11,9 @@ _ex_dir = "experiment/experiment_profiles/"
 
 class ExperimentRunner(QObject):
     signal_experiment_in_progress = Signal(bytes)
-
-    def __init__(self, plot_data, serial_interface, duration, camera, recording_experiment, resolution=100,
+    signal_experiment_done = Signal(bytes)
+    signal_updating = Signal(bytes)
+    def __init__(self, plot_data, serial_interface, duration, camera, recording_experiment, resolution=10,
                  parent=None):
         super().__init__(parent)
         self.plot_data = plot_data
@@ -24,12 +25,13 @@ class ExperimentRunner(QObject):
         self.duration = duration
         self.timer = QTimer()
         self.timer.setTimerType(Qt.PreciseTimer)
-        self.timer.setInterval(self.resolution / 10)
+        self.timer.setInterval(self.resolution) #update every 10ms
         self.timer.timeout.connect(self.update)
 
         self.stim_vals = self.make_stim_vals()
 
         self.flag_done_plotting = True  # use to signal turning stim led when all values are sent
+        self.abort_flag = False  # use to signal experiment aborted
 
         self.camera = camera
 
@@ -59,6 +61,8 @@ class ExperimentRunner(QObject):
 
     def run(self):
         self.flag_done_plotting = False
+        self.abort_flag = False
+        self.signal_experiment_in_progress.emit(True)
         if self.camera.capture_device is not None:
             if not self.camera.capture_device.isOpened():
                 print("Capture device is not opened")
@@ -76,6 +80,7 @@ class ExperimentRunner(QObject):
             print("no values to plot")
 
     def update(self):
+        self.signal_updating.emit(True)
         if len(self.stim_vals) > 0 and not self.flag_done_plotting:
             stim_val = self.stim_vals.pop(0)
             # print(stim_val)
@@ -86,13 +91,20 @@ class ExperimentRunner(QObject):
                 self.serial_interface.send_data(0, "sl")
 
         self.current_time = time.perf_counter() - self.start_time
-        if self.current_time >= self.duration:
+        if self.abort_flag:
+            self.timer.stop()
+            self.signal_experiment_in_progress.emit(False)
+            if self.recording_experiment:
+                self.camera.set_live_mode()
+
+        elif self.current_time >= self.duration:
             # self.camera.set_live_mode()
             self.timer.stop()
             if self.recording_experiment:
                 self.camera.set_live_mode()
 
             self.signal_experiment_in_progress.emit(False)
+            self.signal_experiment_done.emit(True)
 
 
 def get_ex_dir():
