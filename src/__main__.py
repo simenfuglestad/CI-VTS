@@ -8,6 +8,7 @@ from serial_interface.serial_interface import *
 from arduino.arduino import Arduino
 from UI.AnalysisDialog import AnalysisDialog
 from UI.SettingsDialog import SettingsDialog
+from UI.RunningExperimentDialog import RunningExperimentDialog
 from camera.camera import *
 
 
@@ -36,9 +37,12 @@ class Main(QApplication):
 
         self.analysis_dialog = AnalysisDialog()
 
+        self.running_experiment_dialog = RunningExperimentDialog()
+
         self.main_window = MainWindow(
             settings_dialog=self.settings_dialog,
             analysis_dialog=self.analysis_dialog,
+            running_experiment_dialog=self.running_experiment_dialog,
             serial_interface=self.serial_interface,
             video_path=self.video_path,
             logs_path=self.logs_path,

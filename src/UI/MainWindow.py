@@ -8,7 +8,7 @@ from experiment.experiment import *
 
 
 class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
-    def __init__(self, settings_dialog, analysis_dialog, serial_interface, size, camera,
+    def __init__(self, settings_dialog, analysis_dialog, running_experiment_dialog, serial_interface, size, camera,
                  stimulus_path="stimulus/stimulus_profiles/",
                  experiments_path="experiment/experiment_profiles/",
                  video_path="experiment/videos/",
@@ -56,6 +56,8 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         self.btn_run.clicked.connect(self.run_experiment)
 
+        self.running_experiment_dialog = running_experiment_dialog
+        self.running_experiment_dialog.buttonBox.accepted.connect(self.abort_experiment_run)
         # Init Additional Settings
         self.date_time_hatching.setDateTime(QDateTime.currentDateTime())
 
@@ -289,7 +291,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.experiment_in_progress = done_signal
 
     def run_experiment(self):
-        if not self.experiment_in_progress:
+        if not self.experiment_in_progress and self.get_total_duration() != 0:
             self.experiment_in_progress = True
             self.runner = ExperimentRunner(plot_data=self.stimulus_plotted_data, duration=self.get_total_duration(),
                                            serial_interface=self.serial_interface, camera=self.camera,
@@ -299,8 +301,22 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             if self.checkbox_view_live.isChecked():
                 self.settings_dialog.show()
             self.runner.run()
+            self.running_experiment_dialog.reset()
+            self.running_experiment_dialog.set_progress_increment(self.get_total_duration())
+            self.running_experiment_dialog.rejected.connect(self.abort_experiment_run)
+            self.running_experiment_dialog.signal_user_aborted_experiment.connect(self.abort_experiment_run)
+
+            self.runner.signal_updating.connect(self.running_experiment_dialog.update_progress)
+            self.runner.signal_experiment_done.connect(self.running_experiment_dialog.set_progress_completed)
+            self.running_experiment_dialog.show()
+
         else:
             print("Experiment already in progress")
+
+    def abort_experiment_run(self):
+        self.running_experiment_dialog.reset()
+        self.runner.abort_flag = True
+        self.experiment_in_progress = False
 
     def show_stimulus_profile_names(self):
         self.list_stim_profiles.clear()
@@ -431,7 +447,6 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
             if len(self.stimulus_plotted_data) > 0:
                 last_plot_item_end = self.stimulus_plotted_data[-1]["time"][1]
                 if new_plot_item_start > last_plot_item_end:
-                    print("starting ahead")
                     blank_plot_item = {'time': [last_plot_item_end, new_plot_item_start], 'value': [0, 0]}
                     self.stimulus_plotted_data.append(blank_plot_item)
                     self.stim_profile_plot.plot(blank_plot_item["time"], blank_plot_item["value"])
