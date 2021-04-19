@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'new_design.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.0.2
+## Created by: Qt User Interface Compiler version 6.0.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -19,7 +19,6 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.setEnabled(True)
         MainWindow.resize(1219, 759)
         self.actionExperiment_new = QAction(MainWindow)
         self.actionExperiment_new.setObjectName(u"actionExperiment_new")
@@ -33,7 +32,6 @@ class Ui_MainWindow(object):
         self.actionSetup.setObjectName(u"actionSetup")
         self.actionGeneral = QAction(MainWindow)
         self.actionGeneral.setObjectName(u"actionGeneral")
-        self.actionGeneral.setEnabled(False)
         self.actionExperiment_save = QAction(MainWindow)
         self.actionExperiment_save.setObjectName(u"actionExperiment_save")
         self.actionSelected_Experiment = QAction(MainWindow)
@@ -52,8 +50,6 @@ class Ui_MainWindow(object):
         self.actionRedo.setObjectName(u"actionRedo")
         self.actionStimulus_Profile_save = QAction(MainWindow)
         self.actionStimulus_Profile_save.setObjectName(u"actionStimulus_Profile_save")
-        self.actionNew = QAction(MainWindow)
-        self.actionNew.setObjectName(u"actionNew")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
@@ -142,7 +138,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.label_working_dir = QLabel(self.groupBox_main)
         self.label_working_dir.setObjectName(u"label_working_dir")
-        self.label_working_dir.setEnabled(False)
 
         self.horizontalLayout_5.addWidget(self.label_working_dir)
 
@@ -153,7 +148,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.label_2 = QLabel(self.groupBox_main)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setEnabled(False)
         sizePolicy1.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
         self.label_2.setSizePolicy(sizePolicy1)
 
@@ -161,7 +155,6 @@ class Ui_MainWindow(object):
 
         self.label_temp_val = QLabel(self.groupBox_main)
         self.label_temp_val.setObjectName(u"label_temp_val")
-        self.label_temp_val.setEnabled(False)
         sizePolicy1.setHeightForWidth(self.label_temp_val.sizePolicy().hasHeightForWidth())
         self.label_temp_val.setSizePolicy(sizePolicy1)
         palette1 = QPalette()
@@ -280,7 +273,6 @@ class Ui_MainWindow(object):
 
         self.label_4 = QLabel(self.groupBox_main)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setEnabled(False)
 
         self.horizontalLayout_2.addWidget(self.label_4)
 
@@ -334,13 +326,11 @@ class Ui_MainWindow(object):
 
         self.pushButton_6 = QPushButton(self.groupBox_4)
         self.pushButton_6.setObjectName(u"pushButton_6")
-        self.pushButton_6.setEnabled(False)
 
         self.gridLayout_9.addWidget(self.pushButton_6, 3, 1, 1, 1)
 
         self.pushButton_5 = QPushButton(self.groupBox_4)
         self.pushButton_5.setObjectName(u"pushButton_5")
-        self.pushButton_5.setEnabled(False)
 
         self.gridLayout_9.addWidget(self.pushButton_5, 3, 0, 1, 1)
 
@@ -416,7 +406,6 @@ class Ui_MainWindow(object):
 
         self.checkbox_save_log = QCheckBox(self.groupBox_5)
         self.checkbox_save_log.setObjectName(u"checkbox_save_log")
-        self.checkbox_save_log.setEnabled(False)
         self.checkbox_save_log.setLayoutDirection(Qt.RightToLeft)
 
         self.gridLayout_5.addWidget(self.checkbox_save_log, 4, 0, 1, 1)
@@ -446,7 +435,6 @@ class Ui_MainWindow(object):
 
         self.btn_set_logs_path = QPushButton(self.groupBox_5)
         self.btn_set_logs_path.setObjectName(u"btn_set_logs_path")
-        self.btn_set_logs_path.setEnabled(False)
 
         self.gridLayout_5.addWidget(self.btn_set_logs_path, 4, 2, 1, 1)
 
@@ -459,7 +447,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
         self.checkbox_live_ir = QCheckBox(self.groupBox_5)
         self.checkbox_live_ir.setObjectName(u"checkbox_live_ir")
-        self.checkbox_live_ir.setEnabled(False)
         sizePolicy3.setHeightForWidth(self.checkbox_live_ir.sizePolicy().hasHeightForWidth())
         self.checkbox_live_ir.setSizePolicy(sizePolicy3)
         palette2 = QPalette()
@@ -557,7 +544,6 @@ class Ui_MainWindow(object):
 
         self.line_edit_logs_path = QLineEdit(self.groupBox_5)
         self.line_edit_logs_path.setObjectName(u"line_edit_logs_path")
-        self.line_edit_logs_path.setEnabled(False)
         sizePolicy7 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         sizePolicy7.setHorizontalStretch(0)
         sizePolicy7.setVerticalStretch(0)
@@ -586,7 +572,6 @@ class Ui_MainWindow(object):
 
         self.check_box_draw_mode = QCheckBox(self.groupBox_5)
         self.check_box_draw_mode.setObjectName(u"check_box_draw_mode")
-        self.check_box_draw_mode.setEnabled(False)
 
         self.horizontalLayout_6.addWidget(self.check_box_draw_mode)
 
@@ -885,119 +870,100 @@ class Ui_MainWindow(object):
         self.tab_exp_settings.setObjectName(u"tab_exp_settings")
         self.gridLayout_6 = QGridLayout(self.tab_exp_settings)
         self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Maximum)
-
-        self.gridLayout_6.addItem(self.verticalSpacer_5, 0, 0, 1, 1)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_6.addItem(self.verticalSpacer_4, 2, 0, 1, 1)
-
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_6.addItem(self.horizontalSpacer, 1, 1, 1, 1)
-
         self.gridLayout_7 = QGridLayout()
         self.gridLayout_7.setObjectName(u"gridLayout_7")
         self.gridLayout_7.setVerticalSpacing(12)
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Maximum)
-
-        self.gridLayout_7.addItem(self.verticalSpacer_3, 5, 2, 1, 1)
-
-        self.label_3 = QLabel(self.tab_exp_settings)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setLayoutDirection(Qt.LeftToRight)
-        self.label_3.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.gridLayout_7.addWidget(self.label_3, 2, 1, 1, 1)
-
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Maximum)
-
-        self.gridLayout_7.addItem(self.verticalSpacer, 1, 2, 1, 1)
-
-        self.date_time_hatching = QDateTimeEdit(self.tab_exp_settings)
-        self.date_time_hatching.setObjectName(u"date_time_hatching")
-        sizePolicy12 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy12.setHorizontalStretch(0)
-        sizePolicy12.setVerticalStretch(0)
-        sizePolicy12.setHeightForWidth(self.date_time_hatching.sizePolicy().hasHeightForWidth())
-        self.date_time_hatching.setSizePolicy(sizePolicy12)
-        self.date_time_hatching.setCalendarPopup(True)
-
-
-        self.gridLayout_7.addWidget(self.date_time_hatching, 0, 2, 1, 1)
-
-        self.label = QLabel(self.tab_exp_settings)
-        self.label.setObjectName(u"label")
-        sizePolicy9.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy9)
-
-        self.gridLayout_7.addWidget(self.label, 0, 1, 1, 1)
-
-        self.line_edit_geno_type = QLineEdit(self.tab_exp_settings)
-        self.line_edit_geno_type.setObjectName(u"line_edit_geno_type")
-        self.line_edit_geno_type.setEnabled(False)
-        sizePolicy7.setHeightForWidth(self.line_edit_geno_type.sizePolicy().hasHeightForWidth())
-        self.line_edit_geno_type.setSizePolicy(sizePolicy7)
-
-
-        self.gridLayout_7.addWidget(self.line_edit_geno_type, 2, 2, 1, 1)
-
-        self.checkbox_drugs = QCheckBox(self.tab_exp_settings)
-        self.checkbox_drugs.setObjectName(u"checkbox_drugs")
-        self.checkbox_drugs.setLayoutDirection(Qt.RightToLeft)
-
-
-        self.gridLayout_7.addWidget(self.checkbox_drugs, 4, 0, 1, 1)
-
-        self.label_6 = QLabel(self.tab_exp_settings)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.gridLayout_7.addWidget(self.label_6, 4, 1, 1, 1)
-
-        self.checkbox_dechorionated = QCheckBox(self.tab_exp_settings)
-        self.checkbox_dechorionated.setObjectName(u"checkbox_dechorionated")
-        self.checkbox_dechorionated.setEnabled(False)
-        sizePolicy9.setHeightForWidth(self.checkbox_dechorionated.sizePolicy().hasHeightForWidth())
-        self.checkbox_dechorionated.setSizePolicy(sizePolicy9)
-        self.checkbox_dechorionated.setLayoutDirection(Qt.RightToLeft)
-        self.checkbox_dechorionated.setAutoExclusive(False)
-
-        self.gridLayout_7.addWidget(self.checkbox_dechorionated, 0, 0, 1, 1)
-
-        self.line_edit_drug_name = QLineEdit(self.tab_exp_settings)
-        self.line_edit_drug_name.setObjectName(u"line_edit_drug_name")
-        sizePolicy7.setHeightForWidth(self.line_edit_drug_name.sizePolicy().hasHeightForWidth())
-        self.line_edit_drug_name.setSizePolicy(sizePolicy7)
-
-        self.gridLayout_7.addWidget(self.line_edit_drug_name, 4, 2, 1, 1)
-
         self.label_8 = QLabel(self.tab_exp_settings)
         self.label_8.setObjectName(u"label_8")
         self.label_8.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.gridLayout_7.addWidget(self.label_8, 6, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.label_8, 6, 2, 1, 1)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Maximum)
+
+        self.gridLayout_7.addItem(self.verticalSpacer_3, 5, 2, 1, 1)
 
         self.spin_crowdsize = QSpinBox(self.tab_exp_settings)
         self.spin_crowdsize.setObjectName(u"spin_crowdsize")
         sizePolicy3.setHeightForWidth(self.spin_crowdsize.sizePolicy().hasHeightForWidth())
         self.spin_crowdsize.setSizePolicy(sizePolicy3)
 
-        self.gridLayout_7.addWidget(self.spin_crowdsize, 6, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.spin_crowdsize, 6, 3, 1, 1)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Maximum)
 
         self.gridLayout_7.addItem(self.verticalSpacer_2, 3, 2, 1, 1)
 
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Maximum)
+
+        self.gridLayout_7.addItem(self.verticalSpacer, 1, 2, 1, 1)
+
+        self.label_6 = QLabel(self.tab_exp_settings)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout_7.addWidget(self.label_6, 4, 2, 1, 1)
+
+        self.checkbox_drugs = QCheckBox(self.tab_exp_settings)
+        self.checkbox_drugs.setObjectName(u"checkbox_drugs")
+        self.checkbox_drugs.setLayoutDirection(Qt.RightToLeft)
+
+        self.gridLayout_7.addWidget(self.checkbox_drugs, 4, 1, 1, 1)
+
+        self.line_edit_drug_name = QLineEdit(self.tab_exp_settings)
+        self.line_edit_drug_name.setObjectName(u"line_edit_drug_name")
+        sizePolicy7.setHeightForWidth(self.line_edit_drug_name.sizePolicy().hasHeightForWidth())
+        self.line_edit_drug_name.setSizePolicy(sizePolicy7)
+
+        self.gridLayout_7.addWidget(self.line_edit_drug_name, 4, 3, 1, 1)
+
+        self.line_edit_geno_type = QLineEdit(self.tab_exp_settings)
+        self.line_edit_geno_type.setObjectName(u"line_edit_geno_type")
+        sizePolicy7.setHeightForWidth(self.line_edit_geno_type.sizePolicy().hasHeightForWidth())
+        self.line_edit_geno_type.setSizePolicy(sizePolicy7)
+
+        self.gridLayout_7.addWidget(self.line_edit_geno_type, 2, 3, 1, 1)
+
+        self.label_3 = QLabel(self.tab_exp_settings)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setLayoutDirection(Qt.LeftToRight)
+        self.label_3.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout_7.addWidget(self.label_3, 2, 2, 1, 1)
+
         self.checkbox_genetics = QCheckBox(self.tab_exp_settings)
         self.checkbox_genetics.setObjectName(u"checkbox_genetics")
         self.checkbox_genetics.setLayoutDirection(Qt.RightToLeft)
 
-        self.gridLayout_7.addWidget(self.checkbox_genetics, 2, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.checkbox_genetics, 2, 1, 1, 1)
+
+        self.label = QLabel(self.tab_exp_settings)
+        self.label.setObjectName(u"label")
+        sizePolicy9.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy9)
+
+        self.gridLayout_7.addWidget(self.label, 0, 2, 1, 1)
+
+        self.checkbox_dechorionated = QCheckBox(self.tab_exp_settings)
+        self.checkbox_dechorionated.setObjectName(u"checkbox_dechorionated")
+        sizePolicy9.setHeightForWidth(self.checkbox_dechorionated.sizePolicy().hasHeightForWidth())
+        self.checkbox_dechorionated.setSizePolicy(sizePolicy9)
+        self.checkbox_dechorionated.setLayoutDirection(Qt.RightToLeft)
+        self.checkbox_dechorionated.setAutoExclusive(False)
+
+        self.gridLayout_7.addWidget(self.checkbox_dechorionated, 0, 1, 1, 1)
+
+        self.date_time_hatching = QDateTimeEdit(self.tab_exp_settings)
+        self.date_time_hatching.setObjectName(u"date_time_hatching")
+
+        self.gridLayout_7.addWidget(self.date_time_hatching, 0, 3, 1, 1)
 
 
         self.gridLayout_6.addLayout(self.gridLayout_7, 1, 0, 1, 1)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Preferred, QSizePolicy.Minimum)
+
+        self.gridLayout_6.addItem(self.horizontalSpacer, 1, 1, 1, 1)
 
         self.tabWidget.addTab(self.tab_exp_settings, "")
 
@@ -1005,7 +971,6 @@ class Ui_MainWindow(object):
 
         self.label_path_stim = QLabel(self.groupBox_main)
         self.label_path_stim.setObjectName(u"label_path_stim")
-        self.label_path_stim.setEnabled(False)
 
         self.gridLayout_3.addWidget(self.label_path_stim, 3, 0, 1, 1)
 
@@ -1015,7 +980,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1219, 22))
+        self.menubar.setGeometry(QRect(0, 0, 1219, 23))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
         self.menuOpen = QMenu(self.menuFile)
@@ -1026,12 +991,10 @@ class Ui_MainWindow(object):
         self.menuSettings.setObjectName(u"menuSettings")
         self.menuHelp = QMenu(self.menubar)
         self.menuHelp.setObjectName(u"menuHelp")
-        self.menuHelp.setEnabled(False)
         self.menuRun = QMenu(self.menubar)
         self.menuRun.setObjectName(u"menuRun")
         self.menuAnalysis = QMenu(self.menubar)
         self.menuAnalysis.setObjectName(u"menuAnalysis")
-        self.menuAnalysis.setEnabled(False)
         self.menuEdit = QMenu(self.menubar)
         self.menuEdit.setObjectName(u"menuEdit")
         MainWindow.setMenuBar(self.menubar)
@@ -1086,7 +1049,6 @@ class Ui_MainWindow(object):
         self.actionUndo.setText(QCoreApplication.translate("MainWindow", u"Undo (Ctrl + z)", None))
         self.actionRedo.setText(QCoreApplication.translate("MainWindow", u"Redo (Ctrl + y)", None))
         self.actionStimulus_Profile_save.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profile", None))
-        self.actionNew.setText(QCoreApplication.translate("MainWindow", u"New", None))
         self.groupBox_main.setTitle("")
         self.groupBox_3.setTitle("")
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Stimulus Profiles", None))
@@ -1136,13 +1098,13 @@ class Ui_MainWindow(object):
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"Minutes", None))
         self.btn_center_graph.setText(QCoreApplication.translate("MainWindow", u"Center Graph", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_exp_profile), QCoreApplication.translate("MainWindow", u"EXP_NAME", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Genotype", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Hatching Time", None))
-        self.checkbox_drugs.setText(QCoreApplication.translate("MainWindow", u"Drugs", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Drug Name", None))
-        self.checkbox_dechorionated.setText(QCoreApplication.translate("MainWindow", u"Dechorionated", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Crowdsize", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Drug Name", None))
+        self.checkbox_drugs.setText(QCoreApplication.translate("MainWindow", u"Drugs", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Genotype", None))
         self.checkbox_genetics.setText(QCoreApplication.translate("MainWindow", u"Genetics", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Hatching Time", None))
+        self.checkbox_dechorionated.setText(QCoreApplication.translate("MainWindow", u"Dechorionated", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_exp_settings), QCoreApplication.translate("MainWindow", u"Additional Settings", None))
         self.label_path_stim.setText(QCoreApplication.translate("MainWindow", u"C:/PATH_TO_STIM_FILES", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
