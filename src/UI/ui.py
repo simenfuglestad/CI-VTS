@@ -873,15 +873,22 @@ class Ui_MainWindow(object):
         self.gridLayout_7 = QGridLayout()
         self.gridLayout_7.setObjectName(u"gridLayout_7")
         self.gridLayout_7.setVerticalSpacing(12)
-        self.label_8 = QLabel(self.tab_exp_settings)
-        self.label_8.setObjectName(u"label_8")
-        self.label_8.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.gridLayout_7.addWidget(self.label_8, 6, 2, 1, 1)
-
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Maximum)
 
         self.gridLayout_7.addItem(self.verticalSpacer_3, 5, 2, 1, 1)
+
+        self.line_edit_geno_type = QLineEdit(self.tab_exp_settings)
+        self.line_edit_geno_type.setObjectName(u"line_edit_geno_type")
+        sizePolicy7.setHeightForWidth(self.line_edit_geno_type.sizePolicy().hasHeightForWidth())
+        self.line_edit_geno_type.setSizePolicy(sizePolicy7)
+
+        self.gridLayout_7.addWidget(self.line_edit_geno_type, 2, 3, 1, 1)
+
+        self.checkbox_genetics = QCheckBox(self.tab_exp_settings)
+        self.checkbox_genetics.setObjectName(u"checkbox_genetics")
+        self.checkbox_genetics.setLayoutDirection(Qt.RightToLeft)
+
+        self.gridLayout_7.addWidget(self.checkbox_genetics, 2, 1, 1, 1)
 
         self.spin_crowdsize = QSpinBox(self.tab_exp_settings)
         self.spin_crowdsize.setObjectName(u"spin_crowdsize")
@@ -894,36 +901,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addItem(self.verticalSpacer_2, 3, 2, 1, 1)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Maximum)
-
-        self.gridLayout_7.addItem(self.verticalSpacer, 1, 2, 1, 1)
-
-        self.label_6 = QLabel(self.tab_exp_settings)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.gridLayout_7.addWidget(self.label_6, 4, 2, 1, 1)
-
-        self.checkbox_drugs = QCheckBox(self.tab_exp_settings)
-        self.checkbox_drugs.setObjectName(u"checkbox_drugs")
-        self.checkbox_drugs.setLayoutDirection(Qt.RightToLeft)
-
-        self.gridLayout_7.addWidget(self.checkbox_drugs, 4, 1, 1, 1)
-
-        self.line_edit_drug_name = QLineEdit(self.tab_exp_settings)
-        self.line_edit_drug_name.setObjectName(u"line_edit_drug_name")
-        sizePolicy7.setHeightForWidth(self.line_edit_drug_name.sizePolicy().hasHeightForWidth())
-        self.line_edit_drug_name.setSizePolicy(sizePolicy7)
-
-        self.gridLayout_7.addWidget(self.line_edit_drug_name, 4, 3, 1, 1)
-
-        self.line_edit_geno_type = QLineEdit(self.tab_exp_settings)
-        self.line_edit_geno_type.setObjectName(u"line_edit_geno_type")
-        sizePolicy7.setHeightForWidth(self.line_edit_geno_type.sizePolicy().hasHeightForWidth())
-        self.line_edit_geno_type.setSizePolicy(sizePolicy7)
-
-        self.gridLayout_7.addWidget(self.line_edit_geno_type, 2, 3, 1, 1)
-
         self.label_3 = QLabel(self.tab_exp_settings)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setLayoutDirection(Qt.LeftToRight)
@@ -931,11 +908,11 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.label_3, 2, 2, 1, 1)
 
-        self.checkbox_genetics = QCheckBox(self.tab_exp_settings)
-        self.checkbox_genetics.setObjectName(u"checkbox_genetics")
-        self.checkbox_genetics.setLayoutDirection(Qt.RightToLeft)
+        self.checkbox_drugs = QCheckBox(self.tab_exp_settings)
+        self.checkbox_drugs.setObjectName(u"checkbox_drugs")
+        self.checkbox_drugs.setLayoutDirection(Qt.RightToLeft)
 
-        self.gridLayout_7.addWidget(self.checkbox_genetics, 2, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.checkbox_drugs, 4, 1, 1, 1)
 
         self.label = QLabel(self.tab_exp_settings)
         self.label.setObjectName(u"label")
@@ -943,6 +920,30 @@ class Ui_MainWindow(object):
         self.label.setSizePolicy(sizePolicy9)
 
         self.gridLayout_7.addWidget(self.label, 0, 2, 1, 1)
+
+        self.label_6 = QLabel(self.tab_exp_settings)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout_7.addWidget(self.label_6, 4, 2, 1, 1)
+
+        self.date_time_hatching = QDateTimeEdit(self.tab_exp_settings)
+        self.date_time_hatching.setObjectName(u"date_time_hatching")
+
+        self.gridLayout_7.addWidget(self.date_time_hatching, 0, 3, 1, 1)
+
+        self.label_8 = QLabel(self.tab_exp_settings)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout_7.addWidget(self.label_8, 6, 2, 1, 1)
+
+        self.line_edit_drug_name = QLineEdit(self.tab_exp_settings)
+        self.line_edit_drug_name.setObjectName(u"line_edit_drug_name")
+        sizePolicy7.setHeightForWidth(self.line_edit_drug_name.sizePolicy().hasHeightForWidth())
+        self.line_edit_drug_name.setSizePolicy(sizePolicy7)
+
+        self.gridLayout_7.addWidget(self.line_edit_drug_name, 4, 3, 1, 1)
 
         self.checkbox_dechorionated = QCheckBox(self.tab_exp_settings)
         self.checkbox_dechorionated.setObjectName(u"checkbox_dechorionated")
@@ -953,17 +954,24 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.checkbox_dechorionated, 0, 1, 1, 1)
 
-        self.date_time_hatching = QDateTimeEdit(self.tab_exp_settings)
-        self.date_time_hatching.setObjectName(u"date_time_hatching")
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Maximum)
 
-        self.gridLayout_7.addWidget(self.date_time_hatching, 0, 3, 1, 1)
+        self.gridLayout_7.addItem(self.verticalSpacer, 1, 2, 1, 1)
 
 
         self.gridLayout_6.addLayout(self.gridLayout_7, 1, 0, 1, 1)
 
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Preferred, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.gridLayout_6.addItem(self.horizontalSpacer, 1, 1, 1, 1)
+
+        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_6.addItem(self.verticalSpacer_4, 2, 0, 1, 1)
+
+        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Maximum)
+
+        self.gridLayout_6.addItem(self.verticalSpacer_5, 0, 0, 1, 1)
 
         self.tabWidget.addTab(self.tab_exp_settings, "")
 
@@ -1098,12 +1106,12 @@ class Ui_MainWindow(object):
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"Minutes", None))
         self.btn_center_graph.setText(QCoreApplication.translate("MainWindow", u"Center Graph", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_exp_profile), QCoreApplication.translate("MainWindow", u"EXP_NAME", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"Crowdsize", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Drug Name", None))
-        self.checkbox_drugs.setText(QCoreApplication.translate("MainWindow", u"Drugs", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Genotype", None))
         self.checkbox_genetics.setText(QCoreApplication.translate("MainWindow", u"Genetics", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Genotype", None))
+        self.checkbox_drugs.setText(QCoreApplication.translate("MainWindow", u"Drugs", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Hatching Time", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Drug Name", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"Crowdsize", None))
         self.checkbox_dechorionated.setText(QCoreApplication.translate("MainWindow", u"Dechorionated", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_exp_settings), QCoreApplication.translate("MainWindow", u"Additional Settings", None))
         self.label_path_stim.setText(QCoreApplication.translate("MainWindow", u"C:/PATH_TO_STIM_FILES", None))
