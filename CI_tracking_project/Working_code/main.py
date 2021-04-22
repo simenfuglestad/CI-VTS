@@ -6,29 +6,31 @@ import math
 from KalmanFilter import KalmanFilter
 from tracker.tracker import *
 
-# Combination of Tracking_Multiple and Partly_success_id Track.py
 
 datasets = "C:\\GIT_Projects"
 filename = "CI_Film.avi"
 abs_path = datasets + "/" + filename
 
 if not os.path.exists(datasets):
-    print("Funkje serru: finner ikke veien til mappen", datasets)
+    print("Cant find path to ", datasets)
     quit()
 
 if not os.path.exists(abs_path):
-    print("Funkje serru: finner ikke den såkalte filen", filename)
+    print("Cant find path to ", filename)
     quit()
 
+# largest tracking id
+pop_num = 15
 
-# Create a videoCapture object and read from input filter
+#Number of frames to reserve id
+frames = 10
+
+# Create a videoCapture object
 cap = cv2.VideoCapture(abs_path)
-
-
 detectionArray = []
-tracker = EuclideanDistTracker()
-
+tracker = init_tracker(pop_num,frames)
 detector = cv2.createBackgroundSubtractorMOG2() # Removed history=100, varThreshold=10
+
 
 i = 0
 while True:
@@ -52,16 +54,13 @@ while True:
                 cv2.drawContours(frame, [cnt], -1, (0, 255, 0))
                 x,y,w,h = cv2.boundingRect(cnt)
                 detectionArray.append([x, y, w, h])
-                #print(detectionArray)
-                #cv2.minEnclosingCircle(cnt)
 
         points = []
         # Removing previous points
         points.clear()
         #Object tracking
-        if i > 5:
+        if i > 1:
             boxes_ids = tracker.update(detectionArray)
-            #print(boxes_ids)
             for box_id in boxes_ids:
                 x, y, w, h, id = box_id
                 cv2.putText(frame, str(id), (x, y - 15), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 2)
@@ -70,9 +69,7 @@ while True:
                 ym = int(y + h / 2)
                 cv2.circle(frame, (xm, ym), 15, (0, 255, 0), 2)
                 points.append([xm, ym, w, h, id, i])
-        #print("BOXES")
-        #print(points)
-        ##### RETURN POINTS LATEEERS
+
 
 
 

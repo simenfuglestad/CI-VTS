@@ -1,24 +1,18 @@
 import math
-"""
-If an id is lost. but a bounding box around the area if there is a new detection inside of that area within a set
-timelimit use the id that was lost. Using dictionary to create a box around the selected ID. if the ID is lost and there is a new detection
-check to see if it is inside that bounding box
-"""
 
-# Maksimum population ie. this i the highest id
-pop_num = 15
-
-class EuclideanDistTracker:
-    def __init__(self):
+class init_tracker:
+    def __init__(self,pop_num,frames):
         # Store the center positions of the objects
         self.center_points = {}
-        # Keep the count of the IDs
+
         #  A list with numbers 1-pop_num
         self.population_id_list = list(range(0, pop_num))
+
         # Dictionary to store lost id's
         self.lost_id = {}
+
         # the number of frames the object is allowed to disappear
-        self.frames = 10
+        self.frames = frames
 
     def update(self, objects_rect):
 
@@ -49,8 +43,10 @@ class EuclideanDistTracker:
             # Find out if that object was detected already
             print(self.center_points)
             if lost_retrieved is False:
+
                 for id, pt in self.center_points.items():
                     dist = math.hypot(cx - pt[0], cy - pt[1])
+
                     ### change distance if id increase from flicker is detected
                     if dist < 20:
                         self.center_points[id] = (cx, cy)
@@ -77,6 +73,7 @@ class EuclideanDistTracker:
 
         # Adding lost id's to population id array.
         for key in self.center_points.keys():
+
             if key not in new_center_points.keys():
                 self.population_id_list.append(key) # LEGGER TIL ETTER EN GITT MENGDE FRAMES
                 self.lost_id[key] = (self.center_points[key], 0)
@@ -88,15 +85,14 @@ class EuclideanDistTracker:
         # Removing and appending lost id's
         clear_ids = list()
         for p in self.lost_id.keys():
+
             if self.lost_id[p][1] > self.frames:
                 clear_ids.append(p)
+
         for x in clear_ids:
             self.lost_id.pop(x,None)
             self.population_id_list.append(x)
 
-
-
-        #print(self.lost_id)
 
         self.center_points = new_center_points.copy()
 
