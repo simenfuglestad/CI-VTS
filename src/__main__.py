@@ -32,7 +32,7 @@ class Main(QApplication):
             serial_interface=self.serial_interface,
             camera=self.camera)
 
-        self.analysis_dialog = AnalysisDialog()
+        self.analysis_dialog = AnalysisDialog(video_path=self.video_path)
 
         self.running_experiment_dialog = RunningExperimentDialog()
 
