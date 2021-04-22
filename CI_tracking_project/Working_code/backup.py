@@ -6,7 +6,7 @@ import math
 from KalmanFilter import KalmanFilter
 from tracker.tracker import *
 
-# Combination of Tracking_Multiple and Partly_success_id Main.py
+# Combination of Tracking_Multiple and Partly_success_id Track.py
 
 datasets = "C:\\GIT_Projects"
 filename = "CI_Film.avi"
@@ -19,6 +19,7 @@ if not os.path.exists(datasets):
 if not os.path.exists(abs_path):
     print("Funkje serru: finner ikke den såkalte filen", filename)
     quit()
+
 
 # Create a videoCapture object and read from input filter
 cap = cv2.VideoCapture(abs_path)
@@ -34,7 +35,8 @@ while True:
         ret, frame = cap.read()
 
         i += 1
-
+        # Cropping frame. This can be removed
+        #frame = frame[32:834, 845:1157]
 
         #Object detection
         mask = detector.apply(frame)
@@ -50,6 +52,7 @@ while True:
                 cv2.drawContours(frame, [cnt], -1, (0, 255, 0))
                 x,y,w,h = cv2.boundingRect(cnt)
                 detectionArray.append([x, y, w, h])
+                #print(detectionArray)
                 #cv2.minEnclosingCircle(cnt)
 
         points = []
@@ -62,27 +65,20 @@ while True:
             for box_id in boxes_ids:
                 x, y, w, h, id = box_id
                 cv2.putText(frame, str(id), (x, y - 15), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 2)
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+                #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
                 xm = int(x + w / 2)
                 ym = int(y + h / 2)
-                #cv2.circle(frame, (xm, ym), 10, (0, 255, 0), 2)
+                cv2.circle(frame, (xm, ym), 15, (0, 255, 0), 2)
                 points.append([xm, ym, w, h, id, i])
+        #print("BOXES")
+        #print(points)
+        ##### RETURN POINTS LATEEERS
 
-
-        cv2.rectangle(frame, (0, 0), (frame.shape[1], 30), (100, 100, 100), cv2.FILLED)
-        message = "Test"
-        cv2.putText(frame,
-                    message,
-                    (20, 20),
-                    cv2.FONT_HERSHEY_PLAIN,
-                    1,
-                    (255, 255, 255),
-                    1)
 
 
         # Display the resulting tracking frame
         cv2.imshow('Tracking', frame)
-        #v2.imshow('mask', mask)
+        #cv2.imshow('mask', mask)
 
         # Slower the FPS
         cv2.waitKey(50)

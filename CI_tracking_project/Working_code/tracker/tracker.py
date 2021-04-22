@@ -1,16 +1,27 @@
 import math
+"""
+If an id is lost. but a bounding box around the area if there is a new detection inside of that area within a set
+timelimit use the id that was lost. Using dictionary to create a box around the selected ID. if the ID is lost and there is a new detection
+check to see if it is inside that bounding box
+"""
 
+# Maksimum population ie. this i the highest id
+pop_num = 15
 
 class EuclideanDistTracker:
     def __init__(self):
         # Store the center positions of the objects
         self.center_points = {}
         # Keep the count of the IDs
-        # each time a new object id detected, the count will increase by one
-        self.id_count = 0
-
+        #  A list with numbers 1-pop_num
+        self.population_id_list = list(range(0, pop_num))
+        # Dictionary to store lost id's
+        self.lost_id = {}
+        # the number of frames the object is allowed to disappear
+        self.frames = 10
 
     def update(self, objects_rect):
+
         # Objects boxes and ids
         objects_bbs_ids = []
 
@@ -20,32 +31,74 @@ class EuclideanDistTracker:
             cx = (x + x + w) // 2
             cy = (y + y + h) // 2
 
-            # Find out if that object was detected already
             same_object_detected = False
-            for id, pt in self.center_points.items():
-                dist = math.hypot(cx - pt[0], cy - pt[1])
+            lost_retrieved = False
 
-                ### change distance if id increase from flicker is detected
+            # Checking to see if the new bject is in the same spot as one of the lost objects
+            for id, centerp in self.lost_id.items():
+                cxl, cyl = centerp[0]
+                dist = math.hypot(cx - cxl, cy - cyl)
                 if dist < 20:
                     self.center_points[id] = (cx, cy)
-                    #print(self.center_points)
                     objects_bbs_ids.append([x, y, w, h, id])
-                    same_object_detected = True
+                    self.lost_id.pop(id, None)
+                    lost_retrieved = True
                     break
 
+
+            # Find out if that object was detected already
+            print(self.center_points)
+            if lost_retrieved is False:
+                for id, pt in self.center_points.items():
+                    dist = math.hypot(cx - pt[0], cy - pt[1])
+                    ### change distance if id increase from flicker is detected
+                    if dist < 20:
+                        self.center_points[id] = (cx, cy)
+                        #print(self.center_points)
+                        objects_bbs_ids.append([x, y, w, h, id])
+                        same_object_detected = True
+                        break
+
+
             # New object is detected we assign the ID to that object
-            if same_object_detected is False:
-                self.center_points[self.id_count] = (cx, cy)
-                objects_bbs_ids.append([x, y, w, h, self.id_count])
-                self.id_count += 1
+            if same_object_detected is False and lost_retrieved is False:
+                self.center_points[self.population_id_list[0]] = (cx, cy)
+                objects_bbs_ids.append([x, y, w, h, self.population_id_list[0]])
+                self.population_id_list.pop(0)
 
         # Clean the dictionary by center points to remove IDS not used anymore
         new_center_points = {}
+        #self.population_id_list = (range(1, pop_num))
         for obj_bb_id in objects_bbs_ids:
             _, _, _, _, object_id = obj_bb_id
             center = self.center_points[object_id]
             new_center_points[object_id] = center
 
-        # Update dictionary with IDs not used removed
+
+        # Adding lost id's to population id array.
+        for key in self.center_points.keys():
+            if key not in new_center_points.keys():
+                self.population_id_list.append(key) # LEGGER TIL ETTER EN GITT MENGDE FRAMES
+                self.lost_id[key] = (self.center_points[key], 0)
+
+        # Counting up frames that the id has been lost
+        for keys in self.lost_id.keys():
+            self.lost_id[keys] = (self.lost_id[keys][0], self.lost_id[keys][1]+1)
+
+        # Removing and appending lost id's
+        clear_ids = list()
+        for p in self.lost_id.keys():
+            if self.lost_id[p][1] > self.frames:
+                clear_ids.append(p)
+        for x in clear_ids:
+            self.lost_id.pop(x,None)
+            self.population_id_list.append(x)
+
+
+
+        #print(self.lost_id)
+
         self.center_points = new_center_points.copy()
+
+
         return objects_bbs_ids
