@@ -36,7 +36,7 @@ void loop() {
    //thermometer
   if(Serial.available() == 0)
   {
-    if(currentTime - prevTime >= 4000) 
+    if(currentTime - prevTime >= 5000) 
     {
       String temp_str = String(getTemp(),2);
       temp_str = temp_str + " Degrees Celsius.";
