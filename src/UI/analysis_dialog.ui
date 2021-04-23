@@ -339,6 +339,13 @@
      </property>
     </widget>
    </item>
+   <item row="8" column="0">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Run Analysis</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

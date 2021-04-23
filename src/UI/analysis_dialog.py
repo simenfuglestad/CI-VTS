@@ -216,6 +216,11 @@ class Ui_Dialog(object):
 
         self.gridLayout.addWidget(self.buttonBox, 8, 1, 1, 1)
 
+        self.pushButton = QPushButton(Dialog)
+        self.pushButton.setObjectName(u"pushButton")
+
+        self.gridLayout.addWidget(self.pushButton, 8, 0, 1, 1)
+
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept)
@@ -262,5 +267,6 @@ class Ui_Dialog(object):
         self.label_3.setText(QCoreApplication.translate("Dialog", u"/", None))
         self.label_vid_total_time.setText(QCoreApplication.translate("Dialog", u"00:00:00", None))
         self.btn_save_frame.setText(QCoreApplication.translate("Dialog", u"Save Frame", None))
+        self.pushButton.setText(QCoreApplication.translate("Dialog", u"Run Analysis", None))
     # retranslateUi
 

@@ -18,7 +18,7 @@ class AnalysisDialog(QDialog, Ui_Dialog):
         # self.video_handler = VideoHandler(video_path, self.label_video_view.width(), self.label_video_view.height())
 
         self.video_handler = VideoHandler(video_path, 800, 600)
-        self.video_handler.start()
+        # self.video_handler.start()
 
         self.list_recordings.itemClicked.connect(lambda x: self.show_video(x))
 
@@ -47,6 +47,15 @@ class AnalysisDialog(QDialog, Ui_Dialog):
         self.btn_refresh_video_list.clicked.connect(self.populate_video_list)
 
         self.btn_save_frame.clicked.connect(self.save_frame_clicked)
+
+        self.shortcut_playpause = QShortcut(QKeySequence(Qt.Key_Space), self)
+        self.shortcut_playpause.activated.connect(self.keypress_play_pause)
+
+    def keypress_play_pause(self):
+        if self.video_handler.isRunning():
+            self.video_handler.pause_video()
+        else:
+            self.video_handler.play_video()
 
     def set_fps_label(self, fps_val):
         self.label_video_fps.setText("Selectec Video FPS: " + str(fps_val))
@@ -77,7 +86,7 @@ class AnalysisDialog(QDialog, Ui_Dialog):
         self.video_handler.skip_frame_forward(clicked=True, frames_to_skip=int(self.combo_frame_skip.currentText()))
 
     def skip_back_clicked(self):
-        self.video_handler.skip_frame_backwards(frames_to_skip=int(self.combo_frame_skip.currentText()))
+        self.video_handler.skip_frame_backwards(clicked=True, frames_to_skip=int(self.combo_frame_skip.currentText()))
 
     def selected_playback_speed(self, speed):
         multiplier = float(speed[0:-1])
@@ -111,13 +120,13 @@ class AnalysisDialog(QDialog, Ui_Dialog):
     def playback_slider_moved(self, index):
         self.video_handler.current_video.set(cv2.CAP_PROP_POS_FRAMES, index)
         if index >= self.prev_playback_slider_index:
-            self.video_handler.skip_frame_forward()
+            self.video_handler.skip_frame_forward(slider=True)
             self.format_label_current_run_time({"label_val" : int(index/self.video_handler.fps)})
         else:
-            self.video_handler.skip_frame_backwards()
+            self.video_handler.skip_frame_backwards(slider=True)
+            self.format_label_current_run_time({"label_val": int(index / self.video_handler.fps)})
 
         self.prev_playback_slider_index = index
-        # self.video_handler.set
 
     def showEvent(self, event):
         self.populate_video_list()
