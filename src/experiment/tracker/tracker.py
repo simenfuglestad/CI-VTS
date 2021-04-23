@@ -48,7 +48,7 @@ class init_tracker:
                     dist = math.hypot(cx - pt[0], cy - pt[1])
 
                     ### change distance if id increase from flicker is detected
-                    if dist < 20:
+                    if dist < 30:
                         self.center_points[id] = (cx, cy)
                         #print(self.center_points)
                         objects_bbs_ids.append([x, y, w, h, id])
