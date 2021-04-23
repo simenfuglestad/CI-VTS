@@ -3,7 +3,8 @@ from PySide6.QtGui import *
 import time
 import cv2
 import os
-
+from experiment.DataCollect import *
+import json
 
 class VideoHandler(QThread):
     signal_read_frame = Signal(bytes)
@@ -17,6 +18,7 @@ class VideoHandler(QThread):
         super().__init__(parent)
         self.is_alive = True
 
+        self.video_name = None
         self.current_video = None
         self.current_frame = None
         self.video_frame_data = []
@@ -32,6 +34,11 @@ class VideoHandler(QThread):
         self.frames_to_skip = 1
         self.video_playing = False
         self.video_paused = False
+
+        self.data_collect = None
+        self.analyze = False
+        self.analyze_json_info = "[xm, ym, w, h, id, frame]"
+        self.analyze_in_progress = False
 
     def run(self):
         while self.is_alive:
@@ -61,6 +68,7 @@ class VideoHandler(QThread):
 
     def set_video(self, video_name):
         try:
+            self.data_collect = DataCollect(pop_num=15, skip_frames=10)
             self.current_playback_location = 0
             self.load_video(video_name)
             self.signal_set_fps_in_dialog.emit(self.fps)
@@ -71,11 +79,28 @@ class VideoHandler(QThread):
             print("An error occurred when trying to load video '" + video_name + "' for analysis")
             print(e)
 
+    def set_analyze(self, a):
+        if self.data_collect is not None:
+            self.analyze = a
+            self.data_collect = DataCollect(pop_num=15, skip_frames=10)
+
+    def write_data(self, data, file_path):
+        try:
+            with open(file_path, 'w') as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+                print("wrote " + str(data) + "to file")
+
+        except IOError as e:
+            print("An error occurred when writing points data: \n" + e)
+
     def set_frame(self, frame):
         if self.current_video is not None and self.current_frame is not None:
             h, w, ch = frame.shape
             bytes_per_line = ch * w
 
+            if self.analyze:
+                points, frame = self.data_collect.update(frame)
+                self.write_data(points, self.video_path + self.video_name[0:-4] + "_analysis.json")
             qt_image = QImage(frame.data, w, h, bytes_per_line, QImage.Format_RGB888)
 
             # scaled_image = qt_image.scaled(self.label_video_view.width(), self.label_video_view.height(), Qt.KeepAspectRatio)
@@ -85,6 +110,13 @@ class VideoHandler(QThread):
 
     def play_video(self):
         if self.current_video is not None and self.fps > 0:
+            if self.analyze:
+                name = self.video_path + self.video_name[0:-4] + "_analysis.json"
+                print(name)
+                if os.path.isfile(name):
+                    print("was file.....")
+                    os.remove(name)
+                    # self.write_data(self.analyze_json_info, name) # should insert expl to dat on top, but it doesnt
             self.video_playing = True
             self.video_paused = False
             if not self.isRunning():
@@ -104,6 +136,9 @@ class VideoHandler(QThread):
         if self.isRunning():
             self.is_alive = False
             self.wait()
+
+        self.analyze_in_progress = False
+        self.data_collect = DataCollect(pop_num=15, skip_frames=10)
         self.video_playing = False
         self.video_paused = True
         self.current_playback_location = 0
@@ -166,6 +201,7 @@ class VideoHandler(QThread):
         if self.current_video is not None:
             self.current_video.release()
         path = os.path.abspath(self.video_path + video_name)
+        self.video_name = video_name
         self.current_video = cv2.VideoCapture(path)
         first_cap, first_frame = self.current_video.read()
         if first_cap:
