@@ -8,7 +8,7 @@ from tracker.tracker import *
 
 
 datasets = "C:\\GIT_Projects"
-filename = "3.avi"
+filename = "CI_film.avi"
 abs_path = datasets + "/" + filename
 
 if not os.path.exists(datasets):
