@@ -13,7 +13,8 @@ class ExperimentRunner(QObject):
     signal_experiment_in_progress = Signal(bytes)
     signal_experiment_done = Signal(bytes)
     signal_updating = Signal(bytes)
-    def __init__(self, plot_data, serial_interface, duration, camera, recording_experiment, resolution=10,
+
+    def __init__(self, plot_data, serial_interface, duration, camera, recording_experiment, resolution=100,
                  parent=None):
         super().__init__(parent)
         self.plot_data = plot_data
@@ -25,7 +26,7 @@ class ExperimentRunner(QObject):
         self.duration = duration
         self.timer = QTimer()
         self.timer.setTimerType(Qt.PreciseTimer)
-        self.timer.setInterval(self.resolution) #update every 10ms
+        self.timer.setInterval(self.resolution/10) #update every 10ms
         self.timer.timeout.connect(self.update)
 
         self.stim_vals = self.make_stim_vals()

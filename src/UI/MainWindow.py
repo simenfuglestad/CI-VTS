@@ -16,6 +16,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         super().__init__(parent)
         self.setupUi(self)
+        self.analysis_dialog = analysis_dialog
         self.settings_dialog = settings_dialog
 
         """Init Camera and Video Settings"""
@@ -118,6 +119,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         # self.showFullScreen()
         self.tabWidget.setCurrentIndex(0)
         self.showMaximized()
+
     def show_camera_status(self, status):
         if status is True:
             self.label_status_value.setText("Connected")
@@ -500,8 +502,12 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
     def closeEvent(self, event):
         self.camera.stop_cam()
         self.camera.shutdown()
+        self.analysis_dialog.shutdown_video_handler()
         time.sleep(1)
         if self.camera.out is not None:
             self.camera.out.release()
         if self.camera.capture_device is not None:
             self.camera.capture_device.release()
+
+        self.settings_dialog.close()
+        self.analysis_dialog.close()
