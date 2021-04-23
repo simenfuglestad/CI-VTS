@@ -75,7 +75,7 @@ class init_tracker:
         for key in self.center_points.keys():
 
             if key not in new_center_points.keys():
-                self.population_id_list.append(key) # LEGGER TIL ETTER EN GITT MENGDE FRAMES
+                self.population_id_list.append(key)
                 self.lost_id[key] = (self.center_points[key], 0)
 
         # Counting up frames that the id has been lost

@@ -8,7 +8,7 @@ from tracker.tracker import *
 
 
 datasets = "C:\\GIT_Projects"
-filename = "CI_Film.avi"
+filename = "3.avi"
 abs_path = datasets + "/" + filename
 
 if not os.path.exists(datasets):
@@ -75,7 +75,7 @@ while True:
 
         # Display the resulting tracking frame
         cv2.imshow('Tracking', frame)
-        #cv2.imshow('mask', mask)
+        cv2.imshow('mask', mask)
 
         # Slower the FPS
         cv2.waitKey(50)
