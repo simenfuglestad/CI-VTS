@@ -176,6 +176,26 @@ class Ui_Dialog(object):
 
         self.gridLayout.addWidget(self.label_video_fps, 3, 0, 1, 1)
 
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.checkbox_analyze = QCheckBox(Dialog)
+        self.checkbox_analyze.setObjectName(u"checkbox_analyze")
+        self.checkbox_analyze.setLayoutDirection(Qt.LeftToRight)
+
+        self.horizontalLayout_5.addWidget(self.checkbox_analyze)
+
+        self.buttonBox = QDialogButtonBox(Dialog)
+        self.buttonBox.setObjectName(u"buttonBox")
+        sizePolicy3.setHeightForWidth(self.buttonBox.sizePolicy().hasHeightForWidth())
+        self.buttonBox.setSizePolicy(sizePolicy3)
+        self.buttonBox.setOrientation(Qt.Horizontal)
+        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
+
+        self.horizontalLayout_5.addWidget(self.buttonBox)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_5, 6, 1, 1, 1)
+
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.label_vid_time = QLabel(Dialog)
@@ -208,18 +228,6 @@ class Ui_Dialog(object):
 
 
         self.gridLayout.addLayout(self.horizontalLayout_4, 2, 1, 1, 1)
-
-        self.buttonBox = QDialogButtonBox(Dialog)
-        self.buttonBox.setObjectName(u"buttonBox")
-        self.buttonBox.setOrientation(Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
-
-        self.gridLayout.addWidget(self.buttonBox, 8, 1, 1, 1)
-
-        self.pushButton = QPushButton(Dialog)
-        self.pushButton.setObjectName(u"pushButton")
-
-        self.gridLayout.addWidget(self.pushButton, 8, 0, 1, 1)
 
 
         self.retranslateUi(Dialog)
@@ -263,10 +271,10 @@ class Ui_Dialog(object):
         self.btn_frame_skip_back.setText(QCoreApplication.translate("Dialog", u"<", None))
         self.btn_frame_skip_fwd.setText(QCoreApplication.translate("Dialog", u">", None))
         self.label_video_fps.setText(QCoreApplication.translate("Dialog", u"Selected Video FPS:", None))
+        self.checkbox_analyze.setText(QCoreApplication.translate("Dialog", u"Analyze", None))
         self.label_vid_time.setText(QCoreApplication.translate("Dialog", u"00:00:00", None))
         self.label_3.setText(QCoreApplication.translate("Dialog", u"/", None))
         self.label_vid_total_time.setText(QCoreApplication.translate("Dialog", u"00:00:00", None))
         self.btn_save_frame.setText(QCoreApplication.translate("Dialog", u"Save Frame", None))
-        self.pushButton.setText(QCoreApplication.translate("Dialog", u"Run Analysis", None))
     # retranslateUi
 

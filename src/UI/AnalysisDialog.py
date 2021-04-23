@@ -51,6 +51,11 @@ class AnalysisDialog(QDialog, Ui_Dialog):
         self.shortcut_playpause = QShortcut(QKeySequence(Qt.Key_Space), self)
         self.shortcut_playpause.activated.connect(self.keypress_play_pause)
 
+        self.checkbox_analyze.toggled.connect(lambda x: self.analyze_checked(x))
+
+    def analyze_checked(self, analyze):
+        self.video_handler.set_analyze(analyze)
+
     def keypress_play_pause(self):
         if self.video_handler.isRunning():
             self.video_handler.pause_video()
@@ -58,7 +63,7 @@ class AnalysisDialog(QDialog, Ui_Dialog):
             self.video_handler.play_video()
 
     def set_fps_label(self, fps_val):
-        self.label_video_fps.setText("Selectec Video FPS: " + str(fps_val))
+        self.label_video_fps.setText("Selected Video FPS: " + str(fps_val))
 
     def update_slider_position(self, pos):
         self.hslider_video_playback.setValue(pos["slider_val"])
