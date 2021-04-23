@@ -88,7 +88,7 @@ class VideoHandler(QThread):
         try:
             with open(file_path, 'w') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
-                print("wrote " + str(data) + "to file")
+                # print("wrote " + str(data) + "to file")
 
         except IOError as e:
             print("An error occurred when writing points data: \n" + e)
@@ -112,9 +112,9 @@ class VideoHandler(QThread):
         if self.current_video is not None and self.fps > 0:
             if self.analyze:
                 name = self.video_path + self.video_name[0:-4] + "_analysis.json"
-                print(name)
+                # print(name)
                 if os.path.isfile(name):
-                    print("was file.....")
+                    # print("was file.....")
                     os.remove(name)
                     # self.write_data(self.analyze_json_info, name) # should insert expl to dat on top, but it doesnt
             self.video_playing = True
