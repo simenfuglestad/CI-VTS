@@ -63,7 +63,7 @@ The following python packages are _absolutely required_:
 3. [PySide6](https://pypi.org/project/PySide6/)
 4. [pyqtgraph](https://github.com/pyqtgraph/pyqtgraph) (NOTE: Development Version Required)
 
-All of these can be installed easily via [pip](https://www.w3schools.com/python/python_pip.asp), which ships with python 3.4.x or higher. To do so, open a terminal and navigate to the directory where you unzipped the files. Then enter `pip install -r depemdemcies.txt` and wait for installation to finish.
+All of these can be installed easily via [pip](https://www.w3schools.com/python/python_pip.asp), which ships with python 3.4.x or higher. To do so, open a terminal and navigate to the directory where you unzipped the files. Then enter `pip install -r dependencies.txt` and wait for installation to finish.
 #### Running the Program
 With all the above steps completed, the program can be run from a terminal by navigating to the `src` folder and then entering `python __main__.py`(or sometimes `python3 __main__.py`, depending on how python was installed).
 #### A Note on Compatibility and Platforms
