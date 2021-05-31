@@ -25,8 +25,6 @@ class DataCollect:
     def update(self, frame):
 
         self.i += 1
-        # Cropping frame. This can be removed
-        # frame = frame[32:834, 845:1157]
 
         # Object detection
         mask = self.detector.apply(frame)
