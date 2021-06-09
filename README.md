@@ -76,11 +76,12 @@ The software has currently been tested and developed on Windows 10 and Manjaro L
 3. Adjust Infrared Backlight any time during or before experiments
 4. Record Experiments as .avi video files
 5. Live Camera View, also available during recording and experimentation
+6. Movement tracking of the model organisms
+7. Frame-by-frame interactive replay of recorded videos
+8. 
 ### Planned
-1. Frame-by-frame interactive replay of recorded videos
-2. Movement tracking of the model organisms
-3. Experiment Logging
-4. Custom Theming
+1. Experiment Logging
+2. Custom Theming
 
 ## Contributing
 We happily accept contributions of any kind, but kindly ask that the following guidelines are followed.
