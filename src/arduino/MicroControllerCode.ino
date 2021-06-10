@@ -1,3 +1,15 @@
+#include <OneWire.h>
+#include <DallasTemperature.h>
+ 
+// Data wire is conntec to the Arduino digital pin 4
+#define ONE_WIRE_BUS 4
+// Setup a oneWire instance to communicate with any OneWire devices
+OneWire oneWire(ONE_WIRE_BUS);
+// Pass our oneWire reference to Dallas Temperature sensor 
+DallasTemperature sensors(&oneWire);
+unsigned long currentTime = millis();
+unsigned long prevTime = 0;
+
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
 int ir_led3 = 3; //left IR LED
@@ -6,6 +18,8 @@ int ir_led5 = 5; //right side IR LED
 int ir_led9 = 9; //stimulus COB LED
 
 void setup() {
+    //Thermometer sensors
+  sensors.begin();
   // initialize serial:
 //  setPwmFrequency(ir_leds, 1);
 
@@ -27,7 +41,20 @@ void loop() {
   * Values are mapped from a percentage range to an 8-bit range (0-255)
   * Once value is written, input string is cleared and new serial data can be read
   */
-
+  
+  if(Serial.available() == 0)
+  {
+    if(currentTime - prevTime >= 5000) 
+    {
+      String temp_str = String(getTemp(),2);
+      temp_str = temp_str + " Degrees Celsius.";
+      Serial.write(temp_str.c_str());
+      Serial.write("/r/n"); //Nødvendig? 
+      prev_time = current_time;
+    }
+  }
+  
+  // print the string when a newline arrives:
  if(Serial.available()) {
     inputString = Serial.readString();
     Serial.flush();
@@ -104,4 +131,11 @@ void setPwmFrequency(int pin, int divisor) {
     }
     TCCR2B = TCCR2B & 0b11111000 | mode;
   }
+}
+float getTemp()
+{
+  sensors.requestTemperatures(); 
+  float temp = sensors.getTempCByIndex(0);
+  return temp;
+  
 }
