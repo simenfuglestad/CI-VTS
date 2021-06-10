@@ -1,17 +1,18 @@
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
-int ir_led3 = 3;
-int ir_led6 = 6;
-int ir_led5 = 5;
-int ir_led9 = 9;
+int ir_led3 = 3; //left IR LED
+int ir_led6 = 6; //bottom IR LED
+int ir_led5 = 5; //right side IR LED
+int ir_led9 = 9; //stimulus COB LED
 
 void setup() {
   // initialize serial:
 //  setPwmFrequency(ir_leds, 1);
 
-  Serial.begin(115200);
-  Serial.setTimeout(5);
+  Serial.begin(115200); //baudrate for serial communication
+  Serial.setTimeout(5); //timeout for serial communication
 
+  //circuit never read, only need outputs
   pinMode(ir_led3, OUTPUT);
   pinMode(ir_led6, OUTPUT);
   pinMode(ir_led5, OUTPUT);
@@ -19,7 +20,14 @@ void setup() {
 }
 
 void loop() {
-  // print the string when a newline arrives:
+ /*
+  * Continous scan for incoming data on serial port.
+  * Serial data is always a formatted string with a header and a value
+  * Example: "ir330" is directed to pin 3 with a value of 30
+  * Values are mapped from a percentage range to an 8-bit range (0-255)
+  * Once value is written, input string is cleared and new serial data can be read
+  */
+
  if(Serial.available()) {
     inputString = Serial.readString();
     Serial.flush();
@@ -63,6 +71,11 @@ void loop() {
  }
 
 void setPwmFrequency(int pin, int divisor) {
+  /*
+   * Alter internal register of Arduino device to upscale frequency of PWM
+   * Not intended for frequent use
+   */
+
   byte mode;
   if(pin == 5 || pin == 6 || pin == 9 || pin == 10) {
     switch(divisor) {

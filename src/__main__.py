@@ -10,12 +10,29 @@ from camera.camera import *
 
 
 class Main(QApplication):
+    """
+    Entry point of application, instantiates major application-wide instances and properties.
+    ...
+    Attributes:
+    ----------
+    video_path : str
+        path to recorded videos on the system, relative by default
+    stimulus_path : str
+       path to stimulus profiles on the system, relative by default
+    logs_path : str
+        path to recorded videos on the system, relative by default
+        NOTE: currently not in use
+    """
     video_path = "experiment/videos/"
     stimulus_path = "stimulus/stimulus_profiles/"
     logs_path = "experiment/logs/"
     experiment_profiles_path = "experiment/experiment_profiles/"
 
     def __init__(self):
+        """
+        Initialize and set up the main application by instantiating all major components and passing them where needed.
+
+        """
         super().__init__()
         # init serial_interface interface
         self.serial_interface = SerialInterface()
@@ -23,9 +40,6 @@ class Main(QApplication):
         # Init Camera
         self.camera = Camera(video_path=self.video_path)
         self.camera.start()
-
-        # init Arduino
-        self.arduino = Arduino()
 
         # init UI
         self.settings_dialog = SettingsDialog(
