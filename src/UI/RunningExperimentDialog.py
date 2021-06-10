@@ -4,10 +4,22 @@ from PySide6.QtCore import Signal, QTimer
 
 
 class RunningExperimentDialog(QDialog, Ui_Dialog):
+    """
+    User interface component to give users feedback on experiment progression.
+
+    Attributes
+    ----------
+    signal_user_aborted_experiment: Signal
+        Qt signal object, emitted when a user willingly aborts an experiment
+    """
+
     signal_user_aborted_experiment = Signal(bytes)
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self):
+        """
+        Instantiate all values needed for calulating and tracking progress, but keep window hidden.
+        """
+        super().__init__()
         self.setupUi(self)
         self.progress_inc = -1
         self.counter = 0
@@ -19,9 +31,18 @@ class RunningExperimentDialog(QDialog, Ui_Dialog):
         self.countdown = 10
 
     def closeEvent(self, event):
+        """
+        Event fired when closing the window
+        :param event: QCloseEvent
+        :return: None
+        """
         self.reset()
 
     def update_progress(self):
+        """
+        Updates progress bar and timer according to time progression in running experiment
+        :return: None
+        """
         self.counter = self.counter + 1
         self.time_counter = self.time_counter + 1
 
@@ -37,15 +58,21 @@ class RunningExperimentDialog(QDialog, Ui_Dialog):
             self.label_feedback_header.setText("Done!")
 
     def set_progress_completed(self):
+        """
+        Sets progres bar to full and time duration to max
+        :return: None
+        """
         self.label_feedback_header.setText("Done!")
-        # self.label_experiment_run_info.setText("This window will close in " + str(self.countdown) + " seconds")
         self.label_experiment_run_info.setText("This window can be closed safely")
         self.experiment_progress_bar.setValue(100)
         self.set_run_time(int(self.progress_inc * 100))
         self.buttonBox.setStandardButtons(QDialogButtonBox.Close)
-        # self.timer.start()
 
     def update_close_countdown(self):
+        """
+        Event fired whenever QTimer emits timing signal, updates the progress bar and time label
+        :return:
+        """
         if self.countdown > 1:
             self.countdown = self.countdown - 1
             self.label_experiment_run_info.setText("This window will close in " + str(self.countdown) + " second" + ("s" if self.countdown != 1 else ""))
@@ -54,9 +81,18 @@ class RunningExperimentDialog(QDialog, Ui_Dialog):
             self.close()
 
     def set_progress_increment(self, experiment_duration):
+        """
+        Compute increments to be used with progress bar
+        :param experiment_duration: int number of seconds the experiment lasts
+        :return: None
+        """
         self.progress_inc = experiment_duration/100
 
     def reset(self):
+        """
+        Stop timer and set all values to the same as in constructor
+        :return:
+        """
         self.timer.stop()
         self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel)
         self.experiment_progress_bar.setValue(0)
@@ -69,6 +105,11 @@ class RunningExperimentDialog(QDialog, Ui_Dialog):
         self.countdown = 10
 
     def set_run_time(self, time):
+        """
+        Update the label showing the total run time of the experiment
+        :param time:
+        :return:
+        """
         h = time // 60 // 60 % 60
         m = time // 60 % 60
         s = time % 60

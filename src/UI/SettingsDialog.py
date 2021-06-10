@@ -6,11 +6,20 @@ import cv2
 from camera.camera import *
 import time
 
+
 class SettingsDialog(QDialog, Ui_Dialog):
-    def __init__(self, serial_interface, camera, parent=None):
-        super().__init__(parent)
+    """
+    User interface component allowing users configure the infrared LEDs, the camera, and the Arduino.
+    Also provides a real-time camera feed.
+    """
+    def __init__(self, serial_interface, camera):
+        """
+        Bind all UI components to their respective buttons and
+        :param serial_interface: instance of serial_interface.py, serve as connection with Arduino
+        :param camera: instance of camera.py, serves as camera control
+        """
+        super().__init__()
         self.setupUi(self)
-        s = time.perf_counter()
         self.camera = camera
         self.feed_stopped = False
         self.camera.cam_connected_signal.connect(self.show_camera_status)
@@ -21,9 +30,7 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.btn_scan_camera.clicked.connect(self.get_available_cameras)
         self.combo_camera.activated.connect(lambda x: self.set_live_camera(x))
         self.combo_framerate.activated.connect(lambda x: self.set_camera_fps(x))
-        # self.combo_framerate.setCurrentText((str(self.camera.fps)))
         self.btn_disc_camera.clicked.connect(self.disconnect_camera)
-        # self.combo_camera.currentIndexChanged.connect(self.set_live_camera)
 
         self.camera.img_changed_signal.connect(lambda x: self.update_live_cam_view(x))
 
@@ -34,7 +41,6 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.connect_current_device()
 
         self.combo_serial.currentIndexChanged.connect(self.connect_current_device)
-        # self.btn_verify_serial.clicked.connect(self.verify_serial_connection)
 
         self.hslider_IR_bottom.valueChanged.connect(self.slide_adjust_ir_bottom)
         self.hslider_IR_left.valueChanged.connect(self.slide_adjust_ir_left)
@@ -54,6 +60,11 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.buttonBox.rejected.connect(self.close)
 
     def show_camera_status(self, status):
+        """
+        Update label showing if a camera is connected or not
+        :param status: bool=true if camera is connected
+        :return: None
+        """
         if status is True:
             self.label_camera_status.setText("Connected")
             self.label_camera_status.setStyleSheet("QLabel { color : green }")
@@ -62,16 +73,22 @@ class SettingsDialog(QDialog, Ui_Dialog):
             self.label_camera_status.setStyleSheet("QLabel { color : red }")
 
     def set_camera_fps(self, combo_fps_value):
+        """
+        Get fps value from combobox and attempt to set camera fps
+        :param combo_fps_value:
+        :return: None
+        """
         fps = int(self.combo_framerate.itemText(combo_fps_value))
         self.camera.set_fps(fps)
 
     def disconnect_camera(self):
+        """
+        Stop video feed and attempt to disconnect camera
+        :return:
+        """
         self.feed_stopped = True
-        # self.feed_reached_end = False
         self.camera.set_running(False)
-        # time.sleep(1)
         self.camera.disconnect()
-        # self.camera.running = False
         self.label_live_video_feed.clear()
 
     def restart_live_camera(self):
@@ -83,20 +100,19 @@ class SettingsDialog(QDialog, Ui_Dialog):
             self.camera.running = True
             self.camera.start()
 
-    def set_live_camera(self, index=0):
+    def set_live_camera(self):
+        """
+        Selects a camera for the live feed, same camera will be used for recoding experiments
+        :return: None
+        """
         index = self.combo_camera.currentIndex()
         if len(self.available_cameras) > 0:
-            # self.disconnect_camera()
             if self.camera.running:
-                print("cam running")
                 self.camera.set_running(False)
-                print(index)
                 self.camera.set_capture_device(self.available_cameras[index])
-                # self.feed_stopped = True
                 self.camera.set_running(True)
 
             else:
-                print("cam not running")
                 self.camera.set_capture_device(self.available_cameras[index])
                 self.feed_stopped = False
                 self.camera.set_running(True)
@@ -119,81 +135,105 @@ class SettingsDialog(QDialog, Ui_Dialog):
         self.available_cameras = indices
         return indices
 
-    def showEvent(self, event):
-        pass
-
-    def closeEvent(self, event):
-        pass
-
     def update_live_cam_view(self, img_data):
+        """
+        Sets the live feed label to show newest frame
+        :param img_data: QPixelMap of newest frame
+        :return: None
+        """
         if self.feed_stopped:
             self.label_live_video_feed.clear()
         else:
             self.label_live_video_feed.setPixmap(img_data)
 
     def scan_serial(self):
-        s = time.perf_counter()
+        """
+        Get available serial devices from serial_interface.py and display them in combobox
+        :return: None
+        """
         ports = self.serial_interface.scan_serial()
-        print(time.perf_counter() - s)
         self.combo_serial.clear()
         for p in ports:
             self.combo_serial.addItem(p)
 
     def disconnect_serial(self):
+        """
+        Use serial interface to disconnect and set labels indicating disconnection
+        :return:
+        """
         self.serial_interface.close_serial()
         self.verify_serial_connection()
         self.label_serial_status.setText("DISCONNECTED")
 
     def slide_adjust_ir_bottom(self):
+        """
+        Event fired when adjusting slider 'IR Bottom'
+        :return: None
+        """
         slide_val = self.hslider_IR_bottom.value()
         self.spin_IR_bottom.setValue(slide_val)
-        self.serial_interface.send_data(slide_val, "ir5")
-
-    def slide_adjust_ir_left(self):
-        slide_val = self.hslider_IR_left.value()
-        self.spin_IR_left.setValue(slide_val)
         self.serial_interface.send_data(slide_val, "ir6")
 
-    def slide_adjust_ir_right(self):
-        slide_val = self.hslider_IR_right.value()
-        self.spin_IR_right.setValue(slide_val)
+    def slide_adjust_ir_left(self):
+        """
+        Event fired when adjusting slider 'IR Left'
+        :return: None
+        """
+        slide_val = self.hslider_IR_left.value()
+        self.spin_IR_left.setValue(slide_val)
         self.serial_interface.send_data(slide_val, "ir3")
 
+    def slide_adjust_ir_right(self):
+        """
+        Event fired when adjusting slider 'IR Right'
+        :return: None
+        """
+        slide_val = self.hslider_IR_right.value()
+        self.spin_IR_right.setValue(slide_val)
+        self.serial_interface.send_data(slide_val, "ir5")
+
     def spin_adjust_ir_bottom(self):
+        """
+        Event fired when adjusting slider 'IR Bottom'
+        :return: None
+        """
         spin_val = self.spin_IR_bottom.value()
         self.hslider_IR_bottom.setValue(spin_val)
-        self.serial_interface.send_data(spin_val, "ir5")
-
-    def spin_adjust_ir_left(self):
-        spin_val = self.spin_IR_left.value()
-        self.hslider_IR_left.setValue(spin_val)
         self.serial_interface.send_data(spin_val, "ir6")
 
-    def spin_adjust_ir_right(self):
-        spin_val = self.spin_IR_right.value()
-        self.hslider_IR_right.setValue(spin_val)
+    def spin_adjust_ir_left(self):
+        """
+        Event fired when adjusting spinbox 'IR Left'
+        :return: None
+        """
+        spin_val = self.spin_IR_left.value()
+        self.hslider_IR_left.setValue(spin_val)
         self.serial_interface.send_data(spin_val, "ir3")
 
-    def slide_release_adjust_ir(self):
-        slider_val = self.hslider_IR_LED.value()
-        self.spin_IR_LED.setValue(slider_val)
-        self.serial_interface.send_data(slider_val, "ir")
-
-    def slide_pressed_adjust_ir(self):
-        slider_val = self.hslider_IR_LED.value()
-        self.spin_IR_LED.setValue(slider_val)
-        self.serial_interface.send_data(slider_val, "ir")
+    def spin_adjust_ir_right(self):
+        """
+        Event fired when adjusting spinbox 'IR Right'
+        :return: None
+        """
+        spin_val = self.spin_IR_right.value()
+        self.hslider_IR_right.setValue(spin_val)
+        self.serial_interface.send_data(spin_val, "ir5")
 
     def connect_current_device(self):
+        """
+        Pass a device name to serial_interface.py and attept to connect
+        :return: None
+        """
         self.device_name = self.combo_serial.currentText()
         self.serial_interface.connect_serial(self.device_name)
         self.verify_serial_connection()
-        # self.label_serial_info.setText(str(self.serial_interface.serial_connection.get_settings()))
 
     def verify_serial_connection(self):
+        """
+        Use serial interface to display connection status
+        :return:
+        """
         if self.serial_interface.verify_current_connection():
             self.label_serial_status.setText("CONNECTION AVAILABLE")
         else:
             self.label_serial_status.setText("COULD NOT CONNECT")
-
-
