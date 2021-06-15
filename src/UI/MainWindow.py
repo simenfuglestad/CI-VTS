@@ -586,7 +586,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, QWidget):
         led_val_start = self.spin_stim_led_start.value()
         led_val_end = self.spin_stim_led_end.value()
 
-        if self.validate_plot(new_plot_item_start, new_plot_item_end, led_val_start, led_val_end):
+        if self.validate_plot(new_plot_item_start, new_plot_item_end):
             if len(self.stimulus_plotted_data) > 0:
                 last_plot_item_end = self.stimulus_plotted_data[-1]["time"][1]
                 if new_plot_item_start > last_plot_item_end:
